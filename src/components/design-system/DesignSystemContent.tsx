@@ -14,7 +14,7 @@ import {
   TextLink,
   TextLinkSmall,
 } from "@/components/ui";
-import { colors, colorClasses, iconExamples, iconSizes, layout, layoutClasses, spacing, typography } from "@/lib/design-system";
+import { colors, colorClasses, iconExamples, iconSizes, layout, layoutClasses, linkClasses, spacing, typography } from "@/lib/design-system";
 import { cn } from "@/lib/cn";
 
 const docSurface = cn(
@@ -161,7 +161,14 @@ export function DesignSystemContent() {
 
       <DsSection id="typography" title="Typography">
         <p className={cn("mb-8", typography.body.className)}>
-          Display: Neue Haas Grotesk Display · Text: Neue Haas Grotesk Text
+          Display: Neue Haas Grotesk Display (100–700) · Text: Neue Haas Grotesk Text
+          (400, 500, 700) via{" "}
+          <a
+            href="https://use.typekit.net/deu5fpf.css"
+            className={cn(linkClasses.textLinkInline, "underline underline-offset-2")}
+          >
+            Adobe Fonts
+          </a>
         </p>
         <TypeSpec
           name="display"
@@ -184,7 +191,7 @@ export function DesignSystemContent() {
         />
         <TypeSpec
           name="lead"
-          meta="24px · extralight · intro copy, page subtitles"
+          meta="24px · light (300) · intro copy, page subtitles"
           sample="End-to-end experience design for a science-backed clinic."
           className={typography.lead.className}
         />
@@ -435,7 +442,7 @@ export function DesignSystemContent() {
           <div className="max-w-lg space-y-4">
             <CompLabel>MessageBubble</CompLabel>
             <MessageBubble variant="assistant">
-              Hi, I&apos;m Allison&apos;s AI albeit slightly less witty stand-in.
+              Hi. I&apos;m a slightly less witty version of Allison, but I know her work pretty well. What would you like to know?
             </MessageBubble>
             <MessageBubble variant="user">
               What kind of clients do you work with?

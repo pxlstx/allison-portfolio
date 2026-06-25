@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -16,11 +16,37 @@ import { cn } from "@/lib/cn";
 
 export function SiteMenu() {
   const [open, setOpen] = useState(false);
+  const [menuVisible, setMenuVisible] = useState(true);
+  const lastScrollY = useRef(0);
   const pathname = usePathname();
 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const scrollY = window.scrollY;
+
+      if (open || scrollY <= 8) {
+        setMenuVisible(true);
+        lastScrollY.current = scrollY;
+        return;
+      }
+
+      if (scrollY > lastScrollY.current) {
+        setMenuVisible(false);
+      } else if (scrollY < lastScrollY.current) {
+        setMenuVisible(true);
+      }
+
+      lastScrollY.current = scrollY;
+    };
+
+    lastScrollY.current = window.scrollY;
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [open]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -40,9 +66,11 @@ export function SiteMenu() {
           spacingClasses.hamburgerPos,
           zIndexClasses.menuButton,
           spacingClasses.hamburgerWidth,
-          "flex flex-col items-center justify-center",
+          "flex flex-col items-center justify-center transition-transform",
+          motionClasses.menu,
           spacingClasses.hamburgerGap,
           "active:[&_span]:bg-accent",
+          !open && !menuVisible && "-translate-y-[150%] pointer-events-none",
         )}
       >
         <span

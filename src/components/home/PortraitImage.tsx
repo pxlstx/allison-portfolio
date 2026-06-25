@@ -1,5 +1,6 @@
 import { cn } from "@/lib/cn";
-import { colorClasses, layoutClasses, motionClasses, spacingClasses } from "@/lib/design-system";
+import { homeMedia } from "@/lib/site";
+import { motionClasses, spacingClasses } from "@/lib/design-system";
 
 // Matches source image: 1024×810
 const PORTRAIT_ASPECT = 1024 / 810;
@@ -19,20 +20,16 @@ export function PortraitImage({ visible, opacity = 1 }: PortraitImageProps) {
       style={{ opacity: visible ? opacity : 0 }}
     >
       <div
-        className={cn(
-          "relative overflow-hidden border",
-          layoutClasses.radius,
-          colorClasses.borderDefault,
-          colorClasses.surfaceRaised,
-        )}
+        className="relative overflow-hidden"
         style={{ aspectRatio: PORTRAIT_ASPECT }}
       >
         <video
-          src="/video/ZoomCall.mp4"
+          src={homeMedia.introVideo}
           autoPlay
           loop
           muted
           playsInline
+          preload="auto"
           aria-label="Allison Sarno"
           className="absolute inset-0 h-full w-full object-contain object-center"
         />

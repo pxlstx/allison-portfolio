@@ -22,7 +22,7 @@ const displayTextClass = typography.display.className;
 const closingDisplayClass = cn(
   typography.display.className,
   colorClasses.textMuted,
-  "leading-display tracking-[0.01em]",
+  "leading-display",
 );
 
 type IntroPhase =
@@ -37,7 +37,11 @@ type IntroPhase =
 type TextSegment = {
   text: string;
   bold?: boolean;
+  accent?: boolean;
+  keepTogether?: boolean;
 };
+
+const statementSegments = homeCopy.statementSegments;
 
 const closingLines: TextSegment[][] = [
   [{ text: "By helping teams turn" }],
@@ -45,11 +49,12 @@ const closingLines: TextSegment[][] = [
     { text: "complex", bold: true },
     { text: "ideas", bold: true },
   ],
-  [{ text: "into scalable products, brands," }],
   [
-    { text: "and" },
-    { text: "experiences.", bold: true },
+    { text: "into " },
+    { text: "scalable products", accent: true },
+    { text: ", brands," },
   ],
+  [{ text: "and experiences.", bold: true, keepTogether: true }],
 ];
 
 function letterCount(text: string) {
@@ -133,51 +138,127 @@ function AnimatedLetters({
   );
 }
 
+function StatementText({
+  show,
+  charDelay = 28,
+}: {
+  show: boolean;
+  charDelay?: number;
+}) {
+  let delayIndex = 0;
+
+  return (
+    <div className={displayTextClass}>
+      {statementSegments.map((segment, segmentIndex) => {
+        const words = segment.text.trim().split(/\s+/).filter(Boolean);
+        const hasLeadingSpace = segment.text.startsWith(" ");
+
+        return (
+          <span key={`statement-segment-${segmentIndex}`}>
+            {segmentIndex > 0 && !hasLeadingSpace ? (
+              <span className="inline-block w-[0.28em]" />
+            ) : null}
+            {hasLeadingSpace ? <span className="inline-block w-[0.28em]" /> : null}
+            <span className={"accent" in segment && segment.accent ? colorClasses.textAccent : undefined}>
+              {words.map((word, wordIndex) => (
+                <span
+                  key={`statement-word-${segmentIndex}-${wordIndex}`}
+                  className="inline-block whitespace-nowrap"
+                >
+                  {[...word].map((char, charIndex) => {
+                    const delay = delayIndex;
+                    delayIndex += 1;
+
+                    return (
+                      <LetterSpan
+                        key={`statement-char-${segmentIndex}-${wordIndex}-${charIndex}`}
+                        char={char}
+                        show={show}
+                        delay={delay}
+                        charDelay={charDelay}
+                      />
+                    );
+                  })}
+                  {wordIndex < words.length - 1 ? (
+                    <span className="inline-block w-[0.28em]" />
+                  ) : null}
+                </span>
+              ))}
+            </span>
+          </span>
+        );
+      })}
+    </div>
+  );
+}
+
 function ClosingText({ show }: { show: boolean }) {
   let delayIndex = 0;
+
+  function renderSegment(
+    segment: TextSegment,
+    lineIndex: number,
+    segmentIndex: number,
+  ) {
+    const words = segment.text.trim().split(/\s+/);
+
+    return (
+      <span
+        key={`closing-segment-${lineIndex}-${segmentIndex}`}
+        className={cn(
+          segment.bold && colorClasses.textPrimary,
+          segment.accent && colorClasses.textAccent,
+          segment.keepTogether && "whitespace-nowrap",
+        )}
+      >
+        {words.map((word, wordIndex) => (
+          <span
+            key={`closing-word-${lineIndex}-${segmentIndex}-${wordIndex}`}
+            className="inline-block whitespace-nowrap"
+          >
+            {[...word].map((char, charIndex) => {
+              const delay = delayIndex;
+              delayIndex += 1;
+
+              return (
+                <LetterSpan
+                  key={`closing-char-${lineIndex}-${segmentIndex}-${wordIndex}-${charIndex}`}
+                  char={char}
+                  show={show}
+                  delay={delay}
+                  charDelay={24}
+                />
+              );
+            })}
+            {wordIndex < words.length - 1 ? (
+              <span className="inline-block w-[0.28em]" />
+            ) : null}
+          </span>
+        ))}
+      </span>
+    );
+  }
+
+  function renderSegmentGroup(
+    segments: TextSegment[],
+    lineIndex: number,
+    startIndex: number,
+  ) {
+    return segments.map((segment, offset) => (
+      <span key={`closing-segment-wrap-${lineIndex}-${startIndex + offset}`}>
+        {renderSegment(segment, lineIndex, startIndex + offset)}
+        {offset < segments.length - 1 ? (
+          <span className="inline-block w-[0.28em]" />
+        ) : null}
+      </span>
+    ));
+  }
 
   return (
     <div className={closingDisplayClass}>
       {closingLines.map((line, lineIndex) => (
         <div key={`closing-line-${lineIndex}`}>
-          {line.map((segment, segmentIndex) => {
-            const words = segment.text.trim().split(/\s+/);
-
-            return (
-              <span
-                key={`closing-segment-${lineIndex}-${segmentIndex}`}
-                className={segment.bold ? colorClasses.textPrimary : ""}
-              >
-                {words.map((word, wordIndex) => (
-                  <span
-                    key={`closing-word-${lineIndex}-${segmentIndex}-${wordIndex}`}
-                    className="inline-block whitespace-nowrap"
-                  >
-                    {[...word].map((char, charIndex) => {
-                      const delay = delayIndex;
-                      delayIndex += 1;
-
-                      return (
-                        <LetterSpan
-                          key={`closing-char-${lineIndex}-${segmentIndex}-${wordIndex}-${charIndex}`}
-                          char={char}
-                          show={show}
-                          delay={delay}
-                          charDelay={24}
-                        />
-                      );
-                    })}
-                    {wordIndex < words.length - 1 ? (
-                      <span className="inline-block w-[0.28em]" />
-                    ) : null}
-                  </span>
-                ))}
-                {segmentIndex < line.length - 1 ? (
-                  <span className="inline-block w-[0.28em]" />
-                ) : null}
-              </span>
-            );
-          })}
+          {renderSegmentGroup(line, lineIndex, 0)}
         </div>
       ))}
     </div>
@@ -193,7 +274,12 @@ function ClientGrid({
 }) {
   return (
     <div
-      className={`grid w-full ${layoutClasses.maxWidthProse} grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-3 ${spacingClasses.gridGapXSm} sm:gap-y-8 ${className}`}
+      className={cn(
+        "grid w-full grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-3",
+        spacingClasses.gridGapXSm,
+        "sm:gap-y-8",
+        className,
+      )}
     >
       {clients.map((client, index) => (
         <div
@@ -313,6 +399,7 @@ export function CinematicIntro({ onComplete }: CinematicIntroProps) {
       if (runId.current !== currentRun) return;
 
       setPhase("panel-2-out");
+      setShowClients(false);
       setShowClosing(true);
       await wait(380);
       if (runId.current !== currentRun) return;
@@ -352,7 +439,7 @@ export function CinematicIntro({ onComplete }: CinematicIntroProps) {
           <div
             className={cn(
               "relative min-h-screen w-full",
-              layoutClasses.maxWidthContent,
+              layoutClasses.homeSectionInner,
             )}
           >
             <div className={cn("flex min-h-screen items-center", spacingClasses.introGreetingPr)}>
@@ -372,22 +459,17 @@ export function CinematicIntro({ onComplete }: CinematicIntroProps) {
           <div
             className={cn(
               "flex w-full flex-col",
-              layoutClasses.maxWidthContent,
+              layoutClasses.homeSectionInner,
               spacingClasses.introStatementPt,
             )}
           >
-            <AnimatedLetters
-              text={homeCopy.statement}
-              show
-              charDelay={28}
-              className={displayTextClass}
-            />
+            <StatementText show charDelay={28} />
             <ClientGrid show className={spacingClasses.introClientMt} />
           </div>
         </IntroScrollSection>
 
         <IntroScrollSection id="home-intro-closing" align="center">
-          <div className={cn("w-full", layoutClasses.maxWidthContent)}>
+          <div className={cn("w-full", layoutClasses.homeSectionInner)}>
             <ClosingText show />
           </div>
         </IntroScrollSection>
@@ -398,7 +480,7 @@ export function CinematicIntro({ onComplete }: CinematicIntroProps) {
   return (
     <div id="home-intro" className="relative h-screen w-full overflow-hidden">
       <IntroPanel phase={phase} panel={1}>
-        <div className={cn("relative h-full w-full", layoutClasses.maxWidthContent)}>
+        <div className={cn("relative h-full w-full", layoutClasses.homeSectionInner)}>
           <div className={cn("flex h-full items-center", spacingClasses.introGreetingPr)}>
             <AnimatedLetters
               text={homeCopy.greeting}
@@ -413,22 +495,23 @@ export function CinematicIntro({ onComplete }: CinematicIntroProps) {
       </IntroPanel>
 
       <IntroPanel phase={phase} panel={2} align="start">
-        <div className={cn("flex w-full flex-col", layoutClasses.maxWidthContent, spacingClasses.introStatementPt)}>
-          <AnimatedLetters
-            text={homeCopy.statement}
-            show={showStatement}
-            charDelay={28}
-            className={displayTextClass}
-          />
+        <div
+          className={cn(
+            "flex h-full w-full flex-col overflow-hidden",
+            layoutClasses.homeSectionInner,
+            spacingClasses.introStatementPt,
+          )}
+        >
+          <StatementText show={showStatement} charDelay={28} />
           <ClientGrid
-            show={showClients}
+            show={showClients && phase === "panel-2-in"}
             className={spacingClasses.introClientMt}
           />
         </div>
       </IntroPanel>
 
       <IntroPanel phase={phase} panel={3}>
-        <div className={cn("w-full", layoutClasses.maxWidthContent)}>
+        <div className={cn("w-full", layoutClasses.homeSectionInner)}>
           <ClosingText show={showClosing} />
         </div>
       </IntroPanel>
@@ -450,7 +533,6 @@ function IntroScrollSection({
       id={id}
       className={cn(
         "flex min-h-screen w-full",
-        spacingClasses.pagePadXWide,
         align === "start" ? "items-start" : "items-center",
       )}
     >
@@ -473,8 +555,7 @@ function IntroPanel({
   return (
     <div
       className={cn(
-        "absolute inset-0 flex transition-transform",
-        spacingClasses.pagePadXWide,
+        "absolute inset-0 flex overflow-hidden transition-transform",
         motionClasses.panel,
         motionClasses.easePanel,
         align === "start" ? "items-start" : "items-center",

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Allison Sarno — About</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #0E0E0C;
+  --ink2: #1A1A17;
+  --w100: #FFFFFF;
+  --w60: rgba(255,255,255,0.6);
+  --w30: rgba(255,255,255,0.3);
+  --w15: rgba(255,255,255,0.15);
+  --orange: #D4622A;
+  --bdr: rgba(255,255,255,0.07);
+  --font-sans: 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Helvetica Neue', Arial, sans-serif;
+  --text-display: clamp(40px, 5.5vw, 72px);
+  --text-title: clamp(20px, 2.2vw, 28px);
+  --text-body: 16px;
+  --text-small: 13px;
+  --text-label: 11px;
+}
+
+html { font-family: var(--font-sans); background: var(--ink); color: var(--w100); cursor: none; }
+
+#cur { position: fixed; width: 8px; height: 8px; background: var(--w100); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); mix-blend-mode: difference; }
+
+#hbg { position: fixed; top: 28px; right: 36px; z-index: 999; display: flex; flex-direction: column; gap: 5px; cursor: none; padding: 8px; }
+#hbg span { display: block; width: 22px; height: 1px; background: var(--w100); }
+
+#menu { position: fixed; inset: 0; background: var(--ink); z-index: 998; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 80px; opacity: 0; pointer-events: none; transition: opacity .35s; }
+#menu.on { opacity: 1; pointer-events: all; }
+#menu ul { list-style: none; }
+#menu ul li a { display: block; font-size: clamp(36px,5.5vw,64px); font-weight: 300; color: var(--w100); text-decoration: none; opacity: .2; transition: opacity .2s, letter-spacing .25s; letter-spacing: -.03em; }
+#menu ul li a:hover { opacity: 1; letter-spacing: -.01em; }
+#menu .mc { position: absolute; bottom: 48px; left: 80px; }
+#menu .mc a { display: block; font-size: 13px; color: var(--w30); text-decoration: none; font-weight: 300; margin-bottom: 4px; }
+
+/* ── HERO ── */
+.about-hero {
+  padding: 160px 72px 96px;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 80px;
+  align-items: end;
+  max-width: 1440px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--bdr);
+}
+
+.hero-text {}
+
+.hero-label {
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--orange); }
+
+.hero-headline {
+  font-size: var(--text-display);
+  font-weight: 200;
+  color: var(--w100);
+  letter-spacing: -.04em;
+  line-height: 1.05;
+  margin-bottom: 32px;
+  max-width: 680px;
+}
+
+.hero-intro {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--w60);
+  line-height: 1.75;
+  letter-spacing: -.01em;
+  max-width: 560px;
+}
+
+/* Photo */
+.hero-photo {
+  margin-top: 40px; /* deliberate offset */
+}
+
+.hero-photo-frame {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: var(--ink2);
+  border: 1px solid var(--bdr);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--w15);
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* ── CALLOUT 1 — large typographic moment ── */
+.callout {
+  padding: 96px 72px;
+  border-bottom: 1px solid var(--bdr);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.callout-text {
+  font-size: var(--text-display);
+  font-weight: 200;
+  color: var(--w100);
+  letter-spacing: -.04em;
+  line-height: 1.08;
+  max-width: 900px;
+}
+
+.callout-text .accent { color: var(--orange); }
+.callout-text .muted { color: var(--w30); }
+
+/* ── BODY SECTION ── */
+.about-body {
+  padding: 96px 72px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 80px;
+  max-width: 1440px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--bdr);
+}
+
+.body-label {
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--orange);
+  padding-top: 4px;
+}
+
+.body-content {}
+
+.body-text {
+  font-size: var(--text-body);
+  font-weight: 300;
+  color: var(--w60);
+  line-height: 1.8;
+  letter-spacing: -.01em;
+  max-width: 620px;
+}
+
+.body-text p + p { margin-top: 20px; }
+
+/* ── CALLOUT 2 — quote style ── */
+.callout-2 {
+  padding: 96px 72px;
+  border-bottom: 1px solid var(--bdr);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.callout-2-text {
+  font-size: var(--text-title);
+  font-weight: 200;
+  color: var(--w100);
+  letter-spacing: -.025em;
+  line-height: 1.35;
+  max-width: 760px;
+  border-left: 2px solid var(--orange);
+  padding-left: 32px;
+}
+
+/* ── HOW I WORK ── */
+.how-i-work {
+  padding: 96px 72px;
+  border-bottom: 1px solid var(--bdr);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.how-label {
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.how-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--orange); }
+
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 48px;
+  max-width: 720px;
+}
+
+.how-item {}
+
+.how-item-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--w100);
+  letter-spacing: -.01em;
+  margin-bottom: 10px;
+}
+
+.how-item-body {
+  font-size: var(--text-small);
+  font-weight: 300;
+  color: var(--w30);
+  line-height: 1.65;
+  letter-spacing: -.01em;
+}
+
+/* ── WHAT I CAN HELP WITH ── */
+.services {
+  padding: 96px 72px;
+  border-bottom: 1px solid var(--bdr);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.services-label {
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.services-label::before { content: ''; display: block; width: 20px; height: 1px; background: var(--orange); }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2px;
+  max-width: 900px;
+}
+
+.service-item {
+  grid-column: span 6;
+  border: 1px solid var(--bdr);
+  padding: 28px 28px 32px;
+  border-radius: 2px;
+  transition: border-color .2s;
+}
+
+.service-item:hover { border-color: rgba(255,255,255,0.2); }
+
+.service-title {
+  font-size: var(--text-body);
+  font-weight: 500;
+  color: var(--w100);
+  letter-spacing: -.01em;
+  margin-bottom: 10px;
+}
+
+.service-body {
+  font-size: var(--text-small);
+  font-weight: 300;
+  color: var(--w30);
+  line-height: 1.65;
+  letter-spacing: -.01em;
+}
+
+/* ── CURRENTLY ── */
+.currently {
+  padding: 96px 72px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 80px;
+  max-width: 1440px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--bdr);
+}
+
+.currently-label {
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--orange);
+  padding-top: 4px;
+}
+
+.currently-content {
+  max-width: 620px;
+}
+
+.currently-item {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--bdr);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+}
+
+.currently-item:first-child { padding-top: 0; }
+.currently-item:last-child { border-bottom: none; }
+
+.currently-item-label {
+  font-size: var(--text-small);
+  font-weight: 300;
+  color: var(--w30);
+  letter-spacing: -.01em;
+  flex-shrink: 0;
+  min-width: 100px;
+}
+
+.currently-item-value {
+  font-size: var(--text-body);
+  font-weight: 300;
+  color: var(--w100);
+  letter-spacing: -.01em;
+  line-height: 1.4;
+}
+
+/* ── CTA ── */
+.about-cta {
+  padding: 96px 72px 120px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.about-cta-headline {
+  font-size: var(--text-display);
+  font-weight: 200;
+  color: var(--w100);
+  letter-spacing: -.04em;
+  line-height: 1.05;
+  margin-bottom: 40px;
+  max-width: 700px;
+}
+
+.cta-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.cta-link {
+  font-size: var(--text-title);
+  font-weight: 200;
+  color: var(--w100);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-color: var(--w30);
+  cursor: none;
+  transition: text-decoration-color .2s;
+  border: none; background: none; padding: 0;
+  letter-spacing: -.02em;
+  font-family: var(--font-sans);
+}
+
+.cta-link:hover { text-decoration-color: var(--w100); }
+
+/* FOOTER */
+footer { border-top: 1px solid var(--bdr); padding: 32px 72px; display: flex; justify-content: space-between; align-items: center; }
+.fl { font-size: 14px; font-weight: 300; color: var(--w30); }
+footer ul { display: flex; gap: 24px; list-style: none; }
+footer ul a { font-size: 12px; font-weight: 300; color: var(--w15); text-decoration: none; transition: color .2s; }
+footer ul a:hover { color: var(--w60); }
+.fc { font-size: 11px; color: var(--w15); }
+
+@media (max-width: 768px) {
+  .about-hero { grid-template-columns: 1fr; padding: 120px 28px 72px; gap: 48px; }
+  .hero-photo { margin-top: 0; width: 240px; }
+  .callout, .callout-2, .about-cta { padding-left: 28px; padding-right: 28px; }
+  .about-body, .currently { grid-template-columns: 1fr; gap: 24px; padding-left: 28px; padding-right: 28px; }
+  .how-i-work { padding-left: 28px; padding-right: 28px; }
+  .how-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  footer { padding: 28px; flex-direction: column; gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="hbg"><span></span><span></span><span></span></div>
+
+<div id="menu">
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Work</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Writing</a></li>
+    <li><a href="#">Ask me</a></li>
+  </ul>
+  <div class="mc">
+    <a href="#">hello@allisonsarno.com</a>
+    <a href="#">LinkedIn</a>
+  </div>
+</div>
+
+<!-- ── HERO ── -->
+<div class="about-hero">
+  <div class="hero-text">
+    <div class="hero-label">About</div>
+    <h1 class="hero-headline">I've spent 15 years making complex things feel simple.</h1>
+    <p class="hero-intro">I'm a product and UX designer based in Zurich. I work with startups, scale-ups, and established companies — usually when the problem is hard and the stakes are real.</p>
+  </div>
+  <div class="hero-photo">
+    <div class="hero-photo-frame">Photo of Allison</div>
+  </div>
+</div>
+
+<!-- ── CALLOUT 1 ── -->
+<div class="callout">
+  <div class="callout-text">
+    I design digital products and the systems that make them <span class="accent">scalable.</span>
+  </div>
+</div>
+
+<!-- ── BODY: BACKGROUND ── -->
+<div class="about-body">
+  <div class="body-label">Background</div>
+  <div class="body-content">
+    <div class="body-text">
+      <p>My career started at SapientNitro in Boston — big agency, big brands, rigorous craft. After moving to Switzerland I shifted toward startups and scale-ups, spending time as Head of UI Design at DeinDeal and then Creative Director at Ava AG in the femtech space before going freelance.</p>
+      <p>For the past five years I've been working independently with companies like Unique.AI, Expeerly, Everskin, and TomoDomo — designing across the full stack: product, brand, web, and mobile. Most recently I spent a year embedded with a financial services team designing AI tools for private banks.</p>
+      <p>I use AI tools — Cursor, Claude, Figma AI — as a core part of how I work. The gap between what I can imagine and what I can build has almost closed. The constraint is no longer the tools — it's the quality of the thinking.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── CALLOUT 2 — left border style ── -->
+<div class="callout-2">
+  <div class="callout-2-text">
+    I do my best work when the problem is genuinely hard. When a product is growing faster than its design foundation can support. When something needs to be built thoughtfully under real pressure.
+  </div>
+</div>
+
+<!-- ── HOW I WORK ── -->
+<div class="how-i-work">
+  <div class="how-label">How I work</div>
+  <div class="how-grid">
+    <div class="how-item">
+      <div class="how-item-title">Direct and warm</div>
+      <div class="how-item-body">I say what I think, ask good questions, and push back when I need to — but I genuinely want the work to succeed and it shows.</div>
+    </div>
+    <div class="how-item">
+      <div class="how-item-title">Systems first</div>
+      <div class="how-item-body">I design the foundation before the features. Good design systems make everything downstream faster, more consistent, and easier to hand off.</div>
+    </div>
+    <div class="how-item">
+      <div class="how-item-title">Beyond the brief</div>
+      <div class="how-item-body">I often come back with something other than what was asked for. Not because I'm difficult — because the first brief is rarely the real problem.</div>
+    </div>
+    <div class="how-item">
+      <div class="how-item-title">Understand before you solve</div>
+      <div class="how-item-body">I'm a big believer in testing hypotheses and understanding the real user need before reaching for a solution. Good design starts with the right question, not the right answer.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── WHAT I CAN HELP WITH ── -->
+<div class="services">
+  <div class="services-label">What I can help with</div>
+  <div class="services-grid">
+
+    <div class="service-item">
+      <div class="service-title">Product design & UX</div>
+      <div class="service-body">End-to-end product design from research and IA through to interaction design, prototyping, and usability testing. I work best when I'm involved early.</div>
+    </div>
+
+    <div class="service-item">
+      <div class="service-title">Design systems</div>
+      <div class="service-body">Building scalable design systems that work for designers, developers, and AI-assisted workflows. Token architecture, component libraries, governance.</div>
+    </div>
+
+    <div class="service-item">
+      <div class="service-title">Creative direction</div>
+      <div class="service-body">Visual identity, brand expression, and end-to-end digital experience. I've led creative across web, mobile, and SaaS — often as the only designer in the room.</div>
+    </div>
+
+    <div class="service-item">
+      <div class="service-title">Design leadership</div>
+      <div class="service-body">Fractional Head of Design, team mentorship, and process design. Useful when you need senior design thinking without a full-time hire.</div>
+    </div>
+
+    <div class="service-item">
+      <div class="service-title">Prototyping & build</div>
+      <div class="service-body">I prototype in code, not just Figma. Using Cursor and AI-assisted development I can build functional prototypes and production-ready interfaces — the gap between design and engineering has narrowed significantly.</div>
+    </div>
+
+    <div class="service-item">
+      <div class="service-title">Usability testing</div>
+      <div class="service-body">Structured research to validate assumptions before they become expensive mistakes. I've introduced usability testing practices at multiple organisations using both moderated and AI-assisted methods.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── CURRENTLY ── -->
+<div class="currently">
+  <div class="currently-label">Currently</div>
+  <div class="currently-content">
+    <div class="currently-item">
+      <div class="currently-item-label">Based</div>
+      <div class="currently-item-value">Zurich, Switzerland — working globally</div>
+    </div>
+    <div class="currently-item">
+      <div class="currently-item-label">Available for</div>
+      <div class="currently-item-value">Freelance partnerships and the right full-time role</div>
+    </div>
+    <div class="currently-item">
+      <div class="currently-item-label">Focused on</div>
+      <div class="currently-item-value">AI product design, design systems, and end-to-end digital experience</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── CTA ── -->
+<div class="about-cta">
+  <h2 class="about-cta-headline">Want to work together?</h2>
+  <div class="cta-links">
+    <a href="mailto:hello@allisonsarno.com" class="cta-link">hello@allisonsarno.com</a>
+  </div>
+</div>
+
+<footer>
+  <div class="fl">Allison Sarno</div>
+  <ul><li><a href="#">LinkedIn</a></li><li><a href="#">Instagram</a></li><li><a href="#">hello@allisonsarno.com</a></li></ul>
+  <div class="fc">© 2025</div>
+</footer>
+
+<script>
+const cur = document.getElementById('cur');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top = e.clientY + 'px';
+});
+const hbg = document.getElementById('hbg');
+const menu = document.getElementById('menu');
+hbg.addEventListener('click', () => menu.classList.toggle('on'));
+menu.addEventListener('click', e => { if (e.target === menu) menu.classList.remove('on'); });
+</script>
+</body>
+</html>

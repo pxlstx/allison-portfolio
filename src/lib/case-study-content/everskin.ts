@@ -77,6 +77,9 @@ export const everskinCaseStudy: StructuredCaseStudy = {
       caption:
         "Everskin iOS app — skin score, analysis, and treatment recommendations",
       variant: "app-wide",
+      fit: "contain",
+      width: 3517,
+      height: 5610,
     },
     {
       type: "deliverable",

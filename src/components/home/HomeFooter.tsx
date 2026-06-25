@@ -7,7 +7,11 @@ import {
 } from "@/lib/design-system";
 import { site } from "@/lib/site";
 
-export function HomeFooter() {
+type HomeFooterProps = {
+  className?: string;
+};
+
+export function HomeFooter({ className }: HomeFooterProps = {}) {
   return (
     <footer
       className={cn(
@@ -16,6 +20,7 @@ export function HomeFooter() {
         spacingClasses.footerFlexGap,
         colorClasses.borderDefault,
         spacingClasses.footerPad,
+        className,
       )}
     >
       <div className={cn(typography.bodySmall.className, colorClasses.textSubtle)}>

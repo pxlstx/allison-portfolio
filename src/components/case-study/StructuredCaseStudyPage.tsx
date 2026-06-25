@@ -21,21 +21,44 @@ import {
 } from "@/lib/design-system";
 import { cn } from "@/lib/cn";
 
+function CaseStudyTextShell({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        layoutClasses.caseStudyTextShell,
+        spacingClasses.pagePadX,
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
 function CaseStudyMetaStrip({ study }: { study: StructuredCaseStudy }) {
   return (
     <section
       className={cn(
-        "flex flex-wrap border-y",
-        spacingClasses.metaStripGap,
+        "border-y",
         colorClasses.borderDefault,
         spacingClasses.metaStripPad,
       )}
     >
-      {study.meta.map((item, index) => (
-        <Reveal key={item.label} delay={index * 0.08} y={16}>
-          <MetaCard label={item.label} value={item.value} />
-        </Reveal>
-      ))}
+      <CaseStudyTextShell
+        className={cn("flex flex-wrap", spacingClasses.metaStripGap)}
+      >
+        {study.meta.map((item, index) => (
+          <Reveal key={item.label} delay={index * 0.08} y={16}>
+            <MetaCard label={item.label} value={item.value} />
+          </Reveal>
+        ))}
+      </CaseStudyTextShell>
     </section>
   );
 }
@@ -50,7 +73,7 @@ function CaseStudyChapter({
 
   return (
     <Reveal>
-      <article className={cn(spacingClasses.chapterBlockMb, "last:mb-0", layoutClasses.maxWidthChapter)}>
+      <article className={cn(spacingClasses.chapterBlockMb, "last:mb-0", "w-full")}>
         <SectionLabel>{label}</SectionLabel>
         <DisplayHeading as="h2" variant="chapter" className={spacingClasses.chapterHeadlineMb}>
           {lines.map((line, index) => (
@@ -59,7 +82,7 @@ function CaseStudyChapter({
             </span>
           ))}
         </DisplayHeading>
-        <div className={typography.body.className}>
+        <div className={cn(layoutClasses.maxWidthProse, typography.body.className)}>
           {paragraphs.map((paragraph, index) => (
             <p key={index} className={spacingClasses.paragraphGap}>
               {paragraph}
@@ -82,22 +105,23 @@ function CaseStudyTypoMoment({
         "border-y",
         spacingClasses.sectionTypoY,
         colorClasses.borderDefault,
-        spacingClasses.pagePadXWide,
       )}
     >
-      <Reveal y={20}>
-        <p
-          className={cn(
-            layoutClasses.maxWidthProse,
-            typography.displayChapter.className,
-            colorClasses.textPrimary,
-          )}
-        >
-          {before}
-          <span className={colorClasses.textAccent}>{highlight}</span>{" "}
-          {after.trimStart()}
-        </p>
-      </Reveal>
+      <CaseStudyTextShell>
+        <Reveal y={20}>
+          <p
+            className={cn(
+              layoutClasses.maxWidthProse,
+              typography.displayChapter.className,
+              colorClasses.textPrimary,
+            )}
+          >
+            {before}
+            <span className={colorClasses.textAccent}>{highlight}</span>{" "}
+            {after.trimStart()}
+          </p>
+        </Reveal>
+      </CaseStudyTextShell>
     </section>
   );
 }
@@ -107,7 +131,7 @@ const imageVariantClass: Record<CaseStudyImageVariant, string> = {
   short: cn("relative", layoutClasses.aspectShort),
   tall: cn("relative", layoutClasses.aspectTall),
   "app-wide": cn(
-    "flex items-center justify-center",
+    "flex w-full items-center justify-center",
     layoutClasses.minHeightAppWide,
     colorClasses.surfaceRaised,
     spacingClasses.imageAppPad,
@@ -129,53 +153,61 @@ function CaseStudyFigure({
 
   const imageShellClass = cn(
     "w-full",
-    isAppWide
-      ? imageVariantClass["app-wide"]
-      : useNaturalSize
-        ? colorClasses.surfaceRaised
+    useNaturalSize
+      ? cn(colorClasses.surfaceRaised, spacingClasses.imageContainPad)
+      : isAppWide
+        ? imageVariantClass["app-wide"]
         : isContain
           ? cn("relative", colorClasses.surfaceRaised, imageVariantClass[variant])
           : imageVariantClass[variant],
   );
 
+  const imageNode = useNaturalSize ? (
+    <Image
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      sizes="100vw"
+      className="mx-auto h-auto w-full max-w-[1400px] object-contain"
+    />
+  ) : isAppWide ? (
+    <Image
+      src={src}
+      alt={alt}
+      width={width ?? 1400}
+      height={height ?? 900}
+      sizes="100vw"
+      className={cn(layoutClasses.appWideImage, layoutClasses.maxWidthImage)}
+    />
+  ) : (
+    <div className="relative h-full w-full scale-[1.06]">
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes="100vw"
+        className={
+          isContain
+            ? "object-contain object-top"
+            : "object-cover object-center"
+        }
+      />
+    </div>
+  );
+
+  const useParallax = !useNaturalSize && !isAppWide;
+
   return (
     <figure>
       <Reveal y={20}>
-        <ParallaxImage className={imageShellClass} strength={isAppWide ? 4 : 6}>
-          {isAppWide ? (
-            <Image
-              src={src}
-              alt={alt}
-              width={width ?? 1400}
-              height={height ?? 900}
-              sizes="100vw"
-              className={cn("h-auto w-full object-contain", layoutClasses.maxWidthImage)}
-            />
-          ) : useNaturalSize ? (
-            <Image
-              src={src}
-              alt={alt}
-              width={width}
-              height={height}
-              sizes="100vw"
-              className="h-auto w-full"
-            />
-          ) : (
-            <div className="relative h-full w-full scale-[1.06]">
-              <Image
-                src={src}
-                alt={alt}
-                fill
-                sizes="100vw"
-                className={
-                  isContain
-                    ? "object-contain object-top"
-                    : "object-cover object-center"
-                }
-              />
-            </div>
-          )}
-        </ParallaxImage>
+        {useParallax ? (
+          <ParallaxImage className={imageShellClass} strength={6}>
+            {imageNode}
+          </ParallaxImage>
+        ) : (
+          <div className={imageShellClass}>{imageNode}</div>
+        )}
       </Reveal>
       {caption ? (
         <Reveal delay={0.08} y={12}>
@@ -188,7 +220,7 @@ function CaseStudyFigure({
               typography.caption.className,
             )}
           >
-            {caption}
+            <CaseStudyTextShell>{caption}</CaseStudyTextShell>
           </figcaption>
         </Reveal>
       ) : null}
@@ -214,7 +246,7 @@ function CaseStudyDeliverable({
         <div className={cn(spacingClasses.deliverableLabelPt, colorClasses.textAccent, typography.label.className)}>
           {label}
         </div>
-        <p className={cn(layoutClasses.maxWidthDeliverable, typography.bodyLarge.className)}>
+        <p className={cn(layoutClasses.maxWidthProse, typography.bodyLarge.className)}>
           {body}
         </p>
       </article>
@@ -233,7 +265,9 @@ function CaseStudyBlockRenderer({
     case "chapter":
       return (
         <div key={index} className={spacingClasses.chapterBlockPad}>
-          <CaseStudyChapter {...block} />
+          <CaseStudyTextShell>
+            <CaseStudyChapter {...block} />
+          </CaseStudyTextShell>
         </div>
       );
     case "typo":
@@ -251,35 +285,41 @@ function CaseStudyNext({ title, href }: { title: string; href: string }) {
       <Link
         href={href}
         className={cn(
-          "group flex items-center justify-between border-t transition-colors hover:bg-ink-2 active:bg-ink-2",
+          "group block border-t transition-colors hover:bg-ink-2 active:bg-ink-2",
           colorClasses.borderDefault,
-          spacingClasses.nextProjectPad,
         )}
       >
-        <div>
-          <div className={cn(spacingClasses.nextProjectLabelMb, colorClasses.textAccent, typography.label.className)}>
-            Next project
-          </div>
-          <div
-            className={cn(
-              typography.lead.className,
-              colorClasses.textPrimary,
-              "group-active:text-accent",
-            )}
-          >
-            {title}
-          </div>
-        </div>
-        <Icon
-          name="arrow_forward"
-          size={28}
+        <CaseStudyTextShell
           className={cn(
-            colorClasses.textFaint,
-            motionClasses.fast,
-            spacingClasses.arrowNudge,
-            "transition-[transform,color] group-hover:text-w-60 group-active:text-accent",
+            "flex items-center justify-between",
+            spacingClasses.nextProjectPad,
           )}
-        />
+        >
+          <div>
+            <div className={cn(spacingClasses.nextProjectLabelMb, colorClasses.textAccent, typography.label.className)}>
+              Next project
+            </div>
+            <div
+              className={cn(
+                typography.lead.className,
+                colorClasses.textPrimary,
+                "group-active:text-accent",
+              )}
+            >
+              {title}
+            </div>
+          </div>
+          <Icon
+            name="arrow_forward"
+            size={28}
+            className={cn(
+              colorClasses.textFaint,
+              motionClasses.fast,
+              spacingClasses.arrowNudge,
+              "transition-[transform,color] group-hover:text-w-60 group-active:text-accent",
+            )}
+          />
+        </CaseStudyTextShell>
       </Link>
     </Reveal>
   );
@@ -299,7 +339,9 @@ export function StructuredCaseStudyPage({
         if (block.type === "deliverable") {
           return (
             <div key={index} className={spacingClasses.deliverableBlockPad}>
-              <CaseStudyDeliverable {...block} />
+              <CaseStudyTextShell>
+                <CaseStudyDeliverable {...block} />
+              </CaseStudyTextShell>
             </div>
           );
         }

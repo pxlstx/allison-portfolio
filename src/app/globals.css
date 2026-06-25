@@ -90,10 +90,14 @@
   --leading-relaxed: 1.65;
 
   /* ── Letter spacing ── */
-  --tracking-display: -0.03em;
+  --tracking-display: -0.04em; /* All display headlines — font-display extralight */
   --tracking-tight: -0.02em;
-  --tracking-normal: -0.01em;
+  --tracking-normal: -0.01em; /* Body copy */
   --tracking-label: 0.10em; /* All-caps labels */
+  --letter-spacing-display: var(--tracking-display);
+  --letter-spacing-tight: var(--tracking-tight);
+  --letter-spacing-normal: var(--tracking-normal);
+  --letter-spacing-label: var(--tracking-label);
 
   /* ── Spacing ── */
   --radius-sm: var(--radius);
@@ -130,7 +134,7 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 200; /* Extra light — all headlines */
+  font-weight: 200; /* Extralight — all headlines */
   letter-spacing: var(--tracking-display);
   line-height: var(--leading-display);
 }

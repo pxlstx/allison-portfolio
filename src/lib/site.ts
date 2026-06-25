@@ -40,4 +40,13 @@ export const clients = [
 export const homeCopy = {
   greeting: "Hi, I'm Allison.",
   statement: "I create thoughtful design for ambitious companies.",
+  statementSegments: [
+    { text: "I create " },
+    { text: "thoughtful design", accent: true },
+    { text: " for ambitious companies." },
+  ],
+} as const;
+
+export const homeMedia = {
+  introVideo: "/video/ZoomCall.mp4",
 } as const;

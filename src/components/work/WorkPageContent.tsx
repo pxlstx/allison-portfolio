@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { motion } from "framer-motion";
 import { HomeFooter } from "@/components/home/HomeFooter";
 import { WorkProjectCard } from "@/components/work/WorkProjectCard";
 import { DisplayHeading, FilterTab, FilterTabList } from "@/components/ui";
@@ -16,6 +17,15 @@ import {
   type WorkFilter,
 } from "@/lib/work";
 import { cn } from "@/lib/cn";
+
+const workGridVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.06,
+    },
+  },
+} as const;
 
 export function WorkPageContent() {
   const [filter, setFilter] = useState<WorkFilter>("all");
@@ -73,16 +83,21 @@ export function WorkPageContent() {
           shuffling ? "opacity-0" : "opacity-100",
         )}
       >
-        <div className={cn("grid grid-cols-12", spacingClasses.gridGap)}>
+        <motion.div
+          key={filter}
+          className={cn("grid grid-cols-12", spacingClasses.gridGap)}
+          variants={workGridVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {projects.map((project, index) => (
             <WorkProjectCard
-              key={`${filter}-${project.id}`}
+              key={project.id}
               project={project}
               span={spans[index] ?? { colSpan: 4, aspect: "4/3", mobileColSpan: 12 }}
-              index={index}
             />
           ))}
-        </div>
+        </motion.div>
       </div>
 
       <HomeFooter />

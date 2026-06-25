@@ -5,22 +5,19 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Caption,
-  DisplayHeading,
   Icon,
   MessageBubble,
-  PageContainer,
   TextInput,
   TextLink,
-  TextLinkSmall,
 } from "@/components/ui";
 import { askPrompts, askWelcomeMessage } from "@/lib/ask";
 import { site } from "@/lib/site";
 import {
   colorClasses,
   layoutClasses,
+  motionClasses,
   spacingClasses,
   typography,
-  zIndexClasses,
 } from "@/lib/design-system";
 import { cn } from "@/lib/cn";
 
@@ -34,9 +31,7 @@ function AssistantAvatar() {
   return (
     <div
       className={cn(
-        spacingClasses.avatarMt,
-        spacingClasses.avatarSize,
-        "relative shrink-0 overflow-hidden rounded-full border",
+        "relative h-[72px] w-[72px] shrink-0 overflow-hidden rounded-full border",
         colorClasses.borderDefault,
         colorClasses.surfaceRaised,
       )}
@@ -45,7 +40,7 @@ function AssistantAvatar() {
         src="/images/allison-portrait.png"
         alt="Allison"
         fill
-        sizes="28px"
+        sizes="72px"
         className="object-cover object-center"
       />
     </div>
@@ -53,7 +48,15 @@ function AssistantAvatar() {
 }
 
 function UserAvatar() {
-  return <div className={cn(spacingClasses.avatarMt, spacingClasses.avatarSize, "shrink-0 rounded-full bg-bdr")} />;
+  return (
+    <div
+      className={cn(
+        spacingClasses.avatarMt,
+        spacingClasses.avatarSize,
+        "shrink-0 rounded-full bg-bdr",
+      )}
+    />
+  );
 }
 
 function ChatMessage({ message }: { message: Message }) {
@@ -64,7 +67,11 @@ function ChatMessage({ message }: { message: Message }) {
     <motion.div
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      className={cn("flex items-start", spacingClasses.chatMessageGap, isUser ? "flex-row-reverse" : "")}
+      className={cn(
+        "flex items-start",
+        spacingClasses.chatMessageGap,
+        isUser ? "flex-row-reverse" : "",
+      )}
     >
       {isUser ? <UserAvatar /> : <AssistantAvatar />}
       <MessageBubble variant={message.role}>{content}</MessageBubble>
@@ -88,8 +95,19 @@ export function AskChat() {
   const hasUserMessage = messages.some((message) => message.role === "user");
 
   useEffect(() => {
+    setMessages((current) =>
+      current.map((message) =>
+        message.id === "welcome"
+          ? { ...message, content: askWelcomeMessage }
+          : message,
+      ),
+    );
+  }, []);
+
+  useEffect(() => {
+    if (!hasUserMessage) return;
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isLoading]);
+  }, [messages, isLoading, hasUserMessage]);
 
   async function sendMessage(text: string) {
     const trimmed = text.trim();
@@ -148,122 +166,134 @@ export function AskChat() {
   const canSend = Boolean(input.trim()) && !isLoading;
 
   return (
-    <div className={cn("flex min-h-screen flex-col", colorClasses.surface)}>
-      <PageContainer className={cn("flex-1", spacingClasses.chatPagePad)}>
-        <DisplayHeading as="h1" variant="display" className={spacingClasses.chatTitleMb}>
-          AllisonGPT
-        </DisplayHeading>
+    <div
+      className={cn(
+        "flex min-h-screen flex-col",
+        colorClasses.surface,
+        !hasUserMessage && "justify-center",
+      )}
+    >
+      <div
+        className={cn(
+          "mx-auto flex w-full flex-col px-page",
+          layoutClasses.maxWidthProse,
+          hasUserMessage ? "min-h-screen flex-1 pt-24" : "py-12",
+        )}
+      >
+        <header className={cn("text-left", hasUserMessage ? "pb-8" : "pb-10")}>
+          <h1 className="font-display text-display font-extralight tracking-display text-w-100">
+            AllisonGPT.
+          </h1>
+          <p className="mt-4 font-sans text-body font-light text-w-60">
+            Almost as good as the real thing. Ask me about my work, my process,
+            or how I&apos;d approach your next project.
+          </p>
+        </header>
 
-        <div className="lg:flex lg:justify-end">
+        <div
+          className={cn(
+            "flex min-h-0 flex-col",
+            hasUserMessage && "flex-1 overflow-hidden",
+          )}
+        >
           <div
             className={cn(
-              "relative min-w-0 w-full max-lg:sticky max-lg:bottom-0",
-              zIndexClasses.sticky,
-              layoutClasses.maxWidthChatMin,
+              "flex flex-col",
+              spacingClasses.chatMessageGap,
+              !hasUserMessage && "mb-12",
+              hasUserMessage && "min-h-0 flex-1 overflow-y-auto pb-4",
             )}
           >
-            <div className="flex min-h-[min(52vh,480px)] min-w-0 flex-col overflow-hidden max-lg:max-h-[min(52vh,480px)] lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)] lg:max-h-none">
-              <div
-                className={cn(
-                  "flex min-h-0 flex-1 flex-col overflow-y-auto",
-                  spacingClasses.chatPanelPad,
-                  spacingClasses.pagePadXSm6,
-                )}
-              >
-                {messages.map((message) => (
-                  <ChatMessage key={message.id} message={message} />
-                ))}
+            {messages.map((message) => (
+              <ChatMessage key={message.id} message={message} />
+            ))}
 
-                {isLoading && (
-                  <div className={cn("flex items-start", spacingClasses.chatMessageGap)}>
-                    <AssistantAvatar />
-                    <MessageBubble
-                      variant="assistant"
-                      contentClassName={colorClasses.textSubtle}
-                    >
-                      Thinking…
-                    </MessageBubble>
-                  </div>
-                )}
-
-                {error && (
-                  <p className={cn(typography.bodySmall.className, colorClasses.textError)}>
-                    {error}
-                  </p>
-                )}
-
-                <div ref={bottomRef} />
+            {isLoading && (
+              <div className={cn("flex items-start", spacingClasses.chatMessageGap)}>
+                <AssistantAvatar />
+                <MessageBubble
+                  variant="assistant"
+                  contentClassName={colorClasses.textSubtle}
+                >
+                  Thinking…
+                </MessageBubble>
               </div>
+            )}
 
-              <form
-                onSubmit={onSubmit}
-                className={cn(
-                  "sticky bottom-0 shrink-0",
-                  zIndexClasses.sticky,
-                  spacingClasses.chatFormPad,
-                  colorClasses.surface,
-                  spacingClasses.pagePadXSm6,
-                )}
-              >
-                <div className="relative">
-                  <TextInput
-                    value={input}
-                    onChange={(event) => setInput(event.target.value)}
-                    placeholder="Ask me (almost) anything"
-                    disabled={isLoading}
-                    className={spacingClasses.inputSubmitInset}
-                  />
-                  <button
-                    type="submit"
-                    disabled={!canSend}
-                    className={cn(
-                      spacingClasses.inputSubmitPos,
-                      spacingClasses.inputSubmitSize,
-                      "absolute top-1/2 -translate-y-1/2 flex items-center justify-center transition-colors disabled:cursor-not-allowed",
-                      canSend
-                        ? colorClasses.textAccentBright
-                        : colorClasses.textFaint,
-                    )}
-                    aria-label="Send message"
-                  >
-                    <Icon
-                      name="arrow_forward"
-                      size="md"
-                      className={canSend ? colorClasses.textAccentBright : colorClasses.textFaint}
-                    />
-                  </button>
-                </div>
+            {error && (
+              <p className={cn(typography.bodySmall.className, colorClasses.textError)}>
+                {error}
+              </p>
+            )}
 
-                {!hasUserMessage && (
-                  <p className={cn(spacingClasses.chatPromptMt, typography.textLinkSmall.className, colorClasses.textDim)}>
-                    {askPrompts.map((prompt, index) => (
-                      <span key={prompt}>
-                        {index > 0 && (
-                          <span aria-hidden className={colorClasses.textDim}>
-                            ,&nbsp;&nbsp;
-                          </span>
-                        )}
-                        <TextLinkSmall onClick={() => void sendMessage(prompt)}>
-                          {prompt}
-                        </TextLinkSmall>
-                      </span>
-                    ))}
-                  </p>
-                )}
-
-                <Caption className="mt-2">
-                  Powered by Claude · Answers based on Allison&apos;s actual background.
-                  {" "}
-                  Something seem off?{" "}
-                  <TextLink href={`mailto:${site.email}`} variant="inline">
-                    Email directly.
-                  </TextLink>
-                </Caption>
-              </form>
-            </div>
+            <div ref={bottomRef} />
           </div>
+
+          <form
+            onSubmit={onSubmit}
+            className={cn(
+              "shrink-0",
+              hasUserMessage && cn("sticky bottom-0 pt-3", colorClasses.surface),
+            )}
+          >
+            <div className="relative">
+              <TextInput
+                value={input}
+                onChange={(event) => setInput(event.target.value)}
+                placeholder="Ask me anything..."
+                disabled={isLoading}
+                className={spacingClasses.inputSubmitInset}
+              />
+              <button
+                type="submit"
+                disabled={!canSend}
+                className={cn(
+                  spacingClasses.inputSubmitPos,
+                  spacingClasses.inputSubmitSize,
+                  "absolute top-1/2 flex -translate-y-1/2 items-center justify-center transition-colors disabled:cursor-not-allowed",
+                  canSend
+                    ? colorClasses.textAccentBright
+                    : colorClasses.textFaint,
+                )}
+                aria-label="Send message"
+              >
+                <Icon
+                  name="arrow_forward"
+                  size="md"
+                  className={canSend ? colorClasses.textAccentBright : colorClasses.textFaint}
+                />
+              </button>
+            </div>
+
+            {!hasUserMessage && (
+              <div className={cn("mt-4 flex flex-wrap gap-2")}>
+                {askPrompts.map((prompt) => (
+                  <button
+                    key={prompt}
+                    type="button"
+                    onClick={() => void sendMessage(prompt)}
+                    className={cn(
+                      "rounded-full border border-bdr px-4 py-2 text-small font-normal text-w-30 transition-colors hover:border-bdr-mid hover:text-w-60",
+                      motionClasses.fast,
+                    )}
+                  >
+                    {prompt}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            <Caption className="mt-2">
+              Powered by Claude · Answers based on Allison&apos;s actual background.
+              {" "}
+              Something seem off?{" "}
+              <TextLink href={`mailto:${site.email}`} variant="inline">
+                Email directly.
+              </TextLink>
+            </Caption>
+          </form>
         </div>
-      </PageContainer>
+      </div>
     </div>
   );
 }

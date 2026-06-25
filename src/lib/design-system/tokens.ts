@@ -34,8 +34,8 @@ export const spacing = {
   paragraphGap: "18px",
   metaCardPaddingY: "18px",
   menuOverlayX: "80px",
-  hamburgerGap: "5px",
-  hamburgerWidth: "22px",
+  hamburgerGap: "6px",
+  hamburgerWidth: "28px",
   footerHairline: "3px",
   underlineOffsetSm: "4px",
   underlineOffsetMd: "6px",
@@ -65,15 +65,15 @@ export const layout = {
 export const typography = {
   display: {
     className:
-      "font-display text-hero font-extralight leading-[0.95] tracking-[-0.04em] text-white",
+      "font-display text-hero font-extralight leading-[0.95] tracking-display text-white",
   },
   displayHero: {
     className:
-      "font-display text-[clamp(44px,7vw,90px)] font-extralight leading-[1] tracking-[-0.04em] text-white",
+      "font-display text-[clamp(44px,7vw,90px)] font-extralight leading-[1] tracking-display text-white",
   },
   displaySection: {
     className:
-      "font-display text-[clamp(32px,4vw,48px)] font-extralight leading-[1.05] tracking-[-0.04em]",
+      "font-display text-[clamp(32px,4vw,48px)] font-extralight leading-[1.05] tracking-display",
   },
   displayChapter: {
     className:
@@ -81,19 +81,19 @@ export const typography = {
   },
   displayClosing: {
     className:
-      "font-sans text-[clamp(20px,2.5vw,32px)] font-extralight tracking-[-0.02em]",
+      "font-display text-[clamp(20px,2.5vw,32px)] font-extralight tracking-display",
   },
   lead: {
     className:
-      "font-sans text-lead font-extralight leading-[1.45] tracking-tight",
+      "font-display text-lead font-light leading-[1.45] tracking-display",
   },
   ctaLink: {
     className:
-      "font-sans text-[clamp(22px,2.5vw,36px)] font-extralight tracking-[-0.02em]",
+      "font-display text-[clamp(22px,2.5vw,36px)] font-extralight tracking-display",
   },
   bodyLarge: {
     className:
-      "font-sans text-[clamp(18px,2vw,22px)] font-light leading-relaxed tracking-tight text-w-60",
+      "font-display text-[clamp(18px,2vw,22px)] font-light leading-relaxed tracking-normal text-w-60",
   },
   body: {
     className:
@@ -113,25 +113,25 @@ export const typography = {
       "font-sans text-label font-medium leading-normal tracking-label uppercase",
   },
   caption: {
-    className: "font-sans text-caption font-light tracking-[0.01em]",
+    className: "font-sans text-caption font-normal tracking-normal",
   },
   fine: {
-    className: "font-sans text-label font-light leading-[1.6]",
+    className: "font-sans text-label font-normal leading-[1.6]",
   },
   micro: {
     className: "font-sans text-micro font-medium tracking-[0.06em]",
   },
   navMeta: {
-    className: "font-sans text-small font-extralight",
+    className: "font-sans text-small font-normal",
   },
   navMetaLight: {
-    className: "font-sans text-small font-light",
+    className: "font-sans text-small font-normal",
   },
   filterTab: {
-    className: "font-sans text-[15px] font-light sm:text-base",
+    className: "font-sans text-[15px] font-normal sm:text-base",
   },
   textLinkSmall: {
-    className: "font-sans text-sm font-light leading-[2.1]",
+    className: "font-sans text-sm font-normal leading-[2.1]",
   },
 } as const;
 

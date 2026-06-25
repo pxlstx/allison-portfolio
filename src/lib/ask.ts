@@ -8,4 +8,4 @@ export const askPrompts = [
 ] as const;
 
 export const askWelcomeMessage =
-  "Hi, I'm Allison's AI albeit slightly less witty stand-in. I've been trained on her work, process, and design philosophy. What would you like to know?";
+  "Hi. I'm a slightly less witty version of Allison, but I know her work pretty well. What would you like to know?";

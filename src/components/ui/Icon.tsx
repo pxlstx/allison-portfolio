@@ -13,8 +13,9 @@ export function Icon({ name, size = "md", className, label }: IconProps) {
 
   return (
     <span
-      className={cn("material-symbols-outlined select-none", className)}
+      className={cn("material-symbols-outlined font-icons select-none", className)}
       style={{
+        fontFamily: "var(--font-icons)",
         fontSize: px,
         fontVariationSettings: `'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' ${px}`,
       }}
