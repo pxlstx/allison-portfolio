@@ -1,26 +1,182 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ink: #0e0e0c;
+  --ink-2: #1a1a17;
+  --background: var(--ink);
+  --foreground: rgb(255 255 255 / 0.72);
+
+  /* Link text — brighter than decorative dim tokens (w-15/20/30) */
+  --link: rgb(255 255 255 / 0.40);
+  --link-small: rgb(255 255 255 / 0.52);
+  --link-muted: rgb(255 255 255 / 0.28);
+  --link-faint: rgb(255 255 255 / 0.22);
+
+  /* Spacing */
+  --space-page-x: 72px;
+  --space-page-x-mobile: 28px;
+  --space-page-top: 120px;
+  --space-section: 96px;
+  --space-section-lg: 120px;
+  --space-card: 16px;
+  --space-card-image: 16px;
+
+  /* Layout */
+  --max-width-page: 1440px;
+  --max-width-content: 1200px;
+  --max-width-prose: 720px;
+  --radius: 2px;
 }
 
 @theme inline {
+  /* ── Colours ── */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+
+  /* White scale — names match opacity values */
+  --color-w-100: rgb(255 255 255 / 1.0);
+  --color-w-60: rgb(255 255 255 / 0.60);
+  --color-w-30: rgb(255 255 255 / 0.30);
+  --color-w-20: rgb(255 255 255 / 0.20);
+  --color-w-15: rgb(255 255 255 / 0.15);
+  --color-w-08: rgb(255 255 255 / 0.08);
+
+  /* Links */
+  --color-link: var(--link);
+  --color-link-small: var(--link-small);
+  --color-link-muted: var(--link-muted);
+  --color-link-faint: var(--link-faint);
+
+  /* Borders */
+  --color-bdr: rgb(255 255 255 / 0.07);
+  --color-bdr-mid: rgb(255 255 255 / 0.12);
+  --color-bdr-bright: rgb(255 255 255 / 0.85);
+  --color-bdr-input: rgb(255 255 255 / 0.30);
+
+  /* Accent */
+  --color-accent: #d4622a;
+  --color-accent-bright: #ee8340;
+
+  /* Status */
+  --color-status-online: #4caf72;
+  --color-error: #f87171;
+
+  /* ── Fonts ── */
+  --font-sans: "neue-haas-grotesk-text", sans-serif;
+  --font-display: "neue-haas-grotesk-display", sans-serif;
+  --font-icons: "Material Symbols Outlined", sans-serif;
+
+  /* ── Type scale ──
+     Two headline sizes + body + small + label.
+     Nothing else. Don't add arbitrary sizes in components. */
+  --text-hero: clamp(48px, 8vw, 106px); /* Page titles, home intro */
+  --text-display: clamp(40px, 5.5vw, 72px); /* Chapter headlines, typographic moments */
+  --text-title: clamp(20px, 2.2vw, 28px); /* Deliverable titles, card titles, next project */
+  --text-lead: 24px; /* Intro copy, page subtitles */
+  --text-body: 16px; /* Body copy */
+  --text-body-md: 17px; /* Meta card values */
+  --text-small: 13px; /* Nav meta, chat bubbles */
+  --text-caption: 12px; /* Captions, fine print */
+  --text-micro: 10px; /* NDA badges, cursor label */
+  --text-label: 11px; /* All-caps labels — always uppercase + tracked */
+
+  /* ── Line heights ── */
+  --leading-display: 1.05;
+  --leading-title: 1.2;
+  --leading-body: 1.75;
+  --leading-body-loose: 1.8;
+  --leading-relaxed: 1.65;
+
+  /* ── Letter spacing ── */
+  --tracking-display: -0.03em;
+  --tracking-tight: -0.02em;
+  --tracking-normal: -0.01em;
+  --tracking-label: 0.10em; /* All-caps labels */
+
+  /* ── Spacing ── */
+  --radius-sm: var(--radius);
+  --spacing-card: var(--space-card);
+  --spacing-card-image: var(--space-card-image);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── Material icons ── */
+.material-symbols-outlined {
+  font-family: var(--font-icons);
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
 }
 
+/* ── Base ── */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 200; /* Extra light — all headlines */
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-display);
+}
+
+/* ── Text selection ── */
+::selection {
+  background: rgb(255 255 255 / 0.2);
+  color: #ffffff;
+}
+
+/* ── Custom cursor ──
+   Applied via data-custom-cursor="true" on <body>.
+   The cursor component itself handles the visual. */
+@media (pointer: fine) {
+  body[data-custom-cursor="true"] {
+    cursor: none;
+  }
+
+  body[data-custom-cursor="true"] a,
+  body[data-custom-cursor="true"] button {
+    cursor: none;
+  }
+}
+
+/* ── Utility: all-caps label ──
+   Use this class for any small uppercase label (orange, tracked).
+   Replaces arbitrary Tailwind class combinations. */
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* ── Utility: page padding ──
+   Consistent horizontal padding on all full-width sections. */
+.px-page {
+  padding-left: var(--space-page-x);
+  padding-right: var(--space-page-x);
+}
+
+@media (max-width: 768px) {
+  .px-page {
+    padding-left: var(--space-page-x-mobile);
+    padding-right: var(--space-page-x-mobile);
+  }
 }
