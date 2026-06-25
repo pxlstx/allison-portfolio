@@ -51,8 +51,8 @@ const closingLines: TextSegment[][] = [
   ],
   [
     { text: "into " },
-    { text: "scalable products", accent: true },
-    { text: ", brands," },
+    { text: "scalable products,", accent: true },
+    { text: "brands," },
   ],
   [{ text: "and experiences.", bold: true, keepTogether: true }],
 ];
@@ -247,7 +247,8 @@ function ClosingText({ show }: { show: boolean }) {
     return segments.map((segment, offset) => (
       <span key={`closing-segment-wrap-${lineIndex}-${startIndex + offset}`}>
         {renderSegment(segment, lineIndex, startIndex + offset)}
-        {offset < segments.length - 1 ? (
+        {offset < segments.length - 1 &&
+        !segment.text.trimEnd().endsWith(",") ? (
           <span className="inline-block w-[0.28em]" />
         ) : null}
       </span>

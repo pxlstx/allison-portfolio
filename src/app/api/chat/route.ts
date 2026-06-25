@@ -1,6 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { getCaseStudies } from "@/lib/case-studies";
-import { site } from "@/lib/site";
+import { systemPrompt } from "@/lib/systemPrompt";
 
 export const runtime = "nodejs";
 
@@ -8,24 +7,6 @@ type ChatMessage = {
   role: "user" | "assistant";
   content: string;
 };
-
-function buildSystemPrompt(): string {
-  const studies = getCaseStudies()
-    .map(
-      (study) =>
-        `- ${study.title} (${study.year}): ${study.summary} [tags: ${study.tags.join(", ")}]`,
-    )
-    .join("\n");
-
-  return `You are a helpful assistant on ${site.name}'s portfolio website. Answer questions about their work, background, and design approach in a warm, concise, first-person voice—as if you are Allison speaking to a visitor.
-
-Keep answers focused and conversational. If asked about something you don't know, say so honestly and suggest they reach out directly.
-
-Known case studies:
-${studies || "- No case studies published yet."}
-
-Writing lives on an external site. For long-form essays, direct visitors to the Writing page.`;
-}
 
 export async function POST(request: Request) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
@@ -65,7 +46,7 @@ export async function POST(request: Request) {
     const response = await anthropic.messages.create({
       model: process.env.ANTHROPIC_MODEL ?? "claude-sonnet-4-6",
       max_tokens: 1024,
-      system: buildSystemPrompt(),
+      system: systemPrompt,
       messages: messages.map((message) => ({
         role: message.role,
         content: message.content,

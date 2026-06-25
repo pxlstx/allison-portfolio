@@ -7,6 +7,8 @@ import {
   Caption,
   Icon,
   MessageBubble,
+  PromptChip,
+  PromptChipList,
   TextInput,
   TextLink,
 } from "@/components/ui";
@@ -15,7 +17,6 @@ import { site } from "@/lib/site";
 import {
   colorClasses,
   layoutClasses,
-  motionClasses,
   spacingClasses,
   typography,
 } from "@/lib/design-system";
@@ -176,12 +177,12 @@ export function AskChat() {
       <div
         className={cn(
           "mx-auto flex w-full flex-col px-page",
-          layoutClasses.maxWidthProse,
+          layoutClasses.maxWidthChat,
           hasUserMessage ? "min-h-screen flex-1 pt-24" : "py-12",
         )}
       >
         <header className={cn("text-left", hasUserMessage ? "pb-8" : "pb-10")}>
-          <h1 className="font-display text-display font-extralight tracking-display text-w-100">
+          <h1 className="font-display text-display font-light tracking-display text-w-100">
             AllisonGPT.
           </h1>
           <p className="mt-4 font-sans text-body font-light text-w-60">
@@ -266,21 +267,16 @@ export function AskChat() {
             </div>
 
             {!hasUserMessage && (
-              <div className={cn("mt-4 flex flex-wrap gap-2")}>
+              <PromptChipList className="mt-4">
                 {askPrompts.map((prompt) => (
-                  <button
+                  <PromptChip
                     key={prompt}
-                    type="button"
                     onClick={() => void sendMessage(prompt)}
-                    className={cn(
-                      "rounded-full border border-bdr px-4 py-2 text-small font-normal text-w-30 transition-colors hover:border-bdr-mid hover:text-w-60",
-                      motionClasses.fast,
-                    )}
                   >
                     {prompt}
-                  </button>
+                  </PromptChip>
                 ))}
-              </div>
+              </PromptChipList>
             )}
 
             <Caption className="mt-2">

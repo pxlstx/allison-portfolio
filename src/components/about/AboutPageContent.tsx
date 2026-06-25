@@ -157,7 +157,6 @@ export function AboutPageContent() {
               "ml-auto border-l-2 border-accent pl-8",
               typography.displayClosing.className,
               colorClasses.textPrimary,
-              "leading-[1.35]",
             )}
           >
             {quote}
@@ -178,14 +177,14 @@ export function AboutPageContent() {
             <div key={item.title}>
               <p
                 className={cn(
-                  typography.filterTab.className,
+                  typography.body.className,
                   "mb-2.5 font-medium",
                   colorClasses.textPrimary,
                 )}
               >
                 {item.title}
               </p>
-              <p className={cn(typography.bodySmall.className, colorClasses.textSubtle)}>
+              <p className={typography.bodySmall.className}>
                 {item.body}
               </p>
             </div>
@@ -222,7 +221,7 @@ export function AboutPageContent() {
               >
                 {item.title}
               </p>
-              <p className={cn(typography.bodySmall.className, colorClasses.textSubtle)}>
+              <p className={typography.bodySmall.className}>
                 {item.body}
               </p>
             </div>
@@ -244,19 +243,13 @@ export function AboutPageContent() {
                   colorClasses.borderDefault,
                 )}
               >
-                <span
-                  className={cn(
-                    "min-w-[100px] shrink-0",
-                    typography.bodySmall.className,
-                    colorClasses.textSubtle,
-                  )}
-                >
+                <span className={cn("min-w-[100px] shrink-0", typography.bodySmall.className)}>
                   {item.label}
                 </span>
                 <span
                   className={cn(
                     typography.body.className,
-                    "text-right leading-snug",
+                    "text-right",
                     colorClasses.textPrimary,
                   )}
                 >

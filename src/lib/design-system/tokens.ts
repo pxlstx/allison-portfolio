@@ -65,11 +65,11 @@ export const layout = {
 export const typography = {
   display: {
     className:
-      "font-display text-hero font-extralight leading-[0.95] tracking-display text-white",
+      "font-display text-hero font-light leading-[0.95] tracking-display text-white",
   },
   displayHero: {
     className:
-      "font-display text-[clamp(44px,7vw,90px)] font-extralight leading-[1] tracking-display text-white",
+      "font-display text-[clamp(44px,7vw,90px)] font-light leading-[1] tracking-display text-white",
   },
   displaySection: {
     className:
@@ -77,11 +77,11 @@ export const typography = {
   },
   displayChapter: {
     className:
-      "font-display text-display font-extralight leading-display tracking-display",
+      "font-display text-display font-light leading-display tracking-display",
   },
   displayClosing: {
     className:
-      "font-display text-[clamp(20px,2.5vw,32px)] font-extralight tracking-display",
+      "font-display text-[clamp(20px,2.5vw,32px)] font-light leading-[1.35] tracking-display",
   },
   lead: {
     className:
@@ -93,14 +93,14 @@ export const typography = {
   },
   bodyLarge: {
     className:
-      "font-display text-[clamp(18px,2vw,22px)] font-light leading-relaxed tracking-normal text-w-60",
+      "font-display text-[20px] font-light leading-relaxed tracking-tight text-w-60",
   },
   body: {
     className:
       "font-sans text-body font-light leading-body-loose tracking-normal text-w-60",
   },
   bodyMedium: {
-    className: "font-sans text-body-md font-light tracking-normal text-w-60",
+    className: "font-sans text-[18px] font-light tracking-normal text-w-60",
   },
   bodySmall: {
     className: "font-sans text-sm font-light leading-[1.65] text-w-60",

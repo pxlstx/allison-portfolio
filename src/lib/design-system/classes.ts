@@ -121,6 +121,7 @@ export const spacingClasses = {
   gridGap: "gap-x-5 gap-y-8 sm:gap-x-8 sm:gap-y-12",
   gridGapXSm: "sm:gap-x-[72px]",
   filterTabListGap: "gap-6 pb-1.5 sm:gap-8",
+  promptChipListGap: "gap-2",
   bubblePad: "px-4 py-3",
   inputPad: "py-2.5 pl-5 sm:py-3 sm:pl-6",
   inputSubmitInset: "pr-12 sm:pr-14",
@@ -189,4 +190,6 @@ export const linkClasses = {
     "border-0 bg-transparent p-0 transition-colors duration-200 active:text-accent active:decoration-accent",
   filterTabActive: "text-white",
   filterTabInactive: "text-link-muted hover:text-white",
+  promptChip:
+    "rounded-full border border-bdr px-4 py-2 text-small font-normal text-w-30 transition-colors hover:border-bdr-mid hover:text-w-60 disabled:cursor-not-allowed disabled:opacity-50",
 } as const;

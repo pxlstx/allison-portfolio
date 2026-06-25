@@ -9,6 +9,8 @@ import {
   MetaCard,
   PageContainer,
   ProjectCard,
+  PromptChip,
+  PromptChipList,
   SectionLabel,
   TextInput,
   TextLink,
@@ -172,19 +174,19 @@ export function DesignSystemContent() {
         </p>
         <TypeSpec
           name="display"
-          meta="clamp(48px, 8vw, 106px) · extralight · page titles, hero, intro"
+          meta="clamp(48px, 8vw, 106px) · light (300) · page titles, hero, intro"
           sample="Work"
           className={typography.display.className}
         />
         <TypeSpec
           name="displayHero"
-          meta="clamp(44px, 7vw, 90px) · extralight · case study hero titles"
+          meta="clamp(44px, 7vw, 90px) · light (300) · case study hero titles"
           sample="A digitally empowered clinic."
           className={typography.displayHero.className}
         />
         <TypeSpec
           name="displayChapter"
-          meta="clamp(40px, 5.5vw, 72px) · extralight · case study headlines, menu"
+          meta="clamp(40px, 5.5vw, 72px) · light (300) · case study headlines, menu"
           sample="One visual language. Three surfaces."
           className={typography.displayChapter.className}
           sampleClassName={colorClasses.textPrimary}
@@ -197,13 +199,13 @@ export function DesignSystemContent() {
         />
         <TypeSpec
           name="bodyLarge"
-          meta="clamp(18px, 2vw, 22px) · light · deliverables"
+          meta="20px · light · deliverables"
           sample="The goal was to make science feel approachable."
           className={typography.bodyLarge.className}
         />
         <TypeSpec
           name="bodyMedium"
-          meta="17px · light · meta card values"
+          meta="18px · light · meta card values"
           sample="Lead Product & UX Designer"
           className={typography.bodyMedium.className}
         />
@@ -212,6 +214,12 @@ export function DesignSystemContent() {
           meta="16px · light · leading-body-loose · body copy, project cards"
           sample="Everskin is a new kind of aesthetic dermatology clinic in Zurich."
           className={typography.body.className}
+        />
+        <TypeSpec
+          name="bodySmall"
+          meta="13px · light · About grids, chat bubbles, secondary copy"
+          sample="I design the foundation before the features. Good design systems make everything downstream faster."
+          className={typography.bodySmall.className}
         />
         <TypeSpec
           name="caption"
@@ -400,6 +408,19 @@ export function DesignSystemContent() {
                 <Icon name="arrow_forward" size="md" className={colorClasses.textAccentBright} />
               </span>
             </div>
+          </div>
+
+          <div className="max-w-2xl">
+            <CompLabel>PromptChip</CompLabel>
+            <CompDesc>
+              Suggested prompts on the Ask page. Pill button with border; 13px text, w-30 default,
+              w-60 on hover. Use <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>PromptChipList</code> for the wrapping row.
+            </CompDesc>
+            <PromptChipList className="mt-4">
+              <PromptChip>What kind of clients do you work with?</PromptChip>
+              <PromptChip>Do you work on design systems?</PromptChip>
+              <PromptChip>What&apos;s your approach to product design?</PromptChip>
+            </PromptChipList>
           </div>
 
           <div>

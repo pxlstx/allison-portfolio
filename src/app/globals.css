@@ -76,7 +76,7 @@
   --text-title: clamp(20px, 2.2vw, 28px); /* Deliverable titles, card titles, next project */
   --text-lead: 24px; /* Intro copy, page subtitles */
   --text-body: 16px; /* Body copy */
-  --text-body-md: 17px; /* Meta card values */
+  --text-body-md: 18px; /* Meta card values */
   --text-small: 13px; /* Nav meta, chat bubbles */
   --text-caption: 12px; /* Captions, fine print */
   --text-micro: 10px; /* NDA badges, cursor label */
@@ -90,7 +90,7 @@
   --leading-relaxed: 1.65;
 
   /* ── Letter spacing ── */
-  --tracking-display: -0.04em; /* All display headlines — font-display extralight */
+  --tracking-display: -0.04em; /* All display headlines — font-display light */
   --tracking-tight: -0.02em;
   --tracking-normal: -0.01em; /* Body copy */
   --tracking-label: 0.10em; /* All-caps labels */
@@ -134,7 +134,7 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 200; /* Extralight — all headlines */
+  font-weight: 300; /* Light — all headlines */
   letter-spacing: var(--tracking-display);
   line-height: var(--leading-display);
 }
