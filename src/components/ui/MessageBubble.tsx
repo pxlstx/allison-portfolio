@@ -39,9 +39,8 @@ export function MessageBubble({
     >
       <p
         className={cn(
-          isUser
-            ? cn("font-sans text-sm font-light leading-[1.65]", colorClasses.textInk)
-            : typography.bodySmall.className,
+          typography.bodySmall.className,
+          isUser && colorClasses.textInk,
           contentClassName,
         )}
       >

@@ -41,6 +41,7 @@ export const layoutClasses = {
   maxWidthAboutGrid: "max-w-[720px]",
   maxWidthAboutQuote: "max-w-[760px]",
   maxWidthAboutWide: "max-w-[900px]",
+  aboutPhotoMax: "max-w-[240px]",
   caseStudyTextShell: "mx-auto w-full max-w-[1440px]",
   maxWidthContent: "max-w-[1200px]",
   maxWidthProse: "max-w-[720px]",
@@ -81,6 +82,8 @@ export const spacingClasses = {
   captionPad: "py-3.5",
   footerPad: "px-7 py-8 sm:px-[72px]",
   workHeaderPad: "px-7 pt-[120px] pb-16 sm:px-[72px]",
+  aboutHeroPad: "pt-[120px] pb-24",
+  aboutCtaPad: "pb-[120px] pt-24",
   workGridPad: "px-7 py-12 sm:px-[72px]",
   workHeaderGap: "gap-10",
   menuOverlayPad: "px-[80px]",
@@ -192,4 +195,11 @@ export const linkClasses = {
   filterTabInactive: "text-link-muted hover:text-white",
   promptChip:
     "rounded-full border border-bdr px-4 py-2 text-small font-normal text-w-30 transition-colors hover:border-bdr-mid hover:text-w-60 disabled:cursor-not-allowed disabled:opacity-50",
+} as const;
+
+export const stateClasses = {
+  projectCardTitleHover: "transition-colors group-hover:text-white",
+  serviceCardBorderHover: "transition-colors hover:border-bdr-mid",
+  nextProjectIconHover:
+    "transition-[transform,color] group-hover:text-w-60 group-active:text-accent",
 } as const;

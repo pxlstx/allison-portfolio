@@ -174,7 +174,7 @@ export function DesignSystemContent() {
         </p>
         <TypeSpec
           name="display"
-          meta="clamp(48px, 8vw, 106px) · light (300) · page titles, hero, intro"
+          meta="clamp(48px, 8vw, 106px) · light (300) · 0 tracking · page titles, hero, intro"
           sample="Work"
           className={typography.display.className}
         />
@@ -186,20 +186,39 @@ export function DesignSystemContent() {
         />
         <TypeSpec
           name="displayChapter"
-          meta="clamp(40px, 5.5vw, 72px) · light (300) · case study headlines, menu"
+          meta="clamp(40px, 5.5vw, 72px) · light (300) · case study headlines"
           sample="One visual language. Three surfaces."
           className={typography.displayChapter.className}
           sampleClassName={colorClasses.textPrimary}
         />
         <TypeSpec
+          name="navChapter"
+          meta="clamp(36px, 5.5vw, 64px) · light (300) · menu navigation"
+          sample="Work"
+          className={cn(typography.navChapter.className, linkClasses.navLink)}
+        />
+        <TypeSpec
+          name="displayClosing"
+          meta="clamp(20px, 2.5vw, 32px) · light · quotes, blockquotes"
+          sample="I do my best work when the problem is genuinely hard."
+          className={typography.displayClosing.className}
+          sampleClassName={colorClasses.textPrimary}
+        />
+        <TypeSpec
+          name="displayMuted"
+          meta="clamp(48px, 8vw, 106px) · light · w-60 · home intro closing"
+          sample="into scalable products, brands,"
+          className={typography.displayMuted.className}
+        />
+        <TypeSpec
           name="lead"
-          meta="24px · light (300) · intro copy, page subtitles"
+          meta="24px · light (300) · intro copy, page subtitles, next project"
           sample="End-to-end experience design for a science-backed clinic."
           className={typography.lead.className}
         />
         <TypeSpec
           name="bodyLarge"
-          meta="20px · light · deliverables"
+          meta="20px · Text · normal (400) · deliverables"
           sample="The goal was to make science feel approachable."
           className={typography.bodyLarge.className}
         />
@@ -217,9 +236,21 @@ export function DesignSystemContent() {
         />
         <TypeSpec
           name="bodySmall"
-          meta="13px · light · About grids, chat bubbles, secondary copy"
+          meta="13px · light · w-60 · About grids, chat bubbles"
           sample="I design the foundation before the features. Good design systems make everything downstream faster."
           className={typography.bodySmall.className}
+        />
+        <TypeSpec
+          name="bodySmallSubtle"
+          meta="13px · light · w-30 · footer name, Currently labels"
+          sample="Based"
+          className={typography.bodySmallSubtle.className}
+        />
+        <TypeSpec
+          name="itemTitle"
+          meta="16px · medium · white · About grid titles"
+          sample="Systems first"
+          className={typography.itemTitle.className}
         />
         <TypeSpec
           name="caption"

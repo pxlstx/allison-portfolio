@@ -13,6 +13,7 @@ export {
   linkClasses,
   motionClasses,
   spacingClasses,
+  stateClasses,
   zIndexClasses,
 } from "@/lib/design-system/classes";
 export { iconExamples, iconSizes, type IconName, type IconSize } from "@/lib/design-system/icons";

@@ -5,8 +5,10 @@ import {
   motionClasses,
   spacing,
   spacingClasses,
+  stateClasses,
   typography,
 } from "@/lib/design-system";
+import { Icon } from "@/components/ui/Icon";
 import { cn } from "@/lib/cn";
 
 export type ProjectCardAspect = "16/10" | "4/3";
@@ -82,7 +84,7 @@ export function ProjectCard({
             )}
             aria-hidden
           >
-            🔒
+            <Icon name="lock" size={14} className={colorClasses.textPrimary} />
           </div>
         ) : null}
       </div>
@@ -101,7 +103,7 @@ export function ProjectCard({
           className={cn(
             typography.bodyCompact.className,
             motionClasses.medium,
-            "transition-colors group-hover:text-white",
+            stateClasses.projectCardTitleHover,
           )}
         >
           {title}

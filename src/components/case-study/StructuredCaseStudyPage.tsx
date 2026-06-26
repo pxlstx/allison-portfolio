@@ -17,6 +17,7 @@ import {
   layoutClasses,
   motionClasses,
   spacingClasses,
+  stateClasses,
   typography,
 } from "@/lib/design-system";
 import { cn } from "@/lib/cn";
@@ -316,7 +317,7 @@ function CaseStudyNext({ title, href }: { title: string; href: string }) {
               colorClasses.textFaint,
               motionClasses.fast,
               spacingClasses.arrowNudge,
-              "transition-[transform,color] group-hover:text-w-60 group-active:text-accent",
+              stateClasses.nextProjectIconHover,
             )}
           />
         </CaseStudyTextShell>
@@ -331,7 +332,7 @@ export function StructuredCaseStudyPage({
   study: StructuredCaseStudy;
 }) {
   return (
-    <div className={cn(colorClasses.surface, "font-sans")}>
+    <div className={cn(colorClasses.surface, typography.body.className)}>
       <CaseStudyHeroAnimated study={study} />
       <CaseStudyMetaStrip study={study} />
 

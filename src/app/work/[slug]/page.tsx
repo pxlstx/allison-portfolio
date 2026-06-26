@@ -2,11 +2,20 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { StructuredCaseStudyPage } from "@/components/case-study/StructuredCaseStudyPage";
+import { HomeFooter } from "@/components/home/HomeFooter";
 import { FadeIn, PageShell } from "@/components/PageShell";
 import { mdxComponents } from "@/components/mdx/MDXComponents";
+import { DisplayHeading, TextLink } from "@/components/ui";
+import { PageContainer } from "@/components/ui/PageContainer";
 import { getStructuredCaseStudy, getStructuredCaseStudySlugs } from "@/lib/case-study";
 import { getCaseStudies, getCaseStudy } from "@/lib/case-studies";
-import Link from "next/link";
+import { cn } from "@/lib/cn";
+import {
+  colorClasses,
+  layoutClasses,
+  spacingClasses,
+  typography,
+} from "@/lib/design-system";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -55,44 +64,60 @@ export default async function CaseStudyPage({ params }: PageProps) {
   if (!study) notFound();
 
   return (
-    <PageShell className="mx-auto max-w-3xl px-6 py-16 sm:py-20">
-      <FadeIn>
-        <Link
-          href="/work"
-          className="text-sm font-medium text-stone-500 transition hover:text-stone-900"
-        >
-          ← Back to work
-        </Link>
+    <div className={cn(colorClasses.surface, typography.body.className)}>
+      <PageShell className={spacingClasses.workHeaderPad}>
+        <PageContainer width="prose">
+          <FadeIn>
+            <TextLink href="/work" variant="inline">
+              ← Back to work
+            </TextLink>
 
-        <div className="mt-8 flex flex-wrap items-center gap-3 text-sm text-stone-500">
-          <span>{study.year}</span>
-          <span aria-hidden>·</span>
-          <span>{study.role}</span>
-        </div>
-
-        <h1 className="mt-4 text-4xl font-semibold tracking-tight text-stone-900 sm:text-5xl">
-          {study.title}
-        </h1>
-
-        <p className="mt-6 text-xl leading-relaxed text-stone-600">
-          {study.summary}
-        </p>
-
-        <div className="mt-6 flex flex-wrap gap-2">
-          {study.tags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full bg-stone-100 px-3 py-1 text-xs font-medium text-stone-600"
+            <div
+              className={cn(
+                "mt-8 flex flex-wrap items-center gap-3",
+                typography.caption.className,
+                colorClasses.textSubtle,
+              )}
             >
-              {tag}
-            </span>
-          ))}
-        </div>
-      </FadeIn>
+              <span>{study.year}</span>
+              <span aria-hidden>·</span>
+              <span>{study.role}</span>
+            </div>
 
-      <FadeIn className="mt-14 border-t border-stone-200 pt-12" delay={0.08}>
-        <MDXRemote source={study.content} components={mdxComponents} />
-      </FadeIn>
-    </PageShell>
+            <DisplayHeading as="h1" variant="display" className="mt-4">
+              {study.title}
+            </DisplayHeading>
+
+            <p className={cn("mt-6", typography.lead.className)}>{study.summary}</p>
+
+            <div className="mt-6 flex flex-wrap gap-2">
+              {study.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className={cn(
+                    layoutClasses.radius,
+                    "border px-3 py-1",
+                    colorClasses.borderDefault,
+                    typography.caption.className,
+                    colorClasses.textSubtle,
+                  )}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </FadeIn>
+
+          <FadeIn
+            className={cn("mt-14 border-t pt-12", colorClasses.borderDefault)}
+            delay={0.08}
+          >
+            <MDXRemote source={study.content} components={mdxComponents} />
+          </FadeIn>
+        </PageContainer>
+      </PageShell>
+
+      <HomeFooter />
+    </div>
   );
 }

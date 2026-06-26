@@ -1,5 +1,11 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
+import { DisplayHeading, TextLink } from "@/components/ui";
+import { cn } from "@/lib/cn";
+import {
+  colorClasses,
+  spacingClasses,
+  typography,
+} from "@/lib/design-system";
 
 type WithChildren = {
   children?: ReactNode;
@@ -11,46 +17,51 @@ type AnchorProps = WithChildren & {
 
 export const mdxComponents = {
   h2: ({ children }: WithChildren) => (
-    <h2 className="mt-12 mb-4 text-2xl font-semibold tracking-tight text-stone-900 first:mt-0">
+    <DisplayHeading
+      as="h2"
+      variant="chapter"
+      className={cn("mt-12 first:mt-0", spacingClasses.chapterHeadlineMb)}
+    >
       {children}
-    </h2>
+    </DisplayHeading>
   ),
   h3: ({ children }: WithChildren) => (
-    <h3 className="mt-8 mb-3 text-xl font-semibold tracking-tight text-stone-900">
+    <DisplayHeading as="h3" variant="lead" className="mt-8 mb-3">
       {children}
-    </h3>
+    </DisplayHeading>
   ),
   p: ({ children }: WithChildren) => (
-    <p className="mb-5 text-lg leading-relaxed text-stone-600">{children}</p>
+    <p className={cn(typography.body.className, spacingClasses.paragraphGap)}>{children}</p>
   ),
   ul: ({ children }: WithChildren) => (
-    <ul className="mb-6 list-disc space-y-2 pl-6 text-lg text-stone-600">
+    <ul className={cn("mb-6 list-disc space-y-2 pl-6", typography.body.className)}>
       {children}
     </ul>
   ),
   ol: ({ children }: WithChildren) => (
-    <ol className="mb-6 list-decimal space-y-2 pl-6 text-lg text-stone-600">
+    <ol className={cn("mb-6 list-decimal space-y-2 pl-6", typography.body.className)}>
       {children}
     </ol>
   ),
-  li: ({ children }: WithChildren) => (
-    <li className="leading-relaxed">{children}</li>
-  ),
+  li: ({ children }: WithChildren) => <li>{children}</li>,
   a: ({ href, children }: AnchorProps) => (
-    <Link
-      href={href ?? "#"}
-      className="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 transition-colors hover:decoration-stone-900"
-    >
+    <TextLink href={href ?? "#"} variant="inline">
       {children}
-    </Link>
+    </TextLink>
   ),
   blockquote: ({ children }: WithChildren) => (
-    <blockquote className="my-8 border-l-2 border-stone-300 pl-6 text-lg italic text-stone-500">
+    <blockquote
+      className={cn(
+        "my-8 border-l-2 border-accent pl-8",
+        typography.displayClosing.className,
+        colorClasses.textPrimary,
+      )}
+    >
       {children}
     </blockquote>
   ),
-  hr: () => <hr className="my-10 border-stone-200" />,
+  hr: () => <hr className={cn("my-10", colorClasses.borderDefault)} />,
   strong: ({ children }: WithChildren) => (
-    <strong className="font-semibold text-stone-800">{children}</strong>
+    <strong className={cn(typography.itemTitle.className, "inline")}>{children}</strong>
   ),
 };

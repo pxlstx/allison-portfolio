@@ -72,9 +72,11 @@
      Two headline sizes + body + small + label.
      Nothing else. Don't add arbitrary sizes in components. */
   --text-hero: clamp(48px, 8vw, 106px); /* Page titles, home intro */
+  --text-hero--letter-spacing: var(--tracking-display);
   --text-display: clamp(40px, 5.5vw, 72px); /* Chapter headlines, typographic moments */
-  --text-title: clamp(20px, 2.2vw, 28px); /* Deliverable titles, card titles, next project */
-  --text-lead: 24px; /* Intro copy, page subtitles */
+  --text-display--letter-spacing: var(--tracking-display);
+  --text-lead: 24px; /* Intro copy, page subtitles, next project */
+  --text-lead--letter-spacing: var(--tracking-display);
   --text-body: 16px; /* Body copy */
   --text-body-md: 18px; /* Meta card values */
   --text-small: 13px; /* Nav meta, chat bubbles */
@@ -84,13 +86,12 @@
 
   /* ── Line heights ── */
   --leading-display: 1.05;
-  --leading-title: 1.2;
   --leading-body: 1.75;
   --leading-body-loose: 1.8;
   --leading-relaxed: 1.65;
 
   /* ── Letter spacing ── */
-  --tracking-display: -0.04em; /* All display headlines — font-display light */
+  --tracking-display: 0em; /* All display headlines — font-display light */
   --tracking-tight: -0.02em;
   --tracking-normal: -0.01em; /* Body copy */
   --tracking-label: 0.10em; /* All-caps labels */

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Caption,
+  DisplayHeading,
   Icon,
   MessageBubble,
   PromptChip,
@@ -182,10 +183,10 @@ export function AskChat() {
         )}
       >
         <header className={cn("text-left", hasUserMessage ? "pb-8" : "pb-10")}>
-          <h1 className="font-display text-display font-light tracking-display text-w-100">
+          <DisplayHeading as="h1" variant="display">
             AllisonGPT.
-          </h1>
-          <p className="mt-4 font-sans text-body font-light text-w-60">
+          </DisplayHeading>
+          <p className={cn("mt-4", typography.body.className)}>
             Almost as good as the real thing. Ask me about my work, my process,
             or how I&apos;d approach your next project.
           </p>

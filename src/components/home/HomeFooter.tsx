@@ -1,4 +1,4 @@
-import { Caption, TextLink } from "@/components/ui";
+import { Caption, Icon, ProjectCard, TextLink } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import {
   colorClasses,
@@ -23,7 +23,7 @@ export function HomeFooter({ className }: HomeFooterProps = {}) {
         className,
       )}
     >
-      <div className={cn(typography.bodySmall.className, colorClasses.textSubtle)}>
+      <div className={typography.bodySmallSubtle.className}>
         {site.name}
       </div>
       <ul className={cn("flex list-none", spacingClasses.footerLinkGap)}>

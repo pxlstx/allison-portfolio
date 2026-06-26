@@ -7,6 +7,7 @@ import {
   layoutClasses,
   motionClasses,
   spacingClasses,
+  stateClasses,
   typography,
 } from "@/lib/design-system";
 import { site } from "@/lib/site";
@@ -75,7 +76,8 @@ export function AboutPageContent() {
           "border-b",
           colorClasses.borderDefault,
           layoutClasses.aboutSectionShell,
-          "grid w-full items-end gap-12 pt-[120px] pb-24 sm:gap-20 lg:grid-cols-[1fr_360px]",
+          "grid w-full items-end gap-12 sm:gap-20 lg:grid-cols-[1fr_360px]",
+          spacingClasses.aboutHeroPad,
         )}
       >
         <div>
@@ -97,7 +99,7 @@ export function AboutPageContent() {
           </p>
         </div>
 
-        <div className="mt-10 w-full max-w-[240px] sm:max-w-none lg:mt-10">
+        <div className={cn("mt-10 w-full sm:max-w-none lg:mt-10", layoutClasses.aboutPhotoMax)}>
           <div
             className={cn(
               "relative aspect-[3/4] overflow-hidden",
@@ -175,13 +177,7 @@ export function AboutPageContent() {
         >
           {howIWork.items.map((item) => (
             <div key={item.title}>
-              <p
-                className={cn(
-                  typography.body.className,
-                  "mb-2.5 font-medium",
-                  colorClasses.textPrimary,
-                )}
-              >
+              <p className={cn(typography.itemTitle.className, "mb-2.5")}>
                 {item.title}
               </p>
               <p className={typography.bodySmall.className}>
@@ -209,16 +205,10 @@ export function AboutPageContent() {
                 "border p-7",
                 colorClasses.borderDefault,
                 motionClasses.fast,
-                "transition-colors hover:border-white/20",
+                stateClasses.serviceCardBorderHover,
               )}
             >
-              <p
-                className={cn(
-                  typography.body.className,
-                  "mb-2.5 font-medium",
-                  colorClasses.textPrimary,
-                )}
-              >
+              <p className={cn(typography.itemTitle.className, "mb-2.5")}>
                 {item.title}
               </p>
               <p className={typography.bodySmall.className}>
@@ -243,7 +233,7 @@ export function AboutPageContent() {
                   colorClasses.borderDefault,
                 )}
               >
-                <span className={cn("min-w-[100px] shrink-0", typography.bodySmall.className)}>
+                <span className={cn("min-w-[100px] shrink-0", typography.bodySmallSubtle.className)}>
                   {item.label}
                 </span>
                 <span
@@ -262,7 +252,7 @@ export function AboutPageContent() {
       </AboutSection>
 
       {/* CTA */}
-      <section className={cn(layoutClasses.aboutSectionShell, "pb-[120px] pt-24")}>
+      <section className={cn(layoutClasses.aboutSectionShell, spacingClasses.aboutCtaPad)}>
         <DisplayHeading
           as="h2"
           variant="display"

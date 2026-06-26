@@ -123,7 +123,7 @@ export function SiteMenu() {
               <Link
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className={cn(typography.displayChapter.className, linkClasses.navLink)}
+                className={cn(typography.navChapter.className, linkClasses.navLink)}
               >
                 {item.label}
               </Link>
