@@ -115,16 +115,6 @@ export const brandProjects: WorkProject[] = [
     imageSeed: "70",
   },
   {
-    id: "b3",
-    client: "Nuavo",
-    title: "Full brand identity from naming through to visual system for a Zurich startup",
-    sentence: "Full brand identity from naming through to visual system.",
-    year: "2023",
-    color: "#181C18",
-    category: "brand",
-    imageSeed: "80",
-  },
-  {
     id: "b4",
     client: "Kumi",
     title:
@@ -156,17 +146,15 @@ export const allProjectsOrder: WorkProject[] = [
   productProjects[2],
   brandProjects[0],
   brandProjects[2],
-  brandProjects[3],
   productProjects[3],
   brandProjects[1],
   productProjects[4],
-  brandProjects[4],
+  brandProjects[3],
 ];
 
 export const allGridSpans: GridSpan[] = [
   { colSpan: 6, aspect: "16/10", mobileColSpan: 12 },
   { colSpan: 6, aspect: "16/10", mobileColSpan: 12 },
-  { colSpan: 4, aspect: "4/3", mobileColSpan: 6 },
   { colSpan: 4, aspect: "4/3", mobileColSpan: 6 },
   { colSpan: 4, aspect: "4/3", mobileColSpan: 6 },
   { colSpan: 6, aspect: "16/10", mobileColSpan: 12 },
@@ -185,7 +173,6 @@ export const productGridSpans: GridSpan[] = [
 ];
 
 export const brandGridSpans: GridSpan[] = [
-  { colSpan: 4, aspect: "4/3", mobileColSpan: 6 },
   { colSpan: 4, aspect: "4/3", mobileColSpan: 6 },
   { colSpan: 4, aspect: "4/3", mobileColSpan: 6 },
   { colSpan: 6, aspect: "16/10", mobileColSpan: 12 },

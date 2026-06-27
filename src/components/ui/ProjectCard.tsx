@@ -101,7 +101,7 @@ export function ProjectCard({
         </p>
         <p
           className={cn(
-            typography.bodyCompact.className,
+            typography.body.className,
             motionClasses.medium,
             stateClasses.projectCardTitleHover,
           )}

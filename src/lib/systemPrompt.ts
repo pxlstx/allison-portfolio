@@ -53,7 +53,7 @@ Complete internal room management system and consumer-facing booking flow. End-t
 **Ava AG**
 Funded Swiss femtech startup making a fertility and cycle tracking wearable. Allison joined as product designer and grew into the Creative Director role, eventually leading design across both product and marketing. She designed their mobile apps — specifically helping women track their menstrual cycle and understand their fertility data. She also art directed video marketing campaigns, worked on their website optimisation, and ensured brand consistency across all touchpoints. Publicly showable.
 
-**Other clients include:** NewLevelWork, Nuavo (Zurich startup brand identity), Kumi (South African real estate brand), Peak Product (coaching brand), Bloxxgame, Chemie AG, Alfred, Sapient Nitro/SapientNitro (agency, Boston)
+**Other clients include:** Kumi (South African real estate brand), Peak Product (coaching brand), Chemie AG, Alfred, Sapient Nitro/SapientNitro (agency, Boston)
 
 ---
 

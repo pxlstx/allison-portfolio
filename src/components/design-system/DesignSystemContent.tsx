@@ -164,7 +164,7 @@ export function DesignSystemContent() {
       <DsSection id="typography" title="Typography">
         <p className={cn("mb-8", typography.body.className)}>
           Display: Neue Haas Grotesk Display (100–700) · Text: Neue Haas Grotesk Text
-          (400, 500, 700) via{" "}
+          (400, 500, 700). Body at light (300) uses Display — Text has no 300 in this kit. Fonts via{" "}
           <a
             href="https://use.typekit.net/deu5fpf.css"
             className={cn(linkClasses.textLinkInline, "underline underline-offset-2")}
@@ -174,102 +174,137 @@ export function DesignSystemContent() {
         </p>
         <TypeSpec
           name="display"
-          meta="clamp(48px, 8vw, 106px) · light (300) · 0 tracking · page titles, hero, intro"
+          meta="Display · clamp(48px, 8vw, 106px) · light (300) · 0 tracking · leading 0.95 · page titles, hero, intro"
           sample="Work"
           className={typography.display.className}
         />
         <TypeSpec
           name="displayHero"
-          meta="clamp(44px, 7vw, 90px) · light (300) · case study hero titles"
+          meta="Display · clamp(44px, 7vw, 90px) · light (300) · 0 tracking · leading 1 · case study hero titles"
           sample="A digitally empowered clinic."
           className={typography.displayHero.className}
         />
         <TypeSpec
+          name="displaySection"
+          meta="Display · clamp(32px, 4vw, 48px) · light (300) · 0 tracking · leading 1.05 · section headings"
+          sample="Typography"
+          className={typography.displaySection.className}
+          sampleClassName={colorClasses.textPrimary}
+        />
+        <TypeSpec
           name="displayChapter"
-          meta="clamp(40px, 5.5vw, 72px) · light (300) · case study headlines"
+          meta="Display · clamp(40px, 5.5vw, 72px) · light (300) · 0 tracking · leading 1.05 · case study headlines"
           sample="One visual language. Three surfaces."
           className={typography.displayChapter.className}
           sampleClassName={colorClasses.textPrimary}
         />
         <TypeSpec
           name="navChapter"
-          meta="clamp(36px, 5.5vw, 64px) · light (300) · menu navigation"
+          meta="Display · clamp(36px, 5.5vw, 64px) · light (300) · 0 tracking · leading 1.05 · menu navigation"
           sample="Work"
           className={cn(typography.navChapter.className, linkClasses.navLink)}
         />
         <TypeSpec
           name="displayClosing"
-          meta="clamp(20px, 2.5vw, 32px) · light · quotes, blockquotes"
+          meta="Display · clamp(20px, 2.5vw, 32px) · light (300) · 0 tracking · leading 1.35 · quotes, client grid"
           sample="I do my best work when the problem is genuinely hard."
           className={typography.displayClosing.className}
           sampleClassName={colorClasses.textPrimary}
         />
         <TypeSpec
-          name="displayMuted"
-          meta="clamp(48px, 8vw, 106px) · light · w-60 · home intro closing"
-          sample="into scalable products, brands,"
-          className={typography.displayMuted.className}
-        />
-        <TypeSpec
           name="lead"
-          meta="24px · light (300) · intro copy, page subtitles, next project"
+          meta="Display · 24px · light (300) · 0 tracking · leading 1.45 · intro copy, subtitles, next project"
           sample="End-to-end experience design for a science-backed clinic."
           className={typography.lead.className}
         />
         <TypeSpec
+          name="ctaLink"
+          meta="Display · clamp(22px, 2.5vw, 36px) · light (300) · 0 tracking · CTA links"
+          sample="Get in touch"
+          className={cn(typography.ctaLink.className, colorClasses.textPrimary)}
+        />
+        <TypeSpec
           name="bodyLarge"
-          meta="20px · Text · normal (400) · deliverables"
+          meta="Display · 20px · light (300) · tracking-normal · leading 1.65 · w-60 · deliverables"
           sample="The goal was to make science feel approachable."
           className={typography.bodyLarge.className}
         />
         <TypeSpec
           name="bodyMedium"
-          meta="18px · light · meta card values"
+          meta="Display · 18px · light (300) · tracking-normal · w-60 · meta card values"
           sample="Lead Product & UX Designer"
           className={typography.bodyMedium.className}
         />
         <TypeSpec
           name="body"
-          meta="16px · light · leading-body-loose · body copy, project cards"
+          meta="Display · 16px · light (300) · tracking-normal · leading 1.8 · w-60 · body copy, project cards"
           sample="Everskin is a new kind of aesthetic dermatology clinic in Zurich."
           className={typography.body.className}
         />
         <TypeSpec
           name="bodySmall"
-          meta="13px · light · w-60 · About grids, chat bubbles"
+          meta="Text · 14px (text-sm) · normal (400) · leading 1.65 · w-60 · About grids, chat bubbles"
           sample="I design the foundation before the features. Good design systems make everything downstream faster."
           className={typography.bodySmall.className}
         />
         <TypeSpec
           name="bodySmallSubtle"
-          meta="13px · light · w-30 · footer name, Currently labels"
+          meta="Text · 14px (text-sm) · normal (400) · leading 1.65 · w-30 · footer name, Currently labels"
           sample="Based"
           className={typography.bodySmallSubtle.className}
         />
         <TypeSpec
           name="itemTitle"
-          meta="16px · medium · white · About grid titles"
+          meta="Text · 16px · medium (500) · tracking-normal · white · About grid titles"
           sample="Systems first"
           className={typography.itemTitle.className}
         />
         <TypeSpec
           name="caption"
-          meta="12px · light · captions, footer links"
+          meta="Text · 12px · normal (400) · tracking-normal · captions, footer links"
           sample="Powered by Claude · Answers based on Allison's actual background."
           className={typography.caption.className}
         />
         <TypeSpec
           name="micro"
-          meta="10px · medium · NDA badges, cursor label"
+          meta="Text · 10px · medium (500) · tracking 0.06em · NDA badges, cursor label"
           sample="NDA"
           className={typography.micro.className}
         />
         <TypeSpec
-          name="label / fine"
-          meta="11px · medium/light · uppercase labels, fine print"
+          name="label"
+          meta="Text · 11px · medium (500) · tracking 0.1em · uppercase · section labels, eyebrows"
           sample="The challenge"
           className={typography.label.className}
           sampleClassName={colorClasses.textAccent}
+        />
+        <TypeSpec
+          name="fine"
+          meta="Text · 11px · normal (400) · leading 1.6 · fine print, type meta"
+          sample="clamp(48px, 8vw, 106px) · light (300) · 0 tracking · leading 0.95"
+          className={typography.fine.className}
+          sampleClassName={colorClasses.textFaint}
+        />
+        <TypeSpec
+          name="navMeta"
+          meta="Text · 13px (text-small) · normal (400) · nav meta, prompt chips"
+          sample="Based in Zurich"
+          className={typography.navMeta.className}
+          sampleClassName={colorClasses.textSubtle}
+        />
+        <TypeSpec
+          name="filterTab"
+          meta="Text · 15px / 16px sm · normal (400) · work filter tabs"
+          sample="All work"
+          className={typography.filterTab.className}
+          sampleClassName={colorClasses.textSubtle}
+        />
+        <TypeSpec
+          name="textLinkSmall"
+          meta="Text · 14px (text-sm) · normal (400) · leading 2.1 · footer links"
+          sample="LinkedIn"
+          className={typography.textLinkSmall.className}
+          sampleClassName={colorClasses.textFaint}
         />
       </DsSection>
 

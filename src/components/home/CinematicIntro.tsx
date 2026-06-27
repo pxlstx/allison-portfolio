@@ -19,7 +19,10 @@ const wait = (ms: number) =>
 
 const displayTextClass = typography.display.className;
 
-const closingDisplayClass = typography.displayMuted.className;
+const closingDisplayClass = cn(
+  "font-display text-hero font-light leading-display tracking-display",
+  colorClasses.textMuted,
+);
 
 type IntroPhase =
   | "panel-1-in"
