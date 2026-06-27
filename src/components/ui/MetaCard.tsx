@@ -2,7 +2,6 @@ import { cn } from "@/lib/cn";
 import {
   colorClasses,
   layoutClasses,
-  spacing,
   spacingClasses,
   typography,
 } from "@/lib/design-system";
@@ -20,9 +19,9 @@ export function MetaCard({ label, value, className }: MetaCardProps) {
         layoutClasses.radius,
         "border",
         colorClasses.borderWhite18,
+        spacingClasses.metaCardPad,
         className,
       )}
-      style={{ padding: `${spacing.metaCardPaddingY} ${spacing.pageXMobile}` }}
     >
       <div className={cn(spacingClasses.metaCardLabelMb, colorClasses.textAccent, typography.label.className)}>
         {label}

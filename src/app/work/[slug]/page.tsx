@@ -96,7 +96,8 @@ export default async function CaseStudyPage({ params }: PageProps) {
                   key={tag}
                   className={cn(
                     layoutClasses.radius,
-                    "border px-3 py-1",
+                    spacingClasses.tagPad,
+                    "border",
                     colorClasses.borderDefault,
                     typography.caption.className,
                     colorClasses.textSubtle,
@@ -109,7 +110,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
           </FadeIn>
 
           <FadeIn
-            className={cn("mt-14 border-t pt-12", colorClasses.borderDefault)}
+            className={cn("mt-14 border-t", spacingClasses.mdxContentPt, colorClasses.borderDefault)}
             delay={0.08}
           >
             <MDXRemote source={study.content} components={mdxComponents} />

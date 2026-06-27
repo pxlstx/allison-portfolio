@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { HomeFooter } from "@/components/home/HomeFooter";
 import { DesignSystemContent } from "@/components/design-system/DesignSystemContent";
+import { cn } from "@/lib/cn";
+import { spacingClasses } from "@/lib/design-system";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -10,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function DesignSystemPage() {
   return (
-    <div className="bg-ink pb-24">
+    <div className={cn("bg-ink", spacingClasses.pageBottomPad)}>
       <DesignSystemContent />
       <HomeFooter />
     </div>

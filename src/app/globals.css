@@ -185,3 +185,7 @@ h4 {
     padding-right: var(--space-page-x-mobile);
   }
 }
+
+.pt-page-top {
+  padding-top: var(--space-page-top);
+}

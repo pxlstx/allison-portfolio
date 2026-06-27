@@ -16,7 +16,6 @@ import {
   layoutClasses,
   spacingClasses,
   typography,
-  zIndexClasses,
 } from "@/lib/design-system";
 import { cn } from "@/lib/cn";
 
@@ -84,52 +83,24 @@ export function ParallaxImage({
 }
 
 export function CaseStudyHeroAnimated({ study }: { study: StructuredCaseStudy }) {
-  const ref = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
   const titleLines = study.titleLines ?? [study.title];
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-  const imageY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    reduceMotion ? ["0%", "0%"] : ["0%", "22%"],
-  );
-  const contentY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    reduceMotion ? ["0%", "0%"] : ["0%", "12%"],
-  );
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
-
   return (
     <section
-      ref={ref}
       className={cn(
-        "relative flex h-screen items-end overflow-hidden",
-        spacingClasses.pagePadXWide,
-        spacingClasses.heroPadBottom,
+        "border-b",
+        colorClasses.surface,
+        colorClasses.borderDefault,
       )}
     >
-      <motion.div
-        className="absolute inset-0 -top-[18%] h-[136%] w-full"
-        style={{ y: imageY }}
-      >
-        <Image
-          src={study.heroImage}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className={cn("object-cover object-center", colorClasses.imageBrightnessHero)}
-        />
-      </motion.div>
-
-      <motion.div
-        className={cn("relative", zIndexClasses.raised, layoutClasses.maxWidthProse)}
-        style={{ y: contentY, opacity: contentOpacity }}
+      <div
+        className={cn(
+          layoutClasses.caseStudyTextShell,
+          spacingClasses.pagePadX,
+          spacingClasses.pageTopPad,
+          spacingClasses.caseStudyHeroTextPad,
+        )}
       >
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 20 }}
@@ -154,8 +125,8 @@ export function CaseStudyHeroAnimated({ study }: { study: StructuredCaseStudy })
         <motion.p
           className={cn(
             layoutClasses.maxWidthLead,
-            colorClasses.textPrimary,
             typography.lead.className,
+            colorClasses.textPrimary,
           )}
           initial={reduceMotion ? false : { opacity: 0, y: 20 }}
           animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
@@ -163,7 +134,28 @@ export function CaseStudyHeroAnimated({ study }: { study: StructuredCaseStudy })
         >
           {study.subtitle}
         </motion.p>
-      </motion.div>
+      </div>
+
+      <div className={layoutClasses.caseStudyHeroImage}>
+        <Image
+          src={study.heroImage}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className={cn(
+            "object-cover",
+            study.heroImageFocus === "center"
+              ? "object-center"
+              : study.heroImageFocus === "low"
+                ? "object-[50%_38%]"
+                : study.heroImageFocus === "bottom"
+                  ? "object-bottom"
+                  : "object-top",
+            colorClasses.imageBrightnessHero,
+          )}
+        />
+      </div>
     </section>
   );
 }

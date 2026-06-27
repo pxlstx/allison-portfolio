@@ -82,10 +82,12 @@ export const productProjects: WorkProject[] = [
       "Mobile product design, brand identity, and creative leadership for a funded Swiss femtech startup",
     sentence:
       "Brand, product, and marketing design for a funded Swiss femtech startup.",
-    year: "2019–21",
+    year: "2016–20",
     color: "#181A16",
     category: "product",
     imageSeed: "50",
+    imageSrc: "/images/ava/ava-hero.jpg",
+    href: "/work/ava",
   },
 ];
 
@@ -125,6 +127,8 @@ export const brandProjects: WorkProject[] = [
     color: "#1C1618",
     category: "brand",
     imageSeed: "90",
+    href: "/work/kumi",
+    imageSrc: "/images/kumi/kumi-hero.png",
   },
   {
     id: "b5",

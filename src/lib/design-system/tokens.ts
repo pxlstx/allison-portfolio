@@ -39,7 +39,7 @@ export const spacing = {
   footerHairline: "3px",
   underlineOffsetSm: "4px",
   underlineOffsetMd: "6px",
-  deliverableLabelCol: "200px",
+  deliverableLabelCol: "260px",
   gridGap: "48px",
   gridGapLarge: "64px",
   cardPadding: "16px",

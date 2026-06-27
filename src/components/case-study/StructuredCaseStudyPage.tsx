@@ -6,6 +6,7 @@ import {
   ParallaxImage,
   Reveal,
 } from "@/components/case-study/CaseStudyMotion";
+import { CaseStudyStats } from "@/components/case-study/CaseStudyStats";
 import { DisplayHeading, Icon, MetaCard, SectionLabel } from "@/components/ui";
 import type {
   CaseStudyBlock,
@@ -74,7 +75,7 @@ function CaseStudyChapter({
 
   return (
     <Reveal>
-      <article className={cn(spacingClasses.chapterBlockMb, "last:mb-0", "w-full")}>
+      <article className="w-full">
         <SectionLabel>{label}</SectionLabel>
         <DisplayHeading as="h2" variant="chapter" className={spacingClasses.chapterHeadlineMb}>
           {lines.map((line, index) => (
@@ -112,7 +113,7 @@ function CaseStudyTypoMoment({
         <Reveal y={20}>
           <p
             className={cn(
-              layoutClasses.maxWidthProse,
+              layoutClasses.maxWidthAboutWide,
               typography.displayChapter.className,
               colorClasses.textPrimary,
             )}
@@ -147,30 +148,93 @@ function CaseStudyFigure({
   fit = "cover",
   width,
   height,
+  inset,
 }: Extract<CaseStudyBlock, { type: "image" }>) {
   const isAppWide = variant === "app-wide";
   const isContain = fit === "contain";
-  const useNaturalSize = isContain && width != null && height != null;
+  const useNaturalSize = width != null && height != null;
+  const useNaturalContain = useNaturalSize && isContain;
+  const usePlainContain = useNaturalContain && inset === "plain";
+  const useLooseContain = useNaturalContain && inset === "loose";
+  const useNaturalCover = useNaturalSize && fit === "cover";
+  const useNaturalShortCover = variant === "short" && useNaturalCover;
 
   const imageShellClass = cn(
     "w-full",
-    useNaturalSize
-      ? cn(colorClasses.surfaceRaised, spacingClasses.imageContainPad)
-      : isAppWide
-        ? imageVariantClass["app-wide"]
-        : isContain
-          ? cn("relative", colorClasses.surfaceRaised, imageVariantClass[variant])
-          : imageVariantClass[variant],
+    usePlainContain
+      ? cn("mx-auto", layoutClasses.maxWidthImage)
+      : useLooseContain
+      ? cn(
+          colorClasses.surfaceRaised,
+          spacingClasses.pagePadX,
+          spacingClasses.imageContainPadLoose,
+        )
+      : useNaturalContain
+        ? cn(colorClasses.surfaceRaised, spacingClasses.imageContainPad)
+        : useNaturalShortCover
+          ? "overflow-hidden"
+          : useNaturalCover
+            ? "overflow-hidden"
+            : isAppWide
+              ? imageVariantClass["app-wide"]
+              : isContain
+                ? cn("relative", colorClasses.surfaceRaised, imageVariantClass[variant])
+                : imageVariantClass[variant],
   );
 
-  const imageNode = useNaturalSize ? (
+  const containImage = (
+    <Image
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      sizes={
+        usePlainContain
+          ? "(max-width: 1400px) 95vw, 1400px"
+          : useLooseContain
+            ? "(max-width: 1200px) 90vw, 1200px"
+            : "100vw"
+      }
+      className={cn(
+        "mx-auto h-auto w-full object-contain",
+        useLooseContain
+          ? layoutClasses.maxWidthContent
+          : layoutClasses.maxWidthImage,
+      )}
+    />
+  );
+
+  const imageNode = useNaturalContain ? (
+    useLooseContain ? (
+      <div
+        className={cn(
+          spacingClasses.imageContainInsetLoose,
+          "mx-auto w-full",
+          layoutClasses.maxWidthContent,
+        )}
+      >
+        {containImage}
+      </div>
+    ) : (
+      containImage
+    )
+  ) : useNaturalShortCover ? (
     <Image
       src={src}
       alt={alt}
       width={width}
       height={height}
       sizes="100vw"
-      className="mx-auto h-auto w-full max-w-[1400px] object-contain"
+      className="h-auto max-h-[60vh] w-full object-cover object-center"
+    />
+  ) : useNaturalCover ? (
+    <Image
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      sizes="100vw"
+      className="h-auto w-full object-cover object-center"
     />
   ) : isAppWide ? (
     <Image
@@ -231,8 +295,12 @@ function CaseStudyFigure({
 
 function CaseStudyDeliverable({
   label,
+  title,
+  titleLayout = "left",
   body,
 }: Extract<CaseStudyBlock, { type: "deliverable" }>) {
+  const titleOnRight = titleLayout === "right" && title;
+
   return (
     <Reveal>
       <article
@@ -244,14 +312,66 @@ function CaseStudyDeliverable({
           colorClasses.borderDefault,
         )}
       >
-        <div className={cn(spacingClasses.deliverableLabelPt, colorClasses.textAccent, typography.label.className)}>
-          {label}
+        <div className={spacingClasses.deliverableLabelPt}>
+          <div className={cn(colorClasses.textAccent, typography.label.className)}>
+            {label}
+          </div>
+          {title && !titleOnRight ? (
+            <DisplayHeading as="h3" variant="lead" className="mt-3">
+              {title}
+            </DisplayHeading>
+          ) : null}
         </div>
-        <p className={cn(layoutClasses.maxWidthProse, typography.bodyLarge.className)}>
-          {body}
-        </p>
+        <div className={layoutClasses.maxWidthProse}>
+          {titleOnRight ? (
+            <DisplayHeading as="h3" variant="lead" className="mb-3">
+              {title}
+            </DisplayHeading>
+          ) : null}
+          <p className={typography.body.className}>{body}</p>
+        </div>
       </article>
     </Reveal>
+  );
+}
+
+function CaseStudyTestimonial({
+  quote,
+  attribution,
+}: Extract<CaseStudyBlock, { type: "testimonial" }>) {
+  return (
+    <section
+      className={cn(
+        "border-y",
+        spacingClasses.sectionPadY,
+        colorClasses.borderDefault,
+      )}
+    >
+      <CaseStudyTextShell>
+        <Reveal y={20}>
+          <blockquote
+            className={cn(
+              layoutClasses.maxWidthAboutQuote,
+              "border-l-2 border-accent",
+              spacingClasses.blockquotePad,
+              typography.displayClosing.className,
+              colorClasses.textPrimary,
+            )}
+          >
+            {quote}
+          </blockquote>
+          <p
+            className={cn(
+              spacingClasses.blockquotePad,
+              typography.bodySmall.className,
+              colorClasses.textSubtle,
+            )}
+          >
+            {attribution}
+          </p>
+        </Reveal>
+      </CaseStudyTextShell>
+    </section>
   );
 }
 
@@ -265,7 +385,7 @@ function CaseStudyBlockRenderer({
   switch (block.type) {
     case "chapter":
       return (
-        <div key={index} className={spacingClasses.chapterBlockPad}>
+        <div key={index} className={spacingClasses.sectionPadY}>
           <CaseStudyTextShell>
             <CaseStudyChapter {...block} />
           </CaseStudyTextShell>
@@ -273,6 +393,10 @@ function CaseStudyBlockRenderer({
       );
     case "typo":
       return <CaseStudyTypoMoment key={index} {...block} />;
+    case "stats":
+      return <CaseStudyStats key={index} items={block.items} />;
+    case "testimonial":
+      return <CaseStudyTestimonial key={index} {...block} />;
     case "image":
       return <CaseStudyFigure key={index} {...block} />;
     default:
@@ -339,11 +463,9 @@ export function StructuredCaseStudyPage({
       {study.blocks.map((block, index) => {
         if (block.type === "deliverable") {
           return (
-            <div key={index} className={spacingClasses.deliverableBlockPad}>
-              <CaseStudyTextShell>
-                <CaseStudyDeliverable {...block} />
-              </CaseStudyTextShell>
-            </div>
+            <CaseStudyTextShell key={index}>
+              <CaseStudyDeliverable {...block} />
+            </CaseStudyTextShell>
           );
         }
 

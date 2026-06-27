@@ -156,7 +156,8 @@ export function AboutPageContent() {
           <blockquote
             className={cn(
               layoutClasses.maxWidthAboutQuote,
-              "ml-auto border-l-2 border-accent pl-8",
+              "ml-auto border-l-2 border-accent",
+              spacingClasses.blockquotePad,
               typography.displayClosing.className,
               colorClasses.textPrimary,
             )}
@@ -202,7 +203,8 @@ export function AboutPageContent() {
               key={item.title}
               className={cn(
                 layoutClasses.radius,
-                "border p-7",
+                spacingClasses.serviceCardPad,
+                "border",
                 colorClasses.borderDefault,
                 motionClasses.fast,
                 stateClasses.serviceCardBorderHover,
@@ -227,8 +229,9 @@ export function AboutPageContent() {
               <div
                 key={item.label}
                 className={cn(
-                  "flex items-baseline justify-between gap-6 py-6",
-                  index === 0 && "pt-0",
+                  "flex items-baseline justify-between gap-6",
+                  spacingClasses.currentlyRowPad,
+                  index === 0 && spacingClasses.currentlyRowFirstPt,
                   index < currently.items.length - 1 && "border-b",
                   colorClasses.borderDefault,
                 )}

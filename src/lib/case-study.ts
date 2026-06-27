@@ -1,4 +1,6 @@
+import { avaCaseStudy } from "@/lib/case-study-content/ava";
 import { everskinCaseStudy } from "@/lib/case-study-content/everskin";
+import { kumiCaseStudy } from "@/lib/case-study-content/kumi";
 
 export type CaseStudyMetaItem = {
   label: string;
@@ -30,12 +32,28 @@ export type CaseStudyBlock =
       fit?: "cover" | "contain";
       width?: number;
       height?: number;
+      inset?: "loose" | "plain";
     }
   | {
       type: "deliverable";
       label: string;
-      body: string;
       title?: string;
+      titleLayout?: "left" | "right";
+      body: string;
+    }
+  | {
+      type: "stats";
+      items: {
+        target: number;
+        prefix?: string;
+        suffix?: string;
+        label: string;
+      }[];
+    }
+  | {
+      type: "testimonial";
+      quote: string;
+      attribution: string;
     };
 
 export type StructuredCaseStudy = {
@@ -45,6 +63,7 @@ export type StructuredCaseStudy = {
   titleLines?: string[];
   subtitle: string;
   heroImage: string;
+  heroImageFocus?: "top" | "center" | "low" | "bottom";
   meta: CaseStudyMetaItem[];
   blocks: CaseStudyBlock[];
   nextProject?: {
@@ -54,7 +73,9 @@ export type StructuredCaseStudy = {
 };
 
 const structuredCaseStudies: Record<string, StructuredCaseStudy> = {
+  ava: avaCaseStudy,
   everskin: everskinCaseStudy,
+  kumi: kumiCaseStudy,
 };
 
 export function getStructuredCaseStudy(

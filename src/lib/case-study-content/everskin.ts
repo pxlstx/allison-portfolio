@@ -4,7 +4,7 @@ const img = (file: string) => `/images/everskin/${file}`;
 
 export const everskinCaseStudy: StructuredCaseStudy = {
   slug: "everskin",
-  tag: "Product & UX Design · 2024",
+  tag: "Product & UX Design",
   title: "A digitally empowered journey to your best skin.",
   titleLines: ["A digitally empowered", "journey to your best skin."],
   subtitle:

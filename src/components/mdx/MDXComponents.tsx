@@ -34,12 +34,12 @@ export const mdxComponents = {
     <p className={cn(typography.body.className, spacingClasses.paragraphGap)}>{children}</p>
   ),
   ul: ({ children }: WithChildren) => (
-    <ul className={cn("mb-6 list-disc space-y-2 pl-6", typography.body.className)}>
+    <ul className={cn("mb-6 list-disc space-y-2", spacingClasses.listPad, typography.body.className)}>
       {children}
     </ul>
   ),
   ol: ({ children }: WithChildren) => (
-    <ol className={cn("mb-6 list-decimal space-y-2 pl-6", typography.body.className)}>
+    <ol className={cn("mb-6 list-decimal space-y-2", spacingClasses.listPad, typography.body.className)}>
       {children}
     </ol>
   ),
@@ -52,7 +52,8 @@ export const mdxComponents = {
   blockquote: ({ children }: WithChildren) => (
     <blockquote
       className={cn(
-        "my-8 border-l-2 border-accent pl-8",
+        "my-8 border-l-2 border-accent",
+        spacingClasses.blockquotePad,
         typography.displayClosing.className,
         colorClasses.textPrimary,
       )}

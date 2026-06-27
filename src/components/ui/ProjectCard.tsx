@@ -3,7 +3,6 @@ import Link from "next/link";
 import {
   colorClasses,
   motionClasses,
-  spacing,
   spacingClasses,
   stateClasses,
   typography,
@@ -17,11 +16,6 @@ const aspectClass: Record<ProjectCardAspect, string> = {
   "16/10": "aspect-[16/10]",
   "4/3": "aspect-[4/3] max-[900px]:aspect-video",
 };
-
-const bodyStyle = {
-  padding: spacing.cardPadding,
-  gap: spacing.cardImageGap,
-} as const;
 
 export type ProjectCardProps = {
   client: string;
@@ -53,7 +47,11 @@ export function ProjectCard({
     className,
   );
 
-  const bodyClassName = "group flex h-full flex-col";
+  const bodyClassName = cn(
+    "group flex h-full flex-col",
+    spacingClasses.cardPad,
+    spacingClasses.cardBodyGap,
+  );
 
   const content = (
     <>
@@ -89,13 +87,7 @@ export function ProjectCard({
         ) : null}
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: spacing.cardTitleGap,
-        }}
-      >
+      <div className={spacingClasses.cardTitleStack}>
         <p className={cn(colorClasses.textAccent, typography.label.className)}>
           {client}
         </p>
@@ -115,7 +107,7 @@ export function ProjectCard({
   if (nda || !href) {
     return (
       <article className={shellClassName}>
-        <div className={bodyClassName} style={bodyStyle}>
+        <div className={bodyClassName}>
           {content}
         </div>
       </article>
@@ -124,7 +116,7 @@ export function ProjectCard({
 
   return (
     <div className={shellClassName}>
-      <Link href={href} className={bodyClassName} style={bodyStyle} data-cursor="view">
+      <Link href={href} className={bodyClassName} data-cursor="view">
         {content}
       </Link>
     </div>

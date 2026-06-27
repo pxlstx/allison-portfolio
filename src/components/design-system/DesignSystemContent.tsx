@@ -16,7 +16,7 @@ import {
   TextLink,
   TextLinkSmall,
 } from "@/components/ui";
-import { colors, colorClasses, iconExamples, iconSizes, layout, layoutClasses, linkClasses, spacing, typography } from "@/lib/design-system";
+import { colors, colorClasses, iconExamples, iconSizes, layout, layoutClasses, linkClasses, spacing, spacingClasses, typography } from "@/lib/design-system";
 import { cn } from "@/lib/cn";
 
 const docSurface = cn(
@@ -36,7 +36,7 @@ function DsSection({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className={cn("border-t py-16 first:border-t-0 sm:py-20", colorClasses.borderDefault)}>
+    <section id={id} className={cn("border-t first:border-t-0", spacingClasses.dsSectionPad, colorClasses.borderDefault)}>
       <DisplayHeading as="h2" variant="chapter" className={cn("mb-10", typography.displaySection.className)}>
         {title}
       </DisplayHeading>
@@ -82,7 +82,7 @@ function TypeSpec({
   sampleClassName?: string;
 }) {
   return (
-    <div className={cn("border-b py-8 last:border-b-0", colorClasses.borderDefault)}>
+    <div className={cn("border-b last:border-b-0", spacingClasses.dsTypeSpecPad, colorClasses.borderDefault)}>
       <p className={cn("mb-1 font-mono text-caption", colorClasses.textAccent)}>{name}</p>
       <p className={cn("mb-3 font-mono", typography.fine.className, colorClasses.textFaint)}>{meta}</p>
       <p className={cn(className, sampleClassName)}>{sample}</p>
@@ -106,7 +106,7 @@ function CompDesc({ children }: { children: React.ReactNode }) {
 
 export function DesignSystemContent() {
   return (
-    <PageContainer className="pt-24 sm:pt-32">
+    <PageContainer className={spacingClasses.docHeroPt}>
       <header className="mb-4 max-w-prose">
         <Eyebrow className="mb-6">Reference</Eyebrow>
         <DisplayHeading as="h1" variant="display" className="mb-6">
@@ -118,7 +118,7 @@ export function DesignSystemContent() {
         </p>
       </header>
 
-      <nav className={cn("mb-8 flex flex-wrap gap-x-6 gap-y-2 border-b pb-8", colorClasses.borderDefault)}>
+      <nav className={cn("mb-8 flex flex-wrap gap-x-6 gap-y-2 border-b", spacingClasses.dsNavPb, colorClasses.borderDefault)}>
         {[
           ["colors", "Colors"],
           ["typography", "Typography"],
@@ -153,7 +153,7 @@ export function DesignSystemContent() {
           <Swatch name="status-online" value={colors.statusOnline} className="bg-status-online" />
           <Swatch name="error" value={colors.error} className="bg-error" />
         </div>
-        <div className={cn("mt-10 p-6", docSurface)}>
+        <div className={cn("mt-10", spacingClasses.docSurfacePad, docSurface)}>
           <p className={cn("mb-4", typography.bodySmall.className, colorClasses.textMuted)}>CSS variables</p>
           <pre className={cn("overflow-x-auto font-mono text-caption leading-relaxed", colorClasses.textSubtle)}>
             {`--ink, --ink-2\n--color-w-100 … --color-w-08\n--color-bdr, --color-bdr-mid, --color-bdr-bright\n--color-accent, --color-accent-bright\n--color-status-online, --color-error`}
@@ -365,7 +365,7 @@ export function DesignSystemContent() {
           {iconExamples.map((icon) => (
             <div
               key={icon.name}
-              className={cn("flex flex-col items-center gap-3 px-6 py-8", docSurface)}
+              className={cn("flex flex-col items-center gap-3", spacingClasses.docDemoPad, docSurface)}
             >
               <Icon name={icon.name} className={colorClasses.textPrimary} />
               <p className={cn("font-mono text-caption", colorClasses.textAccent)}>{icon.name}</p>
@@ -378,7 +378,7 @@ export function DesignSystemContent() {
         <div className="grid gap-8 lg:grid-cols-2">
           <div>
             <p className={cn("mb-4", typography.bodySmall.className, colorClasses.textMuted)}>Sizes</p>
-            <div className={cn("flex flex-wrap items-end gap-8 p-6", docSurface)}>
+            <div className={cn("flex flex-wrap items-end gap-8", spacingClasses.docSurfacePad, docSurface)}>
               {(Object.entries(iconSizes) as [keyof typeof iconSizes, number][]).map(
                 ([token, px]) => (
                   <div key={token} className="flex flex-col items-center gap-2">
@@ -393,7 +393,7 @@ export function DesignSystemContent() {
           </div>
           <div>
             <p className={cn("mb-4", typography.bodySmall.className, colorClasses.textMuted)}>Colors</p>
-            <div className={cn("flex flex-wrap items-center gap-8 p-6", docSurface)}>
+            <div className={cn("flex flex-wrap items-center gap-8", spacingClasses.docSurfacePad, docSurface)}>
               <Icon name="arrow_forward" className={colorClasses.textPrimary} label="White icon" />
               <Icon name="arrow_forward" className={colorClasses.textSubtle} label="Muted icon" />
               <Icon name="arrow_forward" className={colorClasses.textAccent} label="Accent icon" />
@@ -402,7 +402,7 @@ export function DesignSystemContent() {
           </div>
         </div>
 
-        <div className={cn("mt-10 p-6", docSurface)}>
+        <div className={cn("mt-10", spacingClasses.docSurfacePad, docSurface)}>
           <p className={cn("mb-4", typography.bodySmall.className, colorClasses.textMuted)}>Usage</p>
           <pre className={cn("overflow-x-auto font-mono text-caption leading-relaxed", colorClasses.textSubtle)}>
             {`import { Icon } from "@/components/ui";\n\n<Icon name="arrow_forward" />\n<Icon name="arrow_forward" size="lg" className="text-accent-bright" />`}
@@ -469,7 +469,7 @@ export function DesignSystemContent() {
           <div className="max-w-xl">
             <CompLabel>TextInput</CompLabel>
             <div className="relative">
-              <TextInput placeholder="Ask me (almost) anything" className="pr-12 sm:pr-14" />
+              <TextInput placeholder="Ask me (almost) anything" className={spacingClasses.inputSubmitInset} />
               <span className={cn("pointer-events-none absolute top-1/2 right-3 flex -translate-y-1/2 items-center sm:right-4", colorClasses.textAccentBright)}>
                 <Icon name="arrow_forward" size="md" className={colorClasses.textAccentBright} />
               </span>
