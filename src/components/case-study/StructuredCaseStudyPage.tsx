@@ -140,6 +140,19 @@ const imageVariantClass: Record<CaseStudyImageVariant, string> = {
   ),
 };
 
+function imageFocusClass(focus?: "top" | "center" | "low" | "bottom") {
+  switch (focus) {
+    case "top":
+      return "object-top";
+    case "low":
+      return "object-[50%_65%]";
+    case "bottom":
+      return "object-bottom";
+    default:
+      return "object-center";
+  }
+}
+
 function CaseStudyFigure({
   src,
   alt,
@@ -149,20 +162,24 @@ function CaseStudyFigure({
   width,
   height,
   inset,
+  focus,
 }: Extract<CaseStudyBlock, { type: "image" }>) {
   const isAppWide = variant === "app-wide";
   const isContain = fit === "contain";
   const useNaturalSize = width != null && height != null;
   const useNaturalContain = useNaturalSize && isContain;
   const usePlainContain = useNaturalContain && inset === "plain";
-  const useLooseContain = useNaturalContain && inset === "loose";
+  const useLooseContain =
+    useNaturalContain && (inset === "loose" || inset === "loose-wide");
+  const useLooseWideInset = inset === "loose-wide";
   const useNaturalCover = useNaturalSize && fit === "cover";
-  const useNaturalShortCover = variant === "short" && useNaturalCover;
+  const useNaturalShortCover = variant === "short" && useNaturalCover && !focus;
+  const useNaturalCroppedCover = useNaturalCover && focus != null;
 
   const imageShellClass = cn(
     "w-full",
     usePlainContain
-      ? cn("mx-auto", layoutClasses.maxWidthImage)
+      ? cn("mx-auto w-full")
       : useLooseContain
       ? cn(
           colorClasses.surfaceRaised,
@@ -171,7 +188,7 @@ function CaseStudyFigure({
         )
       : useNaturalContain
         ? cn(colorClasses.surfaceRaised, spacingClasses.imageContainPad)
-        : useNaturalShortCover
+        : useNaturalShortCover || useNaturalCroppedCover
           ? "overflow-hidden"
           : useNaturalCover
             ? "overflow-hidden"
@@ -182,24 +199,43 @@ function CaseStudyFigure({
                 : imageVariantClass[variant],
   );
 
+  const plainContainMaxWidth = usePlainContain && width != null ? width : undefined;
+  const plainContainDisplayWidth =
+    plainContainMaxWidth != null
+      ? Math.min(plainContainMaxWidth, 1400)
+      : undefined;
+  const plainContainUnoptimized =
+    usePlainContain &&
+    plainContainMaxWidth != null &&
+    plainContainMaxWidth <= 800;
+
   const containImage = (
     <Image
       src={src}
       alt={alt}
       width={width}
       height={height}
+      unoptimized={plainContainUnoptimized}
+      quality={plainContainUnoptimized ? undefined : 90}
       sizes={
-        usePlainContain
-          ? "(max-width: 1400px) 95vw, 1400px"
+        plainContainDisplayWidth
+          ? `(max-width: ${plainContainDisplayWidth}px) 95vw, ${plainContainDisplayWidth}px`
           : useLooseContain
             ? "(max-width: 1200px) 90vw, 1200px"
             : "100vw"
+      }
+      style={
+        plainContainDisplayWidth
+          ? { maxWidth: plainContainDisplayWidth }
+          : undefined
       }
       className={cn(
         "mx-auto h-auto w-full object-contain",
         useLooseContain
           ? layoutClasses.maxWidthContent
-          : layoutClasses.maxWidthImage,
+          : usePlainContain
+            ? layoutClasses.maxWidthImage
+            : layoutClasses.maxWidthImage,
       )}
     />
   );
@@ -208,7 +244,9 @@ function CaseStudyFigure({
     useLooseContain ? (
       <div
         className={cn(
-          spacingClasses.imageContainInsetLoose,
+          useLooseWideInset
+            ? spacingClasses.imageContainInsetLooseWide
+            : spacingClasses.imageContainInsetLoose,
           "mx-auto w-full",
           layoutClasses.maxWidthContent,
         )}
@@ -218,6 +256,16 @@ function CaseStudyFigure({
     ) : (
       containImage
     )
+  ) : useNaturalCroppedCover ? (
+    <div className={cn("relative w-full", layoutClasses.aspectVideo)}>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes="100vw"
+        className={cn("object-cover", imageFocusClass(focus))}
+      />
+    </div>
   ) : useNaturalShortCover ? (
     <Image
       src={src}

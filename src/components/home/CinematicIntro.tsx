@@ -49,12 +49,16 @@ const closingLines: TextSegment[][] = [
     { text: "ideas", bold: true },
   ],
   [
-    { text: "into " },
+    { text: "into" },
     { text: "scalable products,", accent: true },
     { text: "brands," },
   ],
   [{ text: "and experiences.", bold: true, keepTogether: true }],
 ];
+
+function segmentSeparator(previousIndex: number) {
+  return previousIndex > 0 ? " " : null;
+}
 
 function letterCount(text: string) {
   return [...text].filter((char) => char !== " ").length;
@@ -113,24 +117,24 @@ function AnimatedLetters({
   return (
     <div className={`${className}${singleLine ? " whitespace-nowrap" : ""}`}>
       {words.map((word, wordIndex) => (
-        <span key={`${word}-${wordIndex}`} className="inline-block whitespace-nowrap">
-          {[...word].map((char, charIndex) => {
-            const delay = delayIndex;
-            delayIndex += 1;
+        <span key={`${word}-${wordIndex}`}>
+          <span className="inline-block whitespace-nowrap">
+            {[...word].map((char, charIndex) => {
+              const delay = delayIndex;
+              delayIndex += 1;
 
-            return (
-              <LetterSpan
-                key={`${word}-${charIndex}`}
-                char={char}
-                show={show}
-                delay={delay}
-                charDelay={charDelay}
-              />
-            );
-          })}
-          {wordIndex < words.length - 1 ? (
-            <span className="inline-block w-[0.28em]" />
-          ) : null}
+              return (
+                <LetterSpan
+                  key={`${word}-${charIndex}`}
+                  char={char}
+                  show={show}
+                  delay={delay}
+                  charDelay={charDelay}
+                />
+              );
+            })}
+          </span>
+          {wordIndex < words.length - 1 ? " " : null}
         </span>
       ))}
     </div>
@@ -150,37 +154,30 @@ function StatementText({
     <div className={displayTextClass}>
       {statementSegments.map((segment, segmentIndex) => {
         const words = segment.text.trim().split(/\s+/).filter(Boolean);
-        const hasLeadingSpace = segment.text.startsWith(" ");
 
         return (
           <span key={`statement-segment-${segmentIndex}`}>
-            {segmentIndex > 0 && !hasLeadingSpace ? (
-              <span className="inline-block w-[0.28em]" />
-            ) : null}
-            {hasLeadingSpace ? <span className="inline-block w-[0.28em]" /> : null}
+            {segmentSeparator(segmentIndex)}
             <span className={"accent" in segment && segment.accent ? colorClasses.textAccent : undefined}>
               {words.map((word, wordIndex) => (
-                <span
-                  key={`statement-word-${segmentIndex}-${wordIndex}`}
-                  className="inline-block whitespace-nowrap"
-                >
-                  {[...word].map((char, charIndex) => {
-                    const delay = delayIndex;
-                    delayIndex += 1;
+                <span key={`statement-word-${segmentIndex}-${wordIndex}`}>
+                  <span className="inline-block whitespace-nowrap">
+                    {[...word].map((char, charIndex) => {
+                      const delay = delayIndex;
+                      delayIndex += 1;
 
-                    return (
-                      <LetterSpan
-                        key={`statement-char-${segmentIndex}-${wordIndex}-${charIndex}`}
-                        char={char}
-                        show={show}
-                        delay={delay}
-                        charDelay={charDelay}
-                      />
-                    );
-                  })}
-                  {wordIndex < words.length - 1 ? (
-                    <span className="inline-block w-[0.28em]" />
-                  ) : null}
+                      return (
+                        <LetterSpan
+                          key={`statement-char-${segmentIndex}-${wordIndex}-${charIndex}`}
+                          char={char}
+                          show={show}
+                          delay={delay}
+                          charDelay={charDelay}
+                        />
+                      );
+                    })}
+                  </span>
+                  {wordIndex < words.length - 1 ? " " : null}
                 </span>
               ))}
             </span>
@@ -211,27 +208,24 @@ function ClosingText({ show }: { show: boolean }) {
         )}
       >
         {words.map((word, wordIndex) => (
-          <span
-            key={`closing-word-${lineIndex}-${segmentIndex}-${wordIndex}`}
-            className="inline-block whitespace-nowrap"
-          >
-            {[...word].map((char, charIndex) => {
-              const delay = delayIndex;
-              delayIndex += 1;
+          <span key={`closing-word-${lineIndex}-${segmentIndex}-${wordIndex}`}>
+            <span className="inline-block whitespace-nowrap">
+              {[...word].map((char, charIndex) => {
+                const delay = delayIndex;
+                delayIndex += 1;
 
-              return (
-                <LetterSpan
-                  key={`closing-char-${lineIndex}-${segmentIndex}-${wordIndex}-${charIndex}`}
-                  char={char}
-                  show={show}
-                  delay={delay}
-                  charDelay={24}
-                />
-              );
-            })}
-            {wordIndex < words.length - 1 ? (
-              <span className="inline-block w-[0.28em]" />
-            ) : null}
+                return (
+                  <LetterSpan
+                    key={`closing-char-${lineIndex}-${segmentIndex}-${wordIndex}-${charIndex}`}
+                    char={char}
+                    show={show}
+                    delay={delay}
+                    charDelay={24}
+                  />
+                );
+              })}
+            </span>
+            {wordIndex < words.length - 1 ? " " : null}
           </span>
         ))}
       </span>
@@ -245,11 +239,8 @@ function ClosingText({ show }: { show: boolean }) {
   ) {
     return segments.map((segment, offset) => (
       <span key={`closing-segment-wrap-${lineIndex}-${startIndex + offset}`}>
+        {segmentSeparator(offset)}
         {renderSegment(segment, lineIndex, startIndex + offset)}
-        {offset < segments.length - 1 &&
-        !segment.text.trimEnd().endsWith(",") ? (
-          <span className="inline-block w-[0.28em]" />
-        ) : null}
       </span>
     ));
   }

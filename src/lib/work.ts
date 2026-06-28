@@ -48,6 +48,8 @@ export const productProjects: WorkProject[] = [
     color: "#18161A",
     category: "product",
     imageSeed: "20",
+    href: "/work/expeerly",
+    imageSrc: "/images/expeerly/expeerly-hero-brand.png",
   },
   {
     id: "p3",
@@ -93,30 +95,6 @@ export const productProjects: WorkProject[] = [
 
 export const brandProjects: WorkProject[] = [
   {
-    id: "b1",
-    client: "Expeerly",
-    title:
-      "Visual identity, typography, and brand guidelines for a Swiss video review platform",
-    sentence:
-      "Visual identity, typography, colour system, and brand guidelines.",
-    year: "2024",
-    color: "#1C1816",
-    category: "brand",
-    imageSeed: "60",
-  },
-  {
-    id: "b2",
-    client: "TomoDomo",
-    title:
-      "Logo, visual language, and brand system for a Swiss coworking and space booking platform",
-    sentence:
-      "Logo, identity, and visual language for a Swiss space-booking platform.",
-    year: "2023",
-    color: "#16181C",
-    category: "brand",
-    imageSeed: "70",
-  },
-  {
     id: "b4",
     client: "Kumi",
     title:
@@ -128,19 +106,7 @@ export const brandProjects: WorkProject[] = [
     category: "brand",
     imageSeed: "90",
     href: "/work/kumi",
-    imageSrc: "/images/kumi/kumi-hero.png",
-  },
-  {
-    id: "b5",
-    client: "Peak Product",
-    title:
-      "Brand identity and positioning for a senior product leadership coaching practice",
-    sentence:
-      "Clean, confident positioning for a senior professional audience.",
-    year: "2022",
-    color: "#16181A",
-    category: "brand",
-    imageSeed: "100",
+    imageSrc: "/images/kumi/kumi-mindful-luxury.png",
   },
 ];
 
@@ -149,11 +115,8 @@ export const allProjectsOrder: WorkProject[] = [
   productProjects[1],
   productProjects[2],
   brandProjects[0],
-  brandProjects[2],
   productProjects[3],
-  brandProjects[1],
   productProjects[4],
-  brandProjects[3],
 ];
 
 export const allGridSpans: GridSpan[] = [
@@ -162,9 +125,6 @@ export const allGridSpans: GridSpan[] = [
   { colSpan: 4, aspect: "4/3", mobileColSpan: 6 },
   { colSpan: 4, aspect: "4/3", mobileColSpan: 6 },
   { colSpan: 6, aspect: "16/10", mobileColSpan: 12 },
-  { colSpan: 6, aspect: "16/10", mobileColSpan: 12 },
-  { colSpan: 4, aspect: "4/3", mobileColSpan: 12 },
-  { colSpan: 4, aspect: "4/3", mobileColSpan: 12 },
   { colSpan: 4, aspect: "4/3", mobileColSpan: 12 },
 ];
 
@@ -177,9 +137,6 @@ export const productGridSpans: GridSpan[] = [
 ];
 
 export const brandGridSpans: GridSpan[] = [
-  { colSpan: 4, aspect: "4/3", mobileColSpan: 6 },
-  { colSpan: 4, aspect: "4/3", mobileColSpan: 6 },
-  { colSpan: 6, aspect: "16/10", mobileColSpan: 12 },
   { colSpan: 6, aspect: "16/10", mobileColSpan: 12 },
 ];
 

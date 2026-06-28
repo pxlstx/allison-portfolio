@@ -8,8 +8,7 @@ export const kumiCaseStudy: StructuredCaseStudy = {
   title: "A cross-channel luxury brand experience.",
   subtitle:
     "End-to-end brand design for a South African luxury property and travel company.",
-  heroImage: img("kumi-hero.png"),
-  heroImageFocus: "low",
+  heroImage: img("kumi-mindful-luxury.png"),
   meta: [
     { label: "Client", value: "Kumi Collection" },
     { label: "Role", value: "Creative Director / Designer" },
@@ -36,9 +35,10 @@ export const kumiCaseStudy: StructuredCaseStudy = {
     },
     {
       type: "image",
-      src: img("kumi-mindful-luxury.png"),
-      alt: "Kumi Collection terrace with sunflowers and outdoor lounge",
+      src: img("kumi-hero.png"),
+      alt: "Kumi Collection luxury villa terrace at sunset",
       fit: "cover",
+      focus: "low",
       width: 1024,
       height: 683,
     },
@@ -65,6 +65,7 @@ export const kumiCaseStudy: StructuredCaseStudy = {
       type: "deliverable",
       label: "Identity",
       title: "Understated warmth. Ownable at every scale.",
+      titleLayout: "right",
       body: "I designed a sleek typographic logo that felt premium yet restrained — equally at home on a uniform or a website. The colour palette was drawn directly from the South African landscape: the teal of the Atlantic, warm ochres of the Karoo, muted sage greens of the fynbos. The organic patterns — swirling, flowing forms inspired by the ocean currents, waves, and coastal foliage of the Western Cape — became a defining brand element, applied across everything from the website and car wraps to custom scents and water bottles. Complementary serif and sans-serif fonts and a clear photography direction completed the system.",
     },
     {
@@ -117,13 +118,13 @@ export const kumiCaseStudy: StructuredCaseStudy = {
     },
     {
       type: "image",
-      src: img("kumi-website.jpg"),
+      src: img("kumi-website-screenshots.png"),
       alt: "Kumi Collection website design",
       caption: "Kumi Collection — website design",
       fit: "contain",
-      inset: "plain",
-      width: 1600,
-      height: 2406,
+      inset: "loose-wide",
+      width: 4428,
+      height: 6658,
     },
     {
       type: "testimonial",

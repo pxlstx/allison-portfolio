@@ -97,6 +97,7 @@ export const spacingClasses = {
   imageContainPad: "px-page py-16 sm:py-24",
   imageContainPadLoose: "pt-28 pb-16 sm:pt-36 sm:pb-24",
   imageContainInsetLoose: "px-8 sm:px-20",
+  imageContainInsetLooseWide: "px-16 sm:px-32",
   paragraphGap: "[&+&]:mt-[18px]",
   metaCardPy: "py-[18px]",
   metaCardPx: "px-7",

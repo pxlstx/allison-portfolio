@@ -147,6 +147,6 @@ export const avaCaseStudy: StructuredCaseStudy = {
   ],
   nextProject: {
     title: "Expeerly — video review platform and design system",
-    href: "/work",
+    href: "/work/expeerly",
   },
 };

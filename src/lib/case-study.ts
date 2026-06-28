@@ -1,5 +1,6 @@
 import { avaCaseStudy } from "@/lib/case-study-content/ava";
 import { everskinCaseStudy } from "@/lib/case-study-content/everskin";
+import { expeerlyCaseStudy } from "@/lib/case-study-content/expeerly";
 import { kumiCaseStudy } from "@/lib/case-study-content/kumi";
 
 export type CaseStudyMetaItem = {
@@ -32,7 +33,8 @@ export type CaseStudyBlock =
       fit?: "cover" | "contain";
       width?: number;
       height?: number;
-      inset?: "loose" | "plain";
+      inset?: "loose" | "loose-wide" | "plain";
+      focus?: "top" | "center" | "low" | "bottom";
     }
   | {
       type: "deliverable";
@@ -75,6 +77,7 @@ export type StructuredCaseStudy = {
 const structuredCaseStudies: Record<string, StructuredCaseStudy> = {
   ava: avaCaseStudy,
   everskin: everskinCaseStudy,
+  expeerly: expeerlyCaseStudy,
   kumi: kumiCaseStudy,
 };
 
