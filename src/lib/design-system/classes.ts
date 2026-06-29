@@ -31,7 +31,6 @@ export const colorClasses = {
   bgAccent: "bg-accent",
   bgWhite: "bg-white",
   imageBrightness: "brightness-[0.72] group-hover:brightness-[0.92]",
-  imageBrightnessHero: "brightness-[0.65]",
 } as const;
 
 export const layoutClasses = {
@@ -45,6 +44,9 @@ export const layoutClasses = {
   caseStudyTextShell: "mx-auto w-full max-w-[1440px]",
   maxWidthContent: "max-w-[1200px]",
   maxWidthProse: "max-w-[720px]",
+  caseStudyModule: "mx-auto w-full max-w-[1044px]",
+  caseStudyModuleWide: "mx-auto w-full max-w-[900px]",
+  caseStudyModuleQuote: "mx-auto w-full max-w-[760px]",
   maxWidthChat: "max-w-[820px]",
   maxWidthLead: "max-w-[640px]",
   maxWidthDeliverable: "max-w-[680px]",
@@ -137,9 +139,12 @@ export const spacingClasses = {
   ctaLinkGap: "gap-3",
   nextProjectLabelMb: "mb-2.5",
   deliverableLabelCol: "sm:grid-cols-[260px_1fr]",
+  caseStudySectionGrid: "sm:grid-cols-[260px_1fr]",
   deliverableGap: "sm:gap-16",
+  caseStudySectionGap: "sm:gap-16",
   deliverablePadY: "py-12",
   deliverableLabelPt: "pt-1",
+  caseStudySectionLabelPt: "pt-1",
   cardPad: "p-card",
   cardBodyGap: "gap-card-image",
   cardTitleStack: "flex flex-col gap-2",

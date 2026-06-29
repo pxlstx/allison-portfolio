@@ -6,6 +6,7 @@ const variantClass = {
   hero: typography.displayHero.className,
   chapter: typography.displayChapter.className,
   lead: typography.lead.className,
+  deliverableTitle: typography.deliverableTitle.className,
   cta: typography.ctaLink.className,
   bodyLarge: typography.bodyLarge.className,
   body: typography.body.className,

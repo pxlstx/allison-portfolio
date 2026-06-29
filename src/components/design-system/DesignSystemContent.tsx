@@ -16,6 +16,7 @@ import {
   TextLink,
   TextLinkSmall,
 } from "@/components/ui";
+import { CaseStudyChapter } from "@/components/case-study/CaseStudyChapter";
 import { colors, colorClasses, iconExamples, iconSizes, layout, layoutClasses, linkClasses, spacing, spacingClasses, typography } from "@/lib/design-system";
 import { cn } from "@/lib/cn";
 
@@ -164,7 +165,7 @@ export function DesignSystemContent() {
       <DsSection id="typography" title="Typography">
         <p className={cn("mb-8", typography.body.className)}>
           Display: Neue Haas Grotesk Display (100–700) · Text: Neue Haas Grotesk Text
-          (400, 500, 700). Body at light (300) uses Display — Text has no 300 in this kit. Fonts via{" "}
+          (400, 500, 700). Body copy uses Text at normal (400). Fonts via{" "}
           <a
             href="https://use.typekit.net/deu5fpf.css"
             className={cn(linkClasses.textLinkInline, "underline underline-offset-2")}
@@ -218,6 +219,12 @@ export function DesignSystemContent() {
           className={typography.lead.className}
         />
         <TypeSpec
+          name="deliverableTitle"
+          meta="Text · 16px · medium (500) · tracking-normal · leading 1.45 · case study deliverable headlines"
+          sample="Bringing consistency and maturity to the Ava identity."
+          className={typography.deliverableTitle.className}
+        />
+        <TypeSpec
           name="ctaLink"
           meta="Display · clamp(22px, 2.5vw, 36px) · light (300) · 0 tracking · CTA links"
           sample="Get in touch"
@@ -225,19 +232,19 @@ export function DesignSystemContent() {
         />
         <TypeSpec
           name="bodyLarge"
-          meta="Display · 20px · light (300) · tracking-normal · leading 1.65 · w-60 · deliverables"
+          meta="Text · 20px · normal (400) · tracking-normal · leading 1.65 · w-60 · deliverables"
           sample="The goal was to make science feel approachable."
           className={typography.bodyLarge.className}
         />
         <TypeSpec
           name="bodyMedium"
-          meta="Display · 18px · light (300) · tracking-normal · w-60 · meta card values"
+          meta="Text · 18px · normal (400) · tracking-normal · w-60 · meta card values"
           sample="Lead Product & UX Designer"
           className={typography.bodyMedium.className}
         />
         <TypeSpec
           name="body"
-          meta="Display · 16px · light (300) · tracking-normal · leading 1.8 · w-60 · body copy, project cards"
+          meta="Text · 16px · normal (400) · tracking-normal · leading 1.8 · w-60 · body copy, project cards"
           sample="Everskin is a new kind of aesthetic dermatology clinic in Zurich."
           className={typography.body.className}
         />
@@ -415,7 +422,135 @@ export function DesignSystemContent() {
           <div>
             <SectionLabel>SectionLabel</SectionLabel>
             <CompDesc>
-              Orange uppercase label with accent bar. Used for case study chapters.
+              Orange uppercase label with accent bar. Composed into{" "}
+              <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
+                CaseStudyChapter
+              </code>{" "}
+              for narrative sections.
+            </CompDesc>
+          </div>
+
+          <div>
+            <CompLabel>CaseStudyChapter</CompLabel>
+            <CompDesc>
+              Narrative section for case studies — used for{" "}
+              <em>The challenge</em>, <em>Approach</em>, <em>Outcome</em>, and similar
+              chapters. Uses the same{" "}
+              <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
+                CaseStudySectionLayout
+              </code>{" "}
+              grid as deliverables: 260px label column, 720px content column. Composes{" "}
+              <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
+                SectionLabel
+              </code>
+              ,{" "}
+              <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
+                displayChapter
+              </code>
+              , and{" "}
+              <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
+                body
+              </code>
+              . Register via a{" "}
+              <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
+                chapter
+              </code>{" "}
+              block in case study content.
+            </CompDesc>
+            <div className={cn("mt-6 overflow-hidden", docSurface)}>
+              <CaseStudyChapter
+                label="Approach"
+                headline="Science-backed. Human first."
+                paragraphs={[
+                  "Fertility is deeply personal. The product needed to be rigorously grounded in science while never making a user feel like something was wrong with them — a fine line that shaped every design decision.",
+                  "We engaged constantly with users through testing and community feedback, listening to their struggles and what they actually needed.",
+                ]}
+              />
+            </div>
+            <div className={cn("mt-6", spacingClasses.docSurfacePad, docSurface)}>
+              <p className={cn("mb-4", typography.bodySmall.className, colorClasses.textMuted)}>
+                Content block
+              </p>
+              <pre className={cn("overflow-x-auto font-mono text-caption leading-relaxed", colorClasses.textSubtle)}>
+                {`// src/lib/case-study-content/*.ts
+{
+  type: "chapter",
+  label: "The challenge",
+  headline: "Making complex biometric data feel human.",
+  paragraphs: [
+    "First paragraph…",
+    "Second paragraph…",
+  ],
+}
+
+// Multi-line headline (optional)
+{
+  type: "chapter",
+  label: "Approach",
+  headline: "One visual language.",
+  headlineLines: ["One visual language.", "Three surfaces."],
+  paragraphs: ["…"],
+}`}
+              </pre>
+              <p className={cn("mt-4 mb-4", typography.bodySmall.className, colorClasses.textMuted)}>
+                Component import
+              </p>
+              <pre className={cn("overflow-x-auto font-mono text-caption leading-relaxed", colorClasses.textSubtle)}>
+                {`import { CaseStudyChapter } from "@/components/case-study/CaseStudyChapter";`}
+              </pre>
+            </div>
+          </div>
+
+          <div>
+            <CompLabel>CaseStudySectionLayout</CompLabel>
+            <CompDesc>
+              Shared two-column grid for{" "}
+              <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
+                CaseStudyChapter
+              </code>{" "}
+              and deliverable sections. Left column: 260px (label). Right column: content
+              capped at 720px (
+              <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
+                maxWidthProse
+              </code>
+              ). Both sit inside the 1440px{" "}
+              <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
+                CaseStudyTextShell
+              </code>
+              .
+            </CompDesc>
+            <div className={cn("mt-6", spacingClasses.docSurfacePad, docSurface)}>
+              <pre className={cn("overflow-x-auto font-mono text-caption leading-relaxed", colorClasses.textSubtle)}>
+                {`viewport
+└─ 1440px shell (px-page, mx-auto)
+   └─ 1044px module (mx-auto) — challenge, approach, deliverables, stats, hero
+      ├─ 260px label │ 720px content
+      The challenge │ Headline + body…
+      The app       │ Title + body…
+
+900px module — typo moments
+760px module — testimonials`}
+              </pre>
+            </div>
+          </div>
+
+          <div>
+            <CompLabel>CaseStudyModule</CompLabel>
+            <CompDesc>
+              Centers case study content blocks horizontally with equal inset. Text
+              stays left-aligned. Variants:{" "}
+              <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
+                section
+              </code>{" "}
+              (1044px),{" "}
+              <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
+                wide
+              </code>{" "}
+              (900px),{" "}
+              <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
+                quote
+              </code>{" "}
+              (760px).
             </CompDesc>
           </div>
 

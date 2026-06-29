@@ -57,6 +57,7 @@ export const layout = {
   maxWidthLead: "640px",
   maxWidthDeliverable: "680px",
   maxWidthImage: "1400px",
+  maxWidthCaseStudyModule: "1044px",
   radius: "2px",
   radiusBubbleUser: "12px 2px 12px 12px",
   radiusBubbleAssistant: "2px 12px 12px 12px",
@@ -91,20 +92,23 @@ export const typography = {
     className:
       "font-display text-lead font-light leading-[1.45] tracking-display",
   },
+  deliverableTitle: {
+    className: "deliverable-title",
+  },
   ctaLink: {
     className:
       "font-display text-[clamp(22px,2.5vw,36px)] font-light tracking-display",
   },
   bodyLarge: {
     className:
-      "font-display text-[20px] font-light leading-relaxed tracking-normal text-w-60",
+      "font-sans text-[20px] font-normal leading-relaxed tracking-normal text-w-60",
   },
   body: {
     className:
-      "font-display text-body font-light leading-body-loose tracking-normal text-w-60",
+      "font-sans text-body font-normal leading-body-loose tracking-normal text-w-60",
   },
   bodyMedium: {
-    className: "font-display text-[18px] font-light tracking-normal text-w-60",
+    className: "font-sans text-[18px] font-normal tracking-normal text-w-60",
   },
   bodySmall: {
     className: "font-sans text-sm font-normal leading-[1.65] text-w-60",

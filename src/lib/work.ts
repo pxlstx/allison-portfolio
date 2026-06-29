@@ -88,7 +88,7 @@ export const productProjects: WorkProject[] = [
     color: "#181A16",
     category: "product",
     imageSeed: "50",
-    imageSrc: "/images/ava/ava-hero.jpg",
+    imageSrc: "/images/ava/ava-hero-lifestyle.png",
     href: "/work/ava",
   },
 ];

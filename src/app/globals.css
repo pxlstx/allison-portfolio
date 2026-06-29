@@ -130,14 +130,16 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-display);
-  font-weight: 300; /* Light — all headlines */
-  letter-spacing: var(--tracking-display);
-  line-height: var(--leading-display);
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 300; /* Light — default for unstyled headlines */
+    letter-spacing: var(--tracking-display);
+    line-height: var(--leading-display);
+  }
 }
 
 /* ── Text selection ── */
@@ -170,6 +172,16 @@ h4 {
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--color-accent);
+}
+
+/* Case study deliverable headline — unlayered so h3 base styles cannot override */
+.deliverable-title {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: var(--tracking-normal);
+  color: var(--color-w-100);
 }
 
 /* ── Utility: page padding ──

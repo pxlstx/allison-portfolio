@@ -9,6 +9,7 @@ import {
   type Transition,
 } from "framer-motion";
 import { useRef, type ReactNode } from "react";
+import { CaseStudyModule } from "@/components/case-study/CaseStudyModule";
 import { DisplayHeading, Eyebrow } from "@/components/ui";
 import type { StructuredCaseStudy } from "@/lib/case-study";
 import {
@@ -102,38 +103,40 @@ export function CaseStudyHeroAnimated({ study }: { study: StructuredCaseStudy })
           spacingClasses.caseStudyHeroTextPad,
         )}
       >
-        <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-          animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.75, ease, delay: 0.1 }}
-        >
-          <Eyebrow className={spacingClasses.eyebrowMb}>{study.tag}</Eyebrow>
-        </motion.div>
-        <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-          animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease, delay: 0.22 }}
-        >
-          <DisplayHeading as="h1" variant="hero" className={spacingClasses.eyebrowMb}>
-            {titleLines.map((line, index) => (
-              <span key={line} className={index > 0 ? "block" : undefined}>
-                {line}
-              </span>
-            ))}
-          </DisplayHeading>
-        </motion.div>
-        <motion.p
-          className={cn(
-            layoutClasses.maxWidthLead,
-            typography.lead.className,
-            colorClasses.textPrimary,
-          )}
-          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-          animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.75, ease, delay: 0.38 }}
-        >
-          {study.subtitle}
-        </motion.p>
+        <CaseStudyModule>
+          <motion.div
+            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, ease, delay: 0.1 }}
+          >
+            <Eyebrow className={spacingClasses.eyebrowMb}>{study.tag}</Eyebrow>
+          </motion.div>
+          <motion.div
+            initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease, delay: 0.22 }}
+          >
+            <DisplayHeading as="h1" variant="hero" className={spacingClasses.eyebrowMb}>
+              {titleLines.map((line, index) => (
+                <span key={line} className={index > 0 ? "block" : undefined}>
+                  {line}
+                </span>
+              ))}
+            </DisplayHeading>
+          </motion.div>
+          <motion.p
+            className={cn(
+              layoutClasses.maxWidthLead,
+              typography.lead.className,
+              colorClasses.textPrimary,
+            )}
+            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+            animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, ease, delay: 0.38 }}
+          >
+            {study.subtitle}
+          </motion.p>
+        </CaseStudyModule>
       </div>
 
       <div className={layoutClasses.caseStudyHeroImage}>
@@ -152,7 +155,6 @@ export function CaseStudyHeroAnimated({ study }: { study: StructuredCaseStudy })
                 : study.heroImageFocus === "bottom"
                   ? "object-bottom"
                   : "object-top",
-            colorClasses.imageBrightnessHero,
           )}
         />
       </div>

@@ -12,6 +12,7 @@ export type CaseStudyImageVariant = "default" | "short" | "tall" | "app-wide";
 
 export type CaseStudyBlock =
   | {
+      /** Narrative section — challenge, approach, outcome, etc. */
       type: "chapter";
       label: string;
       headline: string;

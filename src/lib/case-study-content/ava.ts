@@ -8,7 +8,7 @@ export const avaCaseStudy: StructuredCaseStudy = {
   title: "Technology in service of something deeply human.",
   subtitle:
     "Design leadership across product, brand, and marketing for Ava — a fertility tracking wearable based in Zurich.",
-  heroImage: img("ava-hero.jpg"),
+  heroImage: img("ava-hero-lifestyle.png"),
   meta: [
     { label: "Client", value: "Ava Women" },
     { label: "Role", value: "Design Lead → Creative Director" },

@@ -3,6 +3,7 @@
 import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/case-study/CaseStudyMotion";
+import { CaseStudyModule } from "@/components/case-study/CaseStudyModule";
 import type { CaseStudyBlock } from "@/lib/case-study";
 import { colorClasses, layoutClasses, spacingClasses, typography } from "@/lib/design-system";
 import { cn } from "@/lib/cn";
@@ -90,28 +91,30 @@ export function CaseStudyStats({
           spacingClasses.pagePadX,
         )}
       >
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
-          {items.map((item, index) => (
-            <Reveal key={item.label} delay={index * 0.08} y={16}>
-              <div>
-                <p
-                  className={cn(
-                    "mb-3",
-                    typography.displayHero.className,
-                    colorClasses.textPrimary,
-                  )}
-                >
-                  {formatStatValue(
-                    values[index] ?? 0,
-                    item.prefix ?? "",
-                    item.suffix ?? "",
-                  )}
-                </p>
-                <p className={typography.body.className}>{item.label}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+        <CaseStudyModule>
+          <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
+            {items.map((item, index) => (
+              <Reveal key={item.label} delay={index * 0.08} y={16}>
+                <div>
+                  <p
+                    className={cn(
+                      "mb-3",
+                      typography.displayHero.className,
+                      colorClasses.textPrimary,
+                    )}
+                  >
+                    {formatStatValue(
+                      values[index] ?? 0,
+                      item.prefix ?? "",
+                      item.suffix ?? "",
+                    )}
+                  </p>
+                  <p className={typography.body.className}>{item.label}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </CaseStudyModule>
       </div>
     </section>
   );

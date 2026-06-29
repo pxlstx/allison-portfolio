@@ -6,8 +6,12 @@ import {
   ParallaxImage,
   Reveal,
 } from "@/components/case-study/CaseStudyMotion";
+import { CaseStudyChapter } from "@/components/case-study/CaseStudyChapter";
+import { CaseStudyModule } from "@/components/case-study/CaseStudyModule";
+import { CaseStudySectionLayout } from "@/components/case-study/CaseStudySectionLayout";
 import { CaseStudyStats } from "@/components/case-study/CaseStudyStats";
-import { DisplayHeading, Icon, MetaCard, SectionLabel } from "@/components/ui";
+import { CaseStudyTextShell } from "@/components/case-study/CaseStudyTextShell";
+import { DisplayHeading, Icon, MetaCard } from "@/components/ui";
 import type {
   CaseStudyBlock,
   CaseStudyImageVariant,
@@ -23,26 +27,6 @@ import {
 } from "@/lib/design-system";
 import { cn } from "@/lib/cn";
 
-function CaseStudyTextShell({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div
-      className={cn(
-        layoutClasses.caseStudyTextShell,
-        spacingClasses.pagePadX,
-        className,
-      )}
-    >
-      {children}
-    </div>
-  );
-}
-
 function CaseStudyMetaStrip({ study }: { study: StructuredCaseStudy }) {
   return (
     <section
@@ -55,44 +39,15 @@ function CaseStudyMetaStrip({ study }: { study: StructuredCaseStudy }) {
       <CaseStudyTextShell
         className={cn("flex flex-wrap", spacingClasses.metaStripGap)}
       >
-        {study.meta.map((item, index) => (
-          <Reveal key={item.label} delay={index * 0.08} y={16}>
-            <MetaCard label={item.label} value={item.value} />
-          </Reveal>
-        ))}
+        <CaseStudyModule className={cn("flex flex-wrap", spacingClasses.metaStripGap)}>
+          {study.meta.map((item, index) => (
+            <Reveal key={item.label} delay={index * 0.08} y={16}>
+              <MetaCard label={item.label} value={item.value} />
+            </Reveal>
+          ))}
+        </CaseStudyModule>
       </CaseStudyTextShell>
     </section>
-  );
-}
-
-function CaseStudyChapter({
-  label,
-  headline,
-  headlineLines,
-  paragraphs,
-}: Extract<CaseStudyBlock, { type: "chapter" }>) {
-  const lines = headlineLines ?? [headline];
-
-  return (
-    <Reveal>
-      <article className="w-full">
-        <SectionLabel>{label}</SectionLabel>
-        <DisplayHeading as="h2" variant="chapter" className={spacingClasses.chapterHeadlineMb}>
-          {lines.map((line, index) => (
-            <span key={line} className={index > 0 ? "block" : undefined}>
-              {line}
-            </span>
-          ))}
-        </DisplayHeading>
-        <div className={cn(layoutClasses.maxWidthProse, typography.body.className)}>
-          {paragraphs.map((paragraph, index) => (
-            <p key={index} className={spacingClasses.paragraphGap}>
-              {paragraph}
-            </p>
-          ))}
-        </div>
-      </article>
-    </Reveal>
   );
 }
 
@@ -111,17 +66,18 @@ function CaseStudyTypoMoment({
     >
       <CaseStudyTextShell>
         <Reveal y={20}>
-          <p
-            className={cn(
-              layoutClasses.maxWidthAboutWide,
-              typography.displayChapter.className,
-              colorClasses.textPrimary,
-            )}
-          >
-            {before}
-            <span className={colorClasses.textAccent}>{highlight}</span>{" "}
-            {after.trimStart()}
-          </p>
+          <CaseStudyModule width="wide">
+            <p
+              className={cn(
+                typography.displayChapter.className,
+                colorClasses.textPrimary,
+              )}
+            >
+              {before}
+              <span className={colorClasses.textAccent}>{highlight}</span>{" "}
+              {after.trimStart()}
+            </p>
+          </CaseStudyModule>
         </Reveal>
       </CaseStudyTextShell>
     </section>
@@ -333,7 +289,9 @@ function CaseStudyFigure({
               typography.caption.className,
             )}
           >
-            <CaseStudyTextShell>{caption}</CaseStudyTextShell>
+            <CaseStudyTextShell>
+              <CaseStudyModule>{caption}</CaseStudyModule>
+            </CaseStudyTextShell>
           </figcaption>
         </Reveal>
       ) : null}
@@ -351,34 +309,32 @@ function CaseStudyDeliverable({
 
   return (
     <Reveal>
-      <article
+      <CaseStudySectionLayout
         className={cn(
-          "grid items-start gap-4 border-t",
+          "border-t",
           spacingClasses.deliverablePadY,
-          spacingClasses.deliverableLabelCol,
-          spacingClasses.deliverableGap,
           colorClasses.borderDefault,
         )}
+        label={
+          <>
+            <div className={cn(colorClasses.textAccent, typography.label.className)}>
+              {label}
+            </div>
+            {title && !titleOnRight ? (
+              <DisplayHeading as="p" variant="deliverableTitle" className="mt-3">
+                {title}
+              </DisplayHeading>
+            ) : null}
+          </>
+        }
       >
-        <div className={spacingClasses.deliverableLabelPt}>
-          <div className={cn(colorClasses.textAccent, typography.label.className)}>
-            {label}
-          </div>
-          {title && !titleOnRight ? (
-            <DisplayHeading as="h3" variant="lead" className="mt-3">
-              {title}
-            </DisplayHeading>
-          ) : null}
-        </div>
-        <div className={layoutClasses.maxWidthProse}>
-          {titleOnRight ? (
-            <DisplayHeading as="h3" variant="lead" className="mb-3">
-              {title}
-            </DisplayHeading>
-          ) : null}
-          <p className={typography.body.className}>{body}</p>
-        </div>
-      </article>
+        {titleOnRight ? (
+          <DisplayHeading as="p" variant="deliverableTitle" className="mb-3">
+            {title}
+          </DisplayHeading>
+        ) : null}
+        <p className={typography.body.className}>{body}</p>
+      </CaseStudySectionLayout>
     </Reveal>
   );
 }
@@ -397,26 +353,27 @@ function CaseStudyTestimonial({
     >
       <CaseStudyTextShell>
         <Reveal y={20}>
-          <blockquote
-            className={cn(
-              layoutClasses.maxWidthAboutQuote,
-              "border-l-2 border-accent",
-              spacingClasses.blockquotePad,
-              typography.displayClosing.className,
-              colorClasses.textPrimary,
-            )}
-          >
-            {quote}
-          </blockquote>
-          <p
-            className={cn(
-              spacingClasses.blockquotePad,
-              typography.bodySmall.className,
-              colorClasses.textSubtle,
-            )}
-          >
-            {attribution}
-          </p>
+          <CaseStudyModule width="quote">
+            <blockquote
+              className={cn(
+                "border-l-2 border-accent",
+                spacingClasses.blockquotePad,
+                typography.displayClosing.className,
+                colorClasses.textPrimary,
+              )}
+            >
+              {quote}
+            </blockquote>
+            <p
+              className={cn(
+                spacingClasses.blockquotePad,
+                typography.bodySmall.className,
+                colorClasses.textSubtle,
+              )}
+            >
+              {attribution}
+            </p>
+          </CaseStudyModule>
         </Reveal>
       </CaseStudyTextShell>
     </section>
@@ -432,13 +389,7 @@ function CaseStudyBlockRenderer({
 }) {
   switch (block.type) {
     case "chapter":
-      return (
-        <div key={index} className={spacingClasses.sectionPadY}>
-          <CaseStudyTextShell>
-            <CaseStudyChapter {...block} />
-          </CaseStudyTextShell>
-        </div>
-      );
+      return <CaseStudyChapter key={index} {...block} />;
     case "typo":
       return <CaseStudyTypoMoment key={index} {...block} />;
     case "stats":
@@ -463,35 +414,34 @@ function CaseStudyNext({ title, href }: { title: string; href: string }) {
         )}
       >
         <CaseStudyTextShell
-          className={cn(
-            "flex items-center justify-between",
-            spacingClasses.nextProjectPad,
-          )}
+          className={spacingClasses.nextProjectPad}
         >
-          <div>
-            <div className={cn(spacingClasses.nextProjectLabelMb, colorClasses.textAccent, typography.label.className)}>
-              Next project
+          <CaseStudyModule className="flex items-center justify-between">
+            <div>
+              <div className={cn(spacingClasses.nextProjectLabelMb, colorClasses.textAccent, typography.label.className)}>
+                Next project
+              </div>
+              <div
+                className={cn(
+                  typography.lead.className,
+                  colorClasses.textPrimary,
+                  "group-active:text-accent",
+                )}
+              >
+                {title}
+              </div>
             </div>
-            <div
+            <Icon
+              name="arrow_forward"
+              size={28}
               className={cn(
-                typography.lead.className,
-                colorClasses.textPrimary,
-                "group-active:text-accent",
+                colorClasses.textFaint,
+                motionClasses.fast,
+                spacingClasses.arrowNudge,
+                stateClasses.nextProjectIconHover,
               )}
-            >
-              {title}
-            </div>
-          </div>
-          <Icon
-            name="arrow_forward"
-            size={28}
-            className={cn(
-              colorClasses.textFaint,
-              motionClasses.fast,
-              spacingClasses.arrowNudge,
-              stateClasses.nextProjectIconHover,
-            )}
-          />
+            />
+          </CaseStudyModule>
         </CaseStudyTextShell>
       </Link>
     </Reveal>
