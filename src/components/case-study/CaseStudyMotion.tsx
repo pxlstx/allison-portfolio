@@ -55,12 +55,15 @@ type ParallaxImageProps = {
   children: ReactNode;
   className?: string;
   strength?: number;
+  /** Scale applied to the moving content so the drift never reveals a gap on cover images. */
+  contentScale?: number;
 };
 
 export function ParallaxImage({
   children,
   className,
   strength = 8,
+  contentScale = 1,
 }: ParallaxImageProps) {
   const ref = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
@@ -76,7 +79,10 @@ export function ParallaxImage({
 
   return (
     <div ref={ref} className={cn("overflow-hidden", className)}>
-      <motion.div style={{ y }} className="h-full w-full will-change-transform">
+      <motion.div
+        style={{ y, scale: reduceMotion ? 1 : contentScale }}
+        className="h-full w-full will-change-transform"
+      >
         {children}
       </motion.div>
     </div>

@@ -253,7 +253,7 @@ function CaseStudyFigure({
       className={cn(layoutClasses.appWideImage, layoutClasses.maxWidthImage)}
     />
   ) : (
-    <div className="relative h-full w-full scale-[1.06]">
+    <div className="relative h-full w-full scale-[1.14]">
       <Image
         src={src}
         alt={alt}
@@ -268,13 +268,26 @@ function CaseStudyFigure({
     </div>
   );
 
-  const useParallax = !isAppWide && (!useNaturalSize || parallax === true);
+  // Parallax applies to every figure except app-wide device shots. Cover
+  // images (photographic, crop-tolerant) always drift; contained UI
+  // screenshots opt in via the `parallax` flag to avoid clipping content.
+  const useParallax = !isAppWide && (fit !== "contain" || parallax === true);
+  // Natural-height cover images need extra scale so the vertical drift never
+  // reveals the surface behind them. The fill-based cover path already scales
+  // its own inner wrapper, and contained images rely on their inset padding.
+  const isNaturalCoverNode =
+    useNaturalCroppedCover || useNaturalShortCover || useNaturalCover;
+  const parallaxContentScale = isNaturalCoverNode ? 1.14 : 1;
 
   return (
     <figure>
       <Reveal y={20}>
         {useParallax ? (
-          <ParallaxImage className={imageShellClass} strength={6}>
+          <ParallaxImage
+            className={imageShellClass}
+            strength={8}
+            contentScale={parallaxContentScale}
+          >
             {imageNode}
           </ParallaxImage>
         ) : (
