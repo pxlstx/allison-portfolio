@@ -9,7 +9,7 @@ export const expeerlyCaseStudy: StructuredCaseStudy = {
   titleLines: ["Designing for the", "honest review."],
   subtitle:
     "Brand identity, design system, and consumer platform for a Swiss video review startup.",
-  heroImage: img("expeerly-hero-brand.png"),
+  heroImage: img("expeerly-hero-brand.webp"),
   heroImageFocus: "center",
   meta: [
     { label: "Client", value: "Expeerly" },
@@ -61,7 +61,7 @@ export const expeerlyCaseStudy: StructuredCaseStudy = {
     },
     {
       type: "image",
-      src: img("expeerly-community.png"),
+      src: img("expeerly-community.webp"),
       alt: "Expeerly creator and product network graphic",
       variant: "short",
       fit: "cover",
@@ -86,7 +86,7 @@ export const expeerlyCaseStudy: StructuredCaseStudy = {
     },
     {
       type: "image",
-      src: img("expeerly-brand.png"),
+      src: img("expeerly-brand.webp"),
       alt: "Expeerly brand identity, colour system, and design language",
       caption: "Expeerly — brand identity, colour system, and design language",
       fit: "cover",
@@ -102,7 +102,7 @@ export const expeerlyCaseStudy: StructuredCaseStudy = {
     },
     {
       type: "image",
-      src: img("expeerly-website.png"),
+      src: img("expeerly-website.webp"),
       alt: "Expeerly marketing website for shoppers, brands, and reviewers",
       caption:
         "Expeerly — marketing website: shopper, brand, and reviewer perspectives",
@@ -120,7 +120,7 @@ export const expeerlyCaseStudy: StructuredCaseStudy = {
     },
     {
       type: "image",
-      src: img("expeerly-platform.png"),
+      src: img("expeerly-platform.webp"),
       alt: "Expeerly consumer platform screens",
       caption:
         "Expeerly — consumer platform: homepage, reviewer dashboard, video page, brand page, and campaign application",

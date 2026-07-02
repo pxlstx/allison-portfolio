@@ -78,7 +78,7 @@ export const avaCaseStudy: StructuredCaseStudy = {
     },
     {
       type: "image",
-      src: img("ava-app.png"),
+      src: img("ava-app.webp"),
       alt: "Ava fertility app screens",
       caption:
         "Ava fertility app — dashboard, calendar, health charts, cycle history, and pregnancy mode",
@@ -113,7 +113,7 @@ export const avaCaseStudy: StructuredCaseStudy = {
     },
     {
       type: "image",
-      src: img("ava-packaging.png"),
+      src: img("ava-packaging.webp"),
       alt: "Ava 2.0 product packaging",
       caption: "Ava 2.0 — packaging",
       variant: "short",
@@ -130,7 +130,7 @@ export const avaCaseStudy: StructuredCaseStudy = {
     },
     {
       type: "image",
-      src: img("ava-prevent.png"),
+      src: img("ava-prevent.webp"),
       alt: "Ava Prevent digital contraception app",
       caption: "Ava Prevent — digital contraception app, Class II medical device",
       fit: "contain",

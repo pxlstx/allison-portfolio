@@ -118,7 +118,7 @@ export const kumiCaseStudy: StructuredCaseStudy = {
     },
     {
       type: "image",
-      src: img("kumi-website-screenshots.png"),
+      src: img("kumi-website-screenshots.webp"),
       alt: "Kumi Collection website design",
       caption: "Kumi Collection — website design",
       fit: "contain",

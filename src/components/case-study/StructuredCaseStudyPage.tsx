@@ -174,7 +174,7 @@ function CaseStudyFigure({
       width={width}
       height={height}
       unoptimized={plainContainUnoptimized}
-      quality={plainContainUnoptimized ? undefined : 90}
+      quality={plainContainUnoptimized ? undefined : 80}
       sizes={
         plainContainDisplayWidth
           ? `(max-width: ${plainContainDisplayWidth}px) 95vw, ${plainContainDisplayWidth}px`

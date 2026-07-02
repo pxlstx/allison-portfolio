@@ -9,7 +9,7 @@ export const tomodomoCaseStudy: StructuredCaseStudy = {
   title: "A custom platform built for co-living — and the community behind it.",
   subtitle:
     "Brand identity and a bespoke property management platform for Switzerland's fastest-growing co-living company.",
-  heroImage: img("tomodomo-hero.png"),
+  heroImage: img("tomodomo-hero.webp"),
   heroImageFocus: "top",
   meta: [
     { label: "Client", value: "TomoDomo" },
@@ -84,7 +84,7 @@ export const tomodomoCaseStudy: StructuredCaseStudy = {
     },
     {
       type: "image",
-      src: img("tomodomo-booking-app.png"),
+      src: img("tomodomo-booking-app.webp"),
       alt: "TomoDomo resident application and booking flow",
       variant: "short",
       fit: "contain",
@@ -94,7 +94,7 @@ export const tomodomoCaseStudy: StructuredCaseStudy = {
     },
     {
       type: "image",
-      src: img("tomodomo-uresident-app.png"),
+      src: img("tomodomo-uresident-app.webp"),
       alt: "TomoDomo application management and resident back-office",
       caption: "TomoDomo — resident application and booking",
       variant: "short",

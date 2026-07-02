@@ -36,7 +36,7 @@ export const everskinCaseStudy: StructuredCaseStudy = {
     },
     {
       type: "image",
-      src: img("67a37ec66e84803011158cb0_18.png"),
+      src: img("67a37ec66e84803011158cb0_18.webp"),
       alt: "Everskin clinic skin analysis in session",
       variant: "short",
     },
@@ -57,7 +57,7 @@ export const everskinCaseStudy: StructuredCaseStudy = {
     },
     {
       type: "image",
-      src: img("website.png"),
+      src: img("website.webp"),
       alt: "Everskin.ch homepage",
       caption: "Everskin.ch — homepage",
       variant: "tall",
@@ -72,7 +72,7 @@ export const everskinCaseStudy: StructuredCaseStudy = {
     },
     {
       type: "image",
-      src: img("everskin-app.png"),
+      src: img("everskin-app.webp"),
       alt: "Everskin iOS app screens",
       caption:
         "Everskin iOS app — skin score, analysis, and treatment recommendations",
@@ -88,7 +88,7 @@ export const everskinCaseStudy: StructuredCaseStudy = {
     },
     {
       type: "image",
-      src: img("everskin-practitioner-app.png"),
+      src: img("everskin-practitioner-app.webp"),
       alt: "Everskin practitioner iPad app",
       caption:
         "Everskin practitioner iPad app — client overview and treatment recommendations",

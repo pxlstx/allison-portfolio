@@ -55,7 +55,7 @@ export const productProjects: WorkProject[] = [
     color: "#161818",
     category: "product",
     imageSeed: "40",
-    imageSrc: "/images/tomodomo/tomodomo-hero.png",
+    imageSrc: "/images/tomodomo/tomodomo-hero.webp",
     imageFocus: "right-top",
     href: "/work/tomodomo",
   },
@@ -71,7 +71,7 @@ export const productProjects: WorkProject[] = [
     category: "product",
     imageSeed: "20",
     href: "/work/expeerly",
-    imageSrc: "/images/expeerly/expeerly-hero-brand.png",
+    imageSrc: "/images/expeerly/expeerly-hero-brand.webp",
   },
   {
     id: "p3",
@@ -124,12 +124,14 @@ export const brandProjects: WorkProject[] = [
 export const allProjectsOrder: WorkProject[] = [
   productProjects[0], // Unique.AI
   productProjects[1], // TomoDomo
+  productProjects[2], // Expeerly
   productProjects[3], // Everskin
   productProjects[4], // Ava
   brandProjects[0], // Kumi
 ];
 
 export const allGridSpans: GridSpan[] = [
+  { colSpan: 6, aspect: "16/10", mobileColSpan: 12 },
   { colSpan: 6, aspect: "16/10", mobileColSpan: 12 },
   { colSpan: 6, aspect: "16/10", mobileColSpan: 12 },
   { colSpan: 6, aspect: "16/10", mobileColSpan: 12 },
