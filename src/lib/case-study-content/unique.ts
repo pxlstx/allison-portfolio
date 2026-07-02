@@ -76,6 +76,7 @@ export const uniqueCaseStudy: StructuredCaseStudy = {
       inset: "loose",
       width: 1600,
       height: 1053,
+      parallax: true,
     },
     {
       type: "deliverable",
@@ -106,6 +107,7 @@ export const uniqueCaseStudy: StructuredCaseStudy = {
       inset: "loose",
       width: 1600,
       height: 538,
+      parallax: true,
     },
     {
       type: "deliverable",

@@ -121,6 +121,7 @@ function CaseStudyFigure({
   height,
   inset,
   focus,
+  parallax,
 }: Extract<CaseStudyBlock, { type: "image" }>) {
   const isAppWide = variant === "app-wide";
   const isContain = fit === "contain";
@@ -267,7 +268,7 @@ function CaseStudyFigure({
     </div>
   );
 
-  const useParallax = !useNaturalSize && !isAppWide;
+  const useParallax = !isAppWide && (!useNaturalSize || parallax === true);
 
   return (
     <figure>

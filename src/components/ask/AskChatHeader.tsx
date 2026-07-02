@@ -32,7 +32,7 @@ export function AskChatHeader() {
       </Link>
 
       <div className="text-center">
-        <div className={cn(typography.bodySmall.className, colorClasses.textPrimary, "font-medium")}>
+        <div className={cn(typography.bodySmall.className, colorClasses.textPrimary)}>
           {site.name}
         </div>
         <div

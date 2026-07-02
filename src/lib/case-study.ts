@@ -40,6 +40,8 @@ export type CaseStudyBlock =
       height?: number;
       inset?: "loose" | "loose-wide" | "plain";
       focus?: "top" | "center" | "low" | "bottom";
+      /** Force the scroll parallax wrapper even when width/height are set (e.g. contained UI screenshots). */
+      parallax?: boolean;
     }
   | {
       type: "deliverable";
