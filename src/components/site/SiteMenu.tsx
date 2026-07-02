@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -57,6 +58,27 @@ export function SiteMenu() {
 
   return (
     <>
+      <Link
+        href="/"
+        aria-label={`${site.name} — home`}
+        className={cn(
+          spacingClasses.brandLogoPos,
+          zIndexClasses.menuButton,
+          "block transition-transform",
+          motionClasses.menu,
+          !open && !menuVisible && "-translate-y-[150%] pointer-events-none",
+        )}
+      >
+        <Image
+          src="/images/allison-logo.png"
+          alt=""
+          width={72}
+          height={72}
+          className={spacingClasses.brandLogoSize}
+          priority
+        />
+      </Link>
+
       <button
         type="button"
         aria-label={open ? "Close menu" : "Open menu"}

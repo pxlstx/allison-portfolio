@@ -2,6 +2,8 @@ import { avaCaseStudy } from "@/lib/case-study-content/ava";
 import { everskinCaseStudy } from "@/lib/case-study-content/everskin";
 import { expeerlyCaseStudy } from "@/lib/case-study-content/expeerly";
 import { kumiCaseStudy } from "@/lib/case-study-content/kumi";
+import { tomodomoCaseStudy } from "@/lib/case-study-content/tomodomo";
+import { uniqueCaseStudy } from "@/lib/case-study-content/unique";
 
 export type CaseStudyMetaItem = {
   label: string;
@@ -17,6 +19,8 @@ export type CaseStudyBlock =
       label: string;
       headline: string;
       headlineLines?: string[];
+      /** Default "left" — headline under label. Use "right" for outcome-style sections. */
+      headlineLayout?: "left" | "right";
       paragraphs: string[];
     }
   | {
@@ -45,6 +49,12 @@ export type CaseStudyBlock =
       body: string;
     }
   | {
+      type: "video";
+      src: string;
+      poster?: string;
+      caption?: string;
+    }
+  | {
       type: "stats";
       items: {
         target: number;
@@ -57,6 +67,16 @@ export type CaseStudyBlock =
       type: "testimonial";
       quote: string;
       attribution: string;
+    }
+  | {
+      type: "slideshow";
+      slides: {
+        src: string;
+        alt: string;
+        label: string;
+      }[];
+      brandline?: string;
+      slideDuration?: number;
     };
 
 export type StructuredCaseStudy = {
@@ -80,6 +100,8 @@ const structuredCaseStudies: Record<string, StructuredCaseStudy> = {
   everskin: everskinCaseStudy,
   expeerly: expeerlyCaseStudy,
   kumi: kumiCaseStudy,
+  tomodomo: tomodomoCaseStudy,
+  unique: uniqueCaseStudy,
 };
 
 export function getStructuredCaseStudy(

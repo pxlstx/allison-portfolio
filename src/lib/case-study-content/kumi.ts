@@ -8,7 +8,7 @@ export const kumiCaseStudy: StructuredCaseStudy = {
   title: "A cross-channel luxury brand experience.",
   subtitle:
     "End-to-end brand design for a South African luxury property and travel company.",
-  heroImage: img("kumi-mindful-luxury.png"),
+  heroImage: img("kumi-mindful-luxury.jpg"),
   meta: [
     { label: "Client", value: "Kumi Collection" },
     { label: "Role", value: "Creative Director / Designer" },
@@ -135,6 +135,6 @@ export const kumiCaseStudy: StructuredCaseStudy = {
   ],
   nextProject: {
     title: "TomoDomo — booking and client management",
-    href: "/work",
+    href: "/work/tomodomo",
   },
 };

@@ -8,7 +8,8 @@ export const avaCaseStudy: StructuredCaseStudy = {
   title: "Technology in service of something deeply human.",
   subtitle:
     "Design leadership across product, brand, and marketing for Ava — a fertility tracking wearable based in Zurich.",
-  heroImage: img("ava-hero-lifestyle.png"),
+  heroImage: img("ava-hero-bracelet-app.jpg"),
+  heroImageFocus: "center",
   meta: [
     { label: "Client", value: "Ava Women" },
     { label: "Role", value: "Design Lead → Creative Director" },
@@ -64,8 +65,8 @@ export const avaCaseStudy: StructuredCaseStudy = {
     },
     {
       type: "image",
-      src: img("ava-lifestyle.png"),
-      alt: "Ava wearable bracelet in use",
+      src: img("ava-social-content.jpg"),
+      alt: "Ava social media content system across fertility and lifestyle themes",
       variant: "short",
     },
     {

@@ -10,12 +10,18 @@ import { cn } from "@/lib/cn";
 
 type StatItem = Extract<CaseStudyBlock, { type: "stats" }>["items"][number];
 
+function countDecimals(value: number): number {
+  const parts = String(value).split(".");
+  return parts[1]?.length ?? 0;
+}
+
 function formatStatValue(
   current: number,
   prefix: string,
   suffix: string,
+  decimals: number,
 ): string {
-  return `${prefix}${current}${suffix}`;
+  return `${prefix}${current.toFixed(decimals)}${suffix}`;
 }
 
 export function CaseStudyStats({
@@ -59,7 +65,7 @@ export function CaseStudyStats({
 
             const timer = setInterval(() => {
               step++;
-              const current = Math.min(Math.round(increment * step), item.target);
+              const current = Math.min(increment * step, item.target);
               setValues((prev) => {
                 const next = [...prev];
                 next[index] = current;
@@ -107,6 +113,7 @@ export function CaseStudyStats({
                       values[index] ?? 0,
                       item.prefix ?? "",
                       item.suffix ?? "",
+                      countDecimals(item.target),
                     )}
                   </p>
                   <p className={typography.body.className}>{item.label}</p>

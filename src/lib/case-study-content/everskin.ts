@@ -101,6 +101,7 @@ export const everskinCaseStudy: StructuredCaseStudy = {
       type: "chapter",
       label: "Outcome",
       headline: "A 360° digital experience that sets everskin apart.",
+      headlineLayout: "right",
       paragraphs: [
         "Everskin launched with a highly branded, polished website that encapsulates their mission and science-backed approach. The practitioner and consumer apps complete the picture — offering a 360-degree journey that empowers clients and sets everskin apart from every trend-driven clinic they compete with.",
       ],

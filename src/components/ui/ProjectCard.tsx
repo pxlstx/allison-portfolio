@@ -10,11 +10,33 @@ import {
 import { Icon } from "@/components/ui/Icon";
 import { cn } from "@/lib/cn";
 
-export type ProjectCardAspect = "16/10" | "4/3";
+export type ProjectCardAspect = "16/10" | "4/3" | "21/9";
+
+export type ProjectCardImageFocus = "center" | "top" | "bottom" | "right-top";
+
+const imageFocusClass: Record<ProjectCardImageFocus, string> = {
+  center: "object-center",
+  top: "object-top",
+  bottom: "object-bottom",
+  "right-top": "object-right-top",
+};
 
 const aspectClass: Record<ProjectCardAspect, string> = {
   "16/10": "aspect-[16/10]",
   "4/3": "aspect-[4/3] max-[900px]:aspect-video",
+  "21/9": "aspect-[21/9] max-[900px]:aspect-video",
+};
+
+export type ProjectCardLogoSize = "wide" | "compact";
+
+const logoSizeClass: Record<ProjectCardLogoSize, string> = {
+  wide: spacingClasses.projectCardLogoImage,
+  compact: spacingClasses.projectCardLogoImageCompact,
+};
+
+const logoIntrinsic: Record<ProjectCardLogoSize, { width: number; height: number }> = {
+  wide: { width: 600, height: 115 },
+  compact: { width: 1200, height: 200 },
 };
 
 export type ProjectCardProps = {
@@ -26,6 +48,11 @@ export type ProjectCardProps = {
   nda?: boolean;
   aspect?: ProjectCardAspect;
   imageColor?: string;
+  imageFocus?: ProjectCardImageFocus;
+  imageLogoSrc?: string;
+  imageLogoSize?: ProjectCardLogoSize;
+  imageSizes?: string;
+  onActivate?: () => void;
   className?: string;
 };
 
@@ -38,6 +65,11 @@ export function ProjectCard({
   nda,
   aspect = "4/3",
   imageColor,
+  imageFocus = "center",
+  imageLogoSrc,
+  imageLogoSize = "wide",
+  imageSizes = "(max-width: 900px) 100vw, 50vw",
+  onActivate,
   className,
 }: ProjectCardProps) {
   const shellClassName = cn(
@@ -63,13 +95,26 @@ export function ProjectCard({
           src={imageSrc}
           alt={imageAlt}
           fill
-          sizes="(max-width: 900px) 100vw, 50vw"
+          sizes={imageSizes}
           className={cn(
-            "object-cover object-center transition-[filter]",
+            "object-cover transition-[filter]",
+            imageFocusClass[imageFocus],
             colorClasses.imageBrightness,
             motionClasses.menu,
           )}
         />
+
+        {imageLogoSrc ? (
+          <div className={spacingClasses.projectCardLogoOverlay} aria-hidden>
+            <Image
+              src={imageLogoSrc}
+              alt=""
+              width={logoIntrinsic[imageLogoSize].width}
+              height={logoIntrinsic[imageLogoSize].height}
+              className={logoSizeClass[imageLogoSize]}
+            />
+          </div>
+        ) : null}
 
         {nda ? (
           <div
@@ -88,12 +133,11 @@ export function ProjectCard({
       </div>
 
       <div className={spacingClasses.cardTitleStack}>
-        <p className={cn(colorClasses.textAccent, typography.label.className)}>
-          {client}
-        </p>
+        <p className="label">{client}</p>
         <p
           className={cn(
-            typography.body.className,
+            typography.lead.className,
+            colorClasses.textMuted,
             motionClasses.medium,
             stateClasses.projectCardTitleHover,
           )}
@@ -104,7 +148,29 @@ export function ProjectCard({
     </>
   );
 
-  if (nda || !href) {
+  if (onActivate) {
+    return (
+      <div className={shellClassName}>
+        <div
+          role="button"
+          tabIndex={0}
+          data-cursor="view"
+          className={cn(bodyClassName, "cursor-pointer text-left")}
+          onClick={onActivate}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              onActivate();
+            }
+          }}
+        >
+          {content}
+        </div>
+      </div>
+    );
+  }
+
+  if (!href) {
     return (
       <article className={shellClassName}>
         <div className={bodyClassName}>

@@ -5,8 +5,8 @@ export type CaseStudyModuleWidth = "section" | "wide" | "quote";
 
 const moduleWidthClass: Record<CaseStudyModuleWidth, string> = {
   section: layoutClasses.caseStudyModule,
-  wide: layoutClasses.caseStudyModuleWide,
-  quote: layoutClasses.caseStudyModuleQuote,
+  wide: layoutClasses.caseStudyModule,
+  quote: layoutClasses.caseStudyModule,
 };
 
 /** Centers case study content blocks with equal horizontal inset. Text stays left-aligned. */

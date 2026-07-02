@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { StructuredCaseStudyPage } from "@/components/case-study/StructuredCaseStudyPage";
+import { CaseStudyGate } from "@/components/case-study/CaseStudyGate";
 import { HomeFooter } from "@/components/home/HomeFooter";
 import { FadeIn, PageShell } from "@/components/PageShell";
 import { mdxComponents } from "@/components/mdx/MDXComponents";
 import { DisplayHeading, TextLink } from "@/components/ui";
 import { PageContainer } from "@/components/ui/PageContainer";
 import { getStructuredCaseStudy, getStructuredCaseStudySlugs } from "@/lib/case-study";
+import { getCaseStudyPassword } from "@/lib/case-study-access";
 import { getCaseStudies, getCaseStudy } from "@/lib/case-studies";
 import { cn } from "@/lib/cn";
 import {
@@ -57,6 +59,14 @@ export default async function CaseStudyPage({ params }: PageProps) {
   const structured = getStructuredCaseStudy(slug);
 
   if (structured) {
+    const password = getCaseStudyPassword(slug);
+    if (password) {
+      return (
+        <CaseStudyGate slug={slug} password={password}>
+          <StructuredCaseStudyPage study={structured} />
+        </CaseStudyGate>
+      );
+    }
     return <StructuredCaseStudyPage study={structured} />;
   }
 

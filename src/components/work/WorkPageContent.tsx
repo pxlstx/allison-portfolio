@@ -46,7 +46,13 @@ export function WorkPageContent() {
             <WorkProjectCard
               key={project.id}
               project={project}
-              span={allGridSpans[index] ?? { colSpan: 4, aspect: "4/3", mobileColSpan: 12 }}
+              span={
+                allGridSpans[index] ?? {
+                  colSpan: 6,
+                  aspect: "16/10",
+                  mobileColSpan: 12,
+                }
+              }
             />
           ))}
         </motion.div>

@@ -201,3 +201,12 @@ body {
 .pt-page-top {
   padding-top: var(--space-page-top);
 }
+
+/* TomoDomo product tour */
+.case-study-product-tour__frame {
+  aspect-ratio: 16 / 10;
+}
+
+.case-study-product-tour__progress {
+  height: 3px;
+}

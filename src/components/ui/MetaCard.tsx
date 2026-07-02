@@ -23,7 +23,7 @@ export function MetaCard({ label, value, className }: MetaCardProps) {
         className,
       )}
     >
-      <div className={cn(spacingClasses.metaCardLabelMb, colorClasses.textAccent, typography.label.className)}>
+      <div className={cn(spacingClasses.metaCardLabelMb, "label")}>
         {label}
       </div>
       <div className={typography.bodyMedium.className}>{value}</div>

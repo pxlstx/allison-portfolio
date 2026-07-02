@@ -17,6 +17,7 @@ import {
   TextLinkSmall,
 } from "@/components/ui";
 import { CaseStudyChapter } from "@/components/case-study/CaseStudyChapter";
+import { CaseStudyDeliverable } from "@/components/case-study/CaseStudyDeliverable";
 import { colors, colorClasses, iconExamples, iconSizes, layout, layoutClasses, linkClasses, spacing, spacingClasses, typography } from "@/lib/design-system";
 import { cn } from "@/lib/cn";
 
@@ -434,18 +435,21 @@ export function DesignSystemContent() {
             <CompLabel>CaseStudyChapter</CompLabel>
             <CompDesc>
               Narrative section for case studies — used for{" "}
-              <em>The challenge</em>, <em>Approach</em>, <em>Outcome</em>, and similar
-              chapters. Uses the same{" "}
+              <em>The challenge</em>, <em>Approach</em>, and similar chapters. Uses{" "}
               <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
-                CaseStudySectionLayout
-              </code>{" "}
-              grid as deliverables: 260px label column, 720px content column. Composes{" "}
+                CaseStudyChapterLayout
+              </code>
+              : equal two-column grid (label +{" "}
+              <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
+                displaySection
+              </code>
+              {" "}│ body). Composes{" "}
               <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
                 SectionLabel
               </code>
               ,{" "}
               <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
-                displayChapter
+                displaySection
               </code>
               , and{" "}
               <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
@@ -502,18 +506,80 @@ export function DesignSystemContent() {
           </div>
 
           <div>
+            <CompLabel>CaseStudyDeliverable</CompLabel>
+            <CompDesc>
+              Deliverable section for case studies — used for platform surfaces,
+              brand identity, apps, and similar outputs. Uses{" "}
+              <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
+                CaseStudySectionLayout
+              </code>
+              : 260px left column (orange label), 720px right column (title + body).
+              Composes{" "}
+              <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
+                label
+              </code>
+              ,{" "}
+              <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
+                displayClosing
+              </code>
+              , and{" "}
+              <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
+                body
+              </code>
+              . Register via a{" "}
+              <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
+                deliverable
+              </code>{" "}
+              block in case study content.
+            </CompDesc>
+            <div className={cn("mt-6 overflow-hidden", docSurface)}>
+              <CaseStudyDeliverable
+                label="Consumer platform"
+                title="A platform built around the reviewer."
+                titleLayout="right"
+                body="I built the design system first — following atomic design principles in Cursor, then exporting into Figma so the team had the option to work in either environment."
+              />
+            </div>
+            <div className={cn("mt-6", spacingClasses.docSurfacePad, docSurface)}>
+              <p className={cn("mb-4", typography.bodySmall.className, colorClasses.textMuted)}>
+                Content block
+              </p>
+              <pre className={cn("overflow-x-auto font-mono text-caption leading-relaxed", colorClasses.textSubtle)}>
+                {`// src/lib/case-study-content/*.ts
+{
+  type: "deliverable",
+  label: "Consumer platform",
+  title: "A platform built around the reviewer.",
+  titleLayout: "right",
+  body: "Body copy…",
+}`}
+              </pre>
+              <p className={cn("mt-4 mb-4", typography.bodySmall.className, colorClasses.textMuted)}>
+                Component import
+              </p>
+              <pre className={cn("overflow-x-auto font-mono text-caption leading-relaxed", colorClasses.textSubtle)}>
+                {`import { CaseStudyDeliverable } from "@/components/case-study/CaseStudyDeliverable";`}
+              </pre>
+            </div>
+          </div>
+
+          <div>
             <CompLabel>CaseStudySectionLayout</CompLabel>
             <CompDesc>
-              Shared two-column grid for{" "}
+              Two-column grid used by{" "}
               <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
-                CaseStudyChapter
-              </code>{" "}
-              and deliverable sections. Left column: 260px (label). Right column: content
-              capped at 720px (
+                CaseStudyDeliverable
+              </code>
+              . Left column: 260px (label). Right column: title + body capped at
+              720px (
               <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
                 maxWidthProse
               </code>
-              ). Both sit inside the 1440px{" "}
+              ). Chapters use{" "}
+              <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
+                CaseStudyChapterLayout
+              </code>{" "}
+              instead. Both sit inside the 1440px{" "}
               <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
                 CaseStudyTextShell
               </code>
@@ -524,12 +590,11 @@ export function DesignSystemContent() {
                 {`viewport
 └─ 1440px shell (px-page, mx-auto)
    └─ 1044px module (mx-auto) — challenge, approach, deliverables, stats, hero
-      ├─ 260px label │ 720px content
-      The challenge │ Headline + body…
-      The app       │ Title + body…
+      ├─ label + headline │ body copy
+      (equal columns)   │
+      The app           │ Title + body…
 
-900px module — typo moments
-760px module — testimonials`}
+1044px module — all centered blocks (chapters, typo, testimonials)`}
               </pre>
             </div>
           </div>
@@ -537,20 +602,17 @@ export function DesignSystemContent() {
           <div>
             <CompLabel>CaseStudyModule</CompLabel>
             <CompDesc>
-              Centers case study content blocks horizontally with equal inset. Text
-              stays left-aligned. Variants:{" "}
-              <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
-                section
-              </code>{" "}
-              (1044px),{" "}
+              Centers case study content blocks horizontally at 1044px with equal
+              inset. Text stays left-aligned. The{" "}
               <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
                 wide
               </code>{" "}
-              (900px),{" "}
+              and{" "}
               <code className={cn("font-mono text-caption", colorClasses.textSubtle)}>
                 quote
               </code>{" "}
-              (760px).
+              width props are retained for content typing but share the same 1044px
+              module.
             </CompDesc>
           </div>
 

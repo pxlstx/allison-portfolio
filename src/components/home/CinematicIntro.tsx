@@ -21,7 +21,7 @@ const displayTextClass = typography.display.className;
 
 const closingDisplayClass = cn(
   "font-display text-hero font-light leading-display tracking-display",
-  colorClasses.textMuted,
+  colorClasses.textPrimary,
 );
 
 type IntroPhase =

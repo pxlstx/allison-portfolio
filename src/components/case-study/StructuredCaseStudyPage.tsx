@@ -7,11 +7,13 @@ import {
   Reveal,
 } from "@/components/case-study/CaseStudyMotion";
 import { CaseStudyChapter } from "@/components/case-study/CaseStudyChapter";
+import { CaseStudyDeliverable } from "@/components/case-study/CaseStudyDeliverable";
 import { CaseStudyModule } from "@/components/case-study/CaseStudyModule";
-import { CaseStudySectionLayout } from "@/components/case-study/CaseStudySectionLayout";
+import { CaseStudyProductTour } from "@/components/case-study/CaseStudyProductTour";
 import { CaseStudyStats } from "@/components/case-study/CaseStudyStats";
+import { CaseStudyVideo } from "@/components/case-study/CaseStudyVideo";
 import { CaseStudyTextShell } from "@/components/case-study/CaseStudyTextShell";
-import { DisplayHeading, Icon, MetaCard } from "@/components/ui";
+import { Icon, MetaCard } from "@/components/ui";
 import type {
   CaseStudyBlock,
   CaseStudyImageVariant,
@@ -290,52 +292,18 @@ function CaseStudyFigure({
             )}
           >
             <CaseStudyTextShell>
-              <CaseStudyModule>{caption}</CaseStudyModule>
+              <CaseStudyModule>
+                {caption.split("\n").map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+              </CaseStudyModule>
             </CaseStudyTextShell>
           </figcaption>
         </Reveal>
       ) : null}
     </figure>
-  );
-}
-
-function CaseStudyDeliverable({
-  label,
-  title,
-  titleLayout = "left",
-  body,
-}: Extract<CaseStudyBlock, { type: "deliverable" }>) {
-  const titleOnRight = titleLayout === "right" && title;
-
-  return (
-    <Reveal>
-      <CaseStudySectionLayout
-        className={cn(
-          "border-t",
-          spacingClasses.deliverablePadY,
-          colorClasses.borderDefault,
-        )}
-        label={
-          <>
-            <div className={cn(colorClasses.textAccent, typography.label.className)}>
-              {label}
-            </div>
-            {title && !titleOnRight ? (
-              <DisplayHeading as="p" variant="deliverableTitle" className="mt-3">
-                {title}
-              </DisplayHeading>
-            ) : null}
-          </>
-        }
-      >
-        {titleOnRight ? (
-          <DisplayHeading as="p" variant="deliverableTitle" className="mb-3">
-            {title}
-          </DisplayHeading>
-        ) : null}
-        <p className={typography.body.className}>{body}</p>
-      </CaseStudySectionLayout>
-    </Reveal>
   );
 }
 
@@ -394,6 +362,12 @@ function CaseStudyBlockRenderer({
       return <CaseStudyTypoMoment key={index} {...block} />;
     case "stats":
       return <CaseStudyStats key={index} items={block.items} />;
+    case "deliverable":
+      return <CaseStudyDeliverable key={index} {...block} />;
+    case "slideshow":
+      return <CaseStudyProductTour key={index} {...block} />;
+    case "video":
+      return <CaseStudyVideo key={index} {...block} />;
     case "testimonial":
       return <CaseStudyTestimonial key={index} {...block} />;
     case "image":
@@ -418,7 +392,7 @@ function CaseStudyNext({ title, href }: { title: string; href: string }) {
         >
           <CaseStudyModule className="flex items-center justify-between">
             <div>
-              <div className={cn(spacingClasses.nextProjectLabelMb, colorClasses.textAccent, typography.label.className)}>
+              <div className={cn(spacingClasses.nextProjectLabelMb, "label")}>
                 Next project
               </div>
               <div
@@ -458,19 +432,9 @@ export function StructuredCaseStudyPage({
       <CaseStudyHeroAnimated study={study} />
       <CaseStudyMetaStrip study={study} />
 
-      {study.blocks.map((block, index) => {
-        if (block.type === "deliverable") {
-          return (
-            <CaseStudyTextShell key={index}>
-              <CaseStudyDeliverable {...block} />
-            </CaseStudyTextShell>
-          );
-        }
-
-        return (
-          <CaseStudyBlockRenderer key={index} block={block} index={index} />
-        );
-      })}
+      {study.blocks.map((block, index) => (
+        <CaseStudyBlockRenderer key={index} block={block} index={index} />
+      ))}
 
       {study.nextProject ? (
         <CaseStudyNext

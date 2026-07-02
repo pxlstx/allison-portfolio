@@ -1,7 +1,7 @@
 import { layoutClasses, spacingClasses } from "@/lib/design-system";
 import { cn } from "@/lib/cn";
 
-/** Shared 260px label column + 720px content column for chapters and deliverables. */
+/** Deliverable grid — 260px label column, title + body in 720px content column. */
 export function CaseStudySectionLayout({
   label,
   children,
@@ -15,13 +15,13 @@ export function CaseStudySectionLayout({
     <article
       className={cn(
         layoutClasses.caseStudyModule,
-        "grid items-start gap-4",
+        "grid items-baseline gap-4",
         spacingClasses.caseStudySectionGrid,
         spacingClasses.caseStudySectionGap,
         className,
       )}
     >
-      <div className={spacingClasses.caseStudySectionLabelPt}>{label}</div>
+      <div className="min-w-0">{label}</div>
       <div className={cn(layoutClasses.maxWidthProse, "min-w-0")}>{children}</div>
     </article>
   );

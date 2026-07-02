@@ -3,8 +3,8 @@ export type WorkCategory = "product" | "brand";
 export type WorkFilter = "all" | WorkCategory;
 
 export type GridSpan = {
-  colSpan: 4 | 6;
-  aspect: "16/10" | "4/3";
+  colSpan: 4 | 6 | 12;
+  aspect: "16/10" | "4/3" | "21/9";
   mobileColSpan: 6 | 12;
 };
 
@@ -18,6 +18,9 @@ export type WorkProject = {
   category: WorkCategory;
   imageSeed: string;
   imageSrc?: string;
+  imageFocus?: "center" | "top" | "bottom" | "right-top";
+  imageLogoSrc?: string;
+  imageLogoSize?: "wide" | "compact";
   nda?: boolean;
   ndaMsg?: string;
   href?: string;
@@ -34,8 +37,27 @@ export const productProjects: WorkProject[] = [
     color: "#1A1816",
     category: "product",
     imageSeed: "10",
+    imageSrc: "/images/unique/unique-work-hero.jpg",
+    imageLogoSrc: "/images/unique/unique-logo-white.png",
+    imageLogoSize: "compact",
+    href: "/work/unique",
     nda: true,
     ndaMsg: "Password protected — request access",
+  },
+  {
+    id: "p4",
+    client: "TomoDomo",
+    title:
+      "Internal room management system and consumer-facing booking flow, designed end to end",
+    sentence:
+      "Internal room management and a consumer-facing booking flow, designed end to end.",
+    year: "2023",
+    color: "#161818",
+    category: "product",
+    imageSeed: "40",
+    imageSrc: "/images/tomodomo/tomodomo-hero.png",
+    imageFocus: "right-top",
+    href: "/work/tomodomo",
   },
   {
     id: "p2",
@@ -63,19 +85,8 @@ export const productProjects: WorkProject[] = [
     category: "product",
     imageSeed: "30",
     imageSrc: "/images/everskin/everskin-hero.webp",
+    imageLogoSrc: "/images/everskin/everskin-logo-white.png",
     href: "/work/everskin",
-  },
-  {
-    id: "p4",
-    client: "TomoDomo",
-    title:
-      "Internal room management system and consumer-facing booking flow, designed end to end",
-    sentence:
-      "Internal room management and a consumer-facing booking flow, designed end to end.",
-    year: "2023",
-    color: "#161818",
-    category: "product",
-    imageSeed: "40",
   },
   {
     id: "p5",
@@ -88,7 +99,7 @@ export const productProjects: WorkProject[] = [
     color: "#181A16",
     category: "product",
     imageSeed: "50",
-    imageSrc: "/images/ava/ava-hero-lifestyle.png",
+    imageSrc: "/images/ava/ava-hero-bracelet-app.jpg",
     href: "/work/ava",
   },
 ];
@@ -106,26 +117,24 @@ export const brandProjects: WorkProject[] = [
     category: "brand",
     imageSeed: "90",
     href: "/work/kumi",
-    imageSrc: "/images/kumi/kumi-mindful-luxury.png",
+    imageSrc: "/images/kumi/kumi-mindful-luxury.jpg",
   },
 ];
 
 export const allProjectsOrder: WorkProject[] = [
-  productProjects[0],
-  productProjects[1],
-  productProjects[2],
-  brandProjects[0],
-  productProjects[3],
-  productProjects[4],
+  productProjects[0], // Unique.AI
+  productProjects[1], // TomoDomo
+  productProjects[3], // Everskin
+  productProjects[4], // Ava
+  brandProjects[0], // Kumi
 ];
 
 export const allGridSpans: GridSpan[] = [
   { colSpan: 6, aspect: "16/10", mobileColSpan: 12 },
   { colSpan: 6, aspect: "16/10", mobileColSpan: 12 },
-  { colSpan: 4, aspect: "4/3", mobileColSpan: 6 },
-  { colSpan: 4, aspect: "4/3", mobileColSpan: 6 },
   { colSpan: 6, aspect: "16/10", mobileColSpan: 12 },
-  { colSpan: 4, aspect: "4/3", mobileColSpan: 12 },
+  { colSpan: 6, aspect: "16/10", mobileColSpan: 12 },
+  { colSpan: 6, aspect: "16/10", mobileColSpan: 12 },
 ];
 
 export const productGridSpans: GridSpan[] = [
